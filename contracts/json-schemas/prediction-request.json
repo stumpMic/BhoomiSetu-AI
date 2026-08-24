@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PredictionRequest",
+  "type": "object",
+  "required": ["case_id"],
+  "properties": {
+    "case_id": { "type": "integer" },
+    "override_features": {
+      "type": "object",
+      "properties": {
+        "missing_doc_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "survey_completed_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "ownership_disputes": { "type": "integer", "minimum": 0 },
+        "court_cases": { "type": "integer", "minimum": 0 },
+        "compensation_progress_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "overdue_tasks": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

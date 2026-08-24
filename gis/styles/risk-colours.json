@@ -1,0 +1,44 @@
+{
+  "risk_styles": {
+    "Low": {
+      "color": "#10B981",
+      "fillColor": "#10B981",
+      "fillOpacity": 0.55,
+      "weight": 2,
+      "label": "Low Risk (0-39% Delay Probability)",
+      "badgeClass": "bg-emerald-100 text-emerald-800 border-emerald-300"
+    },
+    "Medium": {
+      "color": "#F59E0B",
+      "fillColor": "#F59E0B",
+      "fillOpacity": 0.55,
+      "weight": 2,
+      "label": "Medium Risk (40-69% Delay Probability)",
+      "badgeClass": "bg-amber-100 text-amber-800 border-amber-300"
+    },
+    "High": {
+      "color": "#EF4444",
+      "fillColor": "#EF4444",
+      "fillOpacity": 0.65,
+      "weight": 3,
+      "label": "High Risk (70-100% Delay Probability)",
+      "badgeClass": "bg-rose-100 text-rose-800 border-rose-300"
+    },
+    "Completed": {
+      "color": "#3B82F6",
+      "fillColor": "#3B82F6",
+      "fillOpacity": 0.50,
+      "weight": 2,
+      "label": "Acquisition Completed",
+      "badgeClass": "bg-blue-100 text-blue-800 border-blue-300"
+    },
+    "Insufficient": {
+      "color": "#9CA3AF",
+      "fillColor": "#9CA3AF",
+      "fillOpacity": 0.40,
+      "weight": 1.5,
+      "label": "Insufficient Survey Data",
+      "badgeClass": "bg-gray-100 text-gray-800 border-gray-300"
+    }
+  }
+}

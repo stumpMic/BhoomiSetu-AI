@@ -1,0 +1,34 @@
+{
+  "id": 14,
+  "parcel_id": 14,
+  "plot_number": "142/A",
+  "khata_number": "312",
+  "village_name": "Pipili",
+  "landowner_id": 12,
+  "landowner_name": "Bikram Keshari Das",
+  "land_area_acres": 4.5,
+  "base_valuation_inr": 4500000,
+  "solatium_100pct_inr": 4500000,
+  "total_award_inr": 9000000,
+  "landowner_share_amount_inr": 4500000,
+  "current_stage": "Approval Pending",
+  "stage_index": 4,
+  "stages_timeline": [
+    { "stage": "Land valuation pending", "completed": true, "updated_at": "2026-06-10T10:00:00Z" },
+    { "stage": "Valuation completed", "completed": true, "updated_at": "2026-06-25T14:30:00Z" },
+    { "stage": "Compensation calculated", "completed": true, "updated_at": "2026-07-02T11:00:00Z" },
+    { "stage": "Approval pending", "completed": false, "updated_at": "2026-08-01T09:00:00Z" },
+    { "stage": "Compensation approved", "completed": false },
+    { "stage": "Landowner consent pending", "completed": false },
+    { "stage": "Bank verification", "completed": false },
+    { "stage": "Payment initiated", "completed": false },
+    { "stage": "Payment completed", "completed": false }
+  ],
+  "bank_details": {
+    "account_number_masked": "XXXX-XXXX-4982",
+    "ifsc_code": "SBIN0001234",
+    "bank_name": "State Bank of India - Pipili Branch",
+    "verification_status": "Pending Verification"
+  },
+  "mock_payment_ref": "MOCK-PFMS-OD-2026-994821"
+}

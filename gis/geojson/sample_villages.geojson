@@ -1,0 +1,83 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.82,
+              20.115
+            ],
+            [
+              85.85,
+              20.115
+            ],
+            [
+              85.85,
+              20.14
+            ],
+            [
+              85.82,
+              20.14
+            ],
+            [
+              85.82,
+              20.115
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "village_id": 1,
+        "name": "Pipili",
+        "tahsil": "Pipili",
+        "district": "Khurda",
+        "total_parcels": 24,
+        "high_risk_parcels": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 2,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.93,
+              20.17
+            ],
+            [
+              85.97,
+              20.17
+            ],
+            [
+              85.97,
+              20.2
+            ],
+            [
+              85.93,
+              20.2
+            ],
+            [
+              85.93,
+              20.17
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "village_id": 2,
+        "name": "Balipatna",
+        "tahsil": "Balipatna",
+        "district": "Khurda",
+        "total_parcels": 16,
+        "high_risk_parcels": 2
+      }
+    }
+  ]
+}

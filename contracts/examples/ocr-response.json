@@ -1,0 +1,47 @@
+{
+  "document_id": 42,
+  "filename": "RoR_Plot_142_Pipili.pdf",
+  "document_type": "Record of Rights (RoR / Patta)",
+  "uploaded_at": "2026-08-22T14:15:00Z",
+  "uploaded_by_name": "Bikram Keshari Das",
+  "ocr_status": "Possible Mismatch",
+  "ocr_confidence": 0.92,
+  "extracted_fields": {
+    "owner_name": "Bikram Keshari Das",
+    "plot_number": "142",
+    "khata_number": "312",
+    "village_name": "Pipili",
+    "area_acres": 4.5,
+    "document_date": "2018-04-12"
+  },
+  "official_record": {
+    "owner_name": "Bikram Keshari Das",
+    "plot_number": "142/A",
+    "khata_number": "312",
+    "village_name": "Pipili",
+    "area_acres": 4.5
+  },
+  "mismatch_report": {
+    "has_discrepancy": true,
+    "name_similarity_score": 100,
+    "plot_match": false,
+    "khata_match": true,
+    "area_match": true,
+    "flagged_issues": [
+      "Extracted Plot Number '142' does not match official survey plot '142/A' (Sub-plot subdivision mismatch)."
+    ],
+    "officer_recommendation": "Require manual officer verification against sub-division map before approving award."
+  },
+  "verification_history": [
+    {
+      "status": "Submitted",
+      "timestamp": "2026-08-22T14:15:00Z",
+      "action_by": "Landowner (Bikram Das)"
+    },
+    {
+      "status": "OCR Processed",
+      "timestamp": "2026-08-22T14:15:06Z",
+      "action_by": "BhoomiSetu OCR Engine"
+    }
+  ]
+}

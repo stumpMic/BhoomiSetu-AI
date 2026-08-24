@@ -1,0 +1,74 @@
+{
+  "app_name": "भूमिसेतु AI (BhoomiSetu AI)",
+  "app_tagline": "भूमि अधिग्रहण में विलंब की पूर्व पहचान हेतु पूर्वानुमान प्रणाली",
+  "nav": {
+    "dashboard": "निगरानी डैशबोर्ड",
+    "projects": "परियोजनाएं",
+    "cases": "अधिग्रहण मामले",
+    "map": "जीआईएस भूखंड मानचित्र",
+    "documents": "दस्तावेज़ सत्यापन",
+    "compensation": "मुआवजा ट्रैकर",
+    "tasks": "विभागीय कार्य",
+    "alerts": "चेतावनी केंद्र",
+    "grievances": "शिकायत निवारण",
+    "landowner_portal": "भूमि स्वामी पोर्टल",
+    "admin": "सिस्टम प्रशासन",
+    "logout": "लॉग आउट",
+    "login": "लॉग इन"
+  },
+  "roles": {
+    "admin": "प्रशासक",
+    "project_authority": "परियोजना प्राधिकरण",
+    "land_acquisition_officer": "भूमि अधिग्रहण अधिकारी",
+    "survey_officer": "सर्वेक्षण अधिकारी",
+    "compensation_officer": "मुआवजा अधिकारी",
+    "landowner": "भूमि स्वामी / किसान"
+  },
+  "risk": {
+    "low": "कम जोखिम",
+    "medium": "मध्यम जोखिम",
+    "high": "उच्च जोखिम",
+    "completed": "अधिग्रहण पूर्ण",
+    "insufficient": "अपर्याप्त डेटा",
+    "delay_probability": "विलंब संभावना",
+    "predicted_delay": "अनुमानित विलंब दिन",
+    "disclaimer": "यह भविष्यवाणी निर्णय-समर्थन जानकारी है और किसी अधिकृत अधिकारी द्वारा समीक्षा की जानी चाहिए। यह स्वचालित कानूनी निर्णय नहीं है।"
+  },
+  "dashboard": {
+    "total_projects": "कुल परियोजनाएं",
+    "total_cases": "कुल मामले",
+    "total_parcels": "कुल भूखंड",
+    "acquired_area": "अधिग्रहित भूमि क्षेत्र",
+    "overdue_tasks": "अतिदेय कार्य",
+    "open_grievances": "लंबित शिकायतें",
+    "pending_surveys": "लंबित सर्वेक्षण",
+    "disputed_titles": "स्वामित्व विवाद",
+    "kpi_summary": "केपीआई सारांश",
+    "risk_distribution": "जोखिम स्तर अनुसार मामले",
+    "causes_of_delay": "विलंब के मुख्य कारण",
+    "monthly_progress": "मासिक अधिग्रहण प्रगति",
+    "department_bottlenecks": "विभागीय कार्य बाधाएं"
+  },
+  "landowner": {
+    "welcome": "नमस्ते",
+    "my_parcels": "मेरे भूखंड",
+    "compensation_progress": "मुआवजा प्रगति",
+    "upload_documents": "दस्तावेज़ अपलोड करें (खतियान/पट्टा)",
+    "file_grievance": "शिकायत दर्ज करें",
+    "track_grievance": "शिकायत स्थिति देखें",
+    "download_ack": "पावती डाउनलोड करें",
+    "hearing_dates": "निर्धारित सुनवाई तिथियां"
+  },
+  "common": {
+    "search": "प्लॉट / खाता / केस संख्या खोजें...",
+    "filter": "फ़िल्टर",
+    "status": "स्थिति",
+    "action": "कार्रवाई",
+    "view_details": "विवरण देखें",
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "submit": "जमा करें",
+    "loading": "लोड हो रहा है...",
+    "no_data": "कोई रिकॉर्ड नहीं मिला।"
+  }
+}

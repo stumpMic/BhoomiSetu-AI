@@ -1,0 +1,48 @@
+{
+  "kpis": {
+    "total_projects": 3,
+    "total_cases": 32,
+    "total_parcels": 84,
+    "total_land_area_acres": 428.5,
+    "acquired_area_acres": 265.2,
+    "acquired_percentage": 61.9,
+    "risk_breakdown": {
+      "low_risk": 18,
+      "medium_risk": 9,
+      "high_risk": 5
+    },
+    "pending_surveys": 6,
+    "ownership_disputes": 4,
+    "pending_compensation_crores": 14.8,
+    "overdue_tasks": 7,
+    "open_grievances": 5
+  },
+  "delay_causes": [
+    { "cause": "Ownership Disputes / Title Contests", "percentage": 34 },
+    { "cause": "Missing / Mismatched RoR Records", "percentage": 26 },
+    { "cause": "Pending Joint Cadastral Survey", "percentage": 18 },
+    { "cause": "Compensation Sanction Delays", "percentage": 12 },
+    { "cause": "Inter-departmental Approvals", "percentage": 10 }
+  ],
+  "monthly_progress": [
+    { "month": "Jan 2026", "target_acres": 40, "achieved_acres": 32 },
+    { "month": "Feb 2026", "target_acres": 55, "achieved_acres": 48 },
+    { "month": "Mar 2026", "target_acres": 60, "achieved_acres": 52 },
+    { "month": "Apr 2026", "target_acres": 50, "achieved_acres": 41 },
+    { "month": "May 2026", "target_acres": 70, "achieved_acres": 58 },
+    { "month": "Jun 2026", "target_acres": 65, "achieved_acres": 34 }
+  ],
+  "department_bottlenecks": [
+    { "department": "Revenue Department", "pending_tasks": 12, "overdue_tasks": 4, "avg_response_days": 18.5 },
+    { "department": "Survey & Cadastral Directorate", "pending_tasks": 8, "overdue_tasks": 2, "avg_response_days": 14.2 },
+    { "department": "Compensation & Accounts Cell", "pending_tasks": 6, "overdue_tasks": 1, "avg_response_days": 9.8 },
+    { "department": "Forest & Environment Cell", "pending_tasks": 4, "overdue_tasks": 0, "avg_response_days": 24.0 }
+  ],
+  "compensation_stages": [
+    { "stage": "Valuation Pending", "count": 8, "amount_cr": 4.2 },
+    { "stage": "Valuation Completed", "count": 6, "amount_cr": 3.8 },
+    { "stage": "Approval Pending", "count": 5, "amount_cr": 5.1 },
+    { "stage": "Bank Verification", "count": 9, "amount_cr": 7.3 },
+    { "stage": "Payment Disbursed", "count": 56, "amount_cr": 42.6 }
+  ]
+}

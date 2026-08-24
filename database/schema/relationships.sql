@@ -1,0 +1,17 @@
+-- ====================================================================
+-- BhoomiSetu AI Database Schema - Relationships & Integrity Constraints
+-- ====================================================================
+
+-- Foreign Key Constraints and Cardinalities:
+-- 1. Project -> Village (Many-to-Many via Acquisition Cases)
+-- 2. Acquisition Case -> Parcels (1-to-Many: One case can have many parcels)
+-- 3. Parcel -> Landowners (Many-to-Many: One parcel can have multiple landowners, one landowner can hold multiple parcels)
+-- 4. Case/Parcel -> Documents (1-to-Many)
+-- 5. Document -> OCR Result (1-to-1)
+-- 6. Parcel + Landowner -> Compensation (1-to-1 record per owner per parcel)
+-- 7. Case -> Risk Predictions (1-to-Many prediction history)
+-- 8. Risk Prediction -> Prediction Factors (1-to-Many SHAP-style breakdown)
+-- 9. Case / Project / Parcel -> Departmental Tasks (1-to-Many)
+-- 10. Case / Landowner -> Grievances (1-to-Many)
+-- 11. Grievance -> Grievance Updates (1-to-Many chronological updates)
+-- 12. System -> Activity Logs (Audit trail for all status transitions)

@@ -1,0 +1,304 @@
+openapi: 3.0.3
+info:
+  title: BhoomiSetu AI API Specification
+  description: REST API specification for BhoomiSetu AI - Early Detection of Land Acquisition Delays
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/api
+    description: Local Development Server
+
+paths:
+  /auth/login:
+    post:
+      summary: Authenticate user and return JWT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login successful
+        '401':
+          description: Invalid credentials
+
+  /auth/me:
+    get:
+      summary: Retrieve current authenticated user profile
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: User profile
+
+  /dashboard/summary:
+    get:
+      summary: Retrieve aggregated KPI metrics and risk breakdown
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Dashboard summary
+
+  /projects:
+    get:
+      summary: List infrastructure projects
+      responses:
+        '200':
+          description: List of projects
+    post:
+      summary: Create new project
+      responses:
+        '201':
+          description: Project created
+
+  /projects/{id}:
+    get:
+      summary: Get project details by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Project details
+
+  /cases:
+    get:
+      summary: List land acquisition cases
+      responses:
+        '200':
+          description: List of cases
+    post:
+      summary: Create new acquisition case
+      responses:
+        '201':
+          description: Case created
+
+  /cases/{id}:
+    get:
+      summary: Get case details with parcels, tasks, and risk status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Case details
+
+  /parcels:
+    get:
+      summary: List land parcels
+      responses:
+        '200':
+          description: List of parcels
+
+  /parcels/map:
+    get:
+      summary: Retrieve GeoJSON FeatureCollection of all parcels with risk colors
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection
+
+  /parcels/{id}:
+    get:
+      summary: Get parcel details with ownership and compensation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Parcel details
+
+  /documents/upload:
+    post:
+      summary: Upload document (PDF/Image) for OCR extraction
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                case_id:
+                  type: integer
+                parcel_id:
+                  type: integer
+                document_type:
+                  type: string
+      responses:
+        '201':
+          description: Document uploaded and OCR processed
+
+  /documents/{id}/ocr-result:
+    get:
+      summary: Get OCR extracted fields and discrepancy report
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OCR result
+
+  /documents/{id}/verify:
+    put:
+      summary: Update document verification status (Officer action)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Document verified
+
+  /predictions/case/{case_id}:
+    post:
+      summary: Trigger on-demand AI risk prediction for a case
+      parameters:
+        - name: case_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: AI delay prediction result
+
+  /predictions/case/{case_id}/latest:
+    get:
+      summary: Get latest AI risk prediction for a case
+      parameters:
+        - name: case_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Latest prediction
+
+  /predictions/case/{case_id}/history:
+    get:
+      summary: Get prediction history for a case
+      parameters:
+        - name: case_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Prediction history timeline
+
+  /compensations:
+    get:
+      summary: List all compensation records
+      responses:
+        '200':
+          description: Compensation records
+
+  /compensations/{id}/stage:
+    put:
+      summary: Advance compensation workflow stage
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Compensation stage updated
+
+  /tasks:
+    get:
+      summary: List departmental tasks
+      responses:
+        '200':
+          description: Tasks list
+    post:
+      summary: Create a new departmental task
+      responses:
+        '201':
+          description: Task created
+
+  /tasks/overdue:
+    get:
+      summary: Get overdue tasks list
+      responses:
+        '200':
+          description: Overdue tasks
+
+  /alerts:
+    get:
+      summary: List notifications and alerts
+      responses:
+        '200':
+          description: Alerts list
+
+  /alerts/{id}/read:
+    put:
+      summary: Mark alert as read
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Alert marked read
+
+  /grievances:
+    get:
+      summary: List grievances
+      responses:
+        '200':
+          description: Grievances list
+    post:
+      summary: Submit a new landowner grievance
+      responses:
+        '201':
+          description: Grievance submitted
+
+  /grievances/{id}/status:
+    put:
+      summary: Update grievance status and add resolution remarks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Grievance status updated
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

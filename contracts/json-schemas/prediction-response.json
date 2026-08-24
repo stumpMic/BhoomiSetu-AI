@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PredictionResponse",
+  "type": "object",
+  "required": [
+    "case_id",
+    "delay_probability",
+    "risk_level",
+    "predicted_delay_days",
+    "contributing_factors",
+    "recommended_actions",
+    "model_version",
+    "prediction_time",
+    "disclaimer"
+  ],
+  "properties": {
+    "case_id": { "type": "integer" },
+    "delay_probability": { "type": "number", "minimum": 0, "maximum": 1 },
+    "risk_level": { "type": "string", "enum": ["Low", "Medium", "High"] },
+    "predicted_delay_days": { "type": "integer", "minimum": 0 },
+    "contributing_factors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["factor", "impact", "direction", "description"],
+        "properties": {
+          "factor": { "type": "string" },
+          "impact": { "type": "number" },
+          "direction": { "type": "string", "enum": ["increases_risk", "decreases_risk"] },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "recommended_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "department", "priority", "description"],
+        "properties": {
+          "title": { "type": "string" },
+          "department": { "type": "string" },
+          "priority": { "type": "string", "enum": ["High", "Medium", "Low"] },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "model_version": { "type": "string" },
+    "prediction_time": { "type": "string", "format": "date-time" },
+    "disclaimer": { "type": "string" }
+  }
+}

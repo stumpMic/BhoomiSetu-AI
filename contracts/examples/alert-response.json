@@ -1,0 +1,40 @@
+{
+  "alerts": [
+    {
+      "id": 1,
+      "title": "High Delay Risk Escalation",
+      "message": "Case CASE-OD-2026-004 delay probability escalated to 84% (High Risk). Estimated delay +145 days.",
+      "alert_type": "risk_escalation",
+      "severity": "critical",
+      "case_id": 4,
+      "parcel_id": 14,
+      "created_at": "2026-08-22T14:30:00Z",
+      "is_read": false,
+      "mock_sms_dispatched": true
+    },
+    {
+      "id": 2,
+      "title": "Task Overdue Notice",
+      "message": "Task 'Complete DGPS Boundary Survey' assigned to Survey Directorate is 7 days overdue.",
+      "alert_type": "task_overdue",
+      "severity": "warning",
+      "case_id": 4,
+      "parcel_id": 14,
+      "created_at": "2026-08-22T09:00:00Z",
+      "is_read": false,
+      "mock_sms_dispatched": false
+    },
+    {
+      "id": 3,
+      "title": "New Document Uploaded",
+      "message": "Landowner Bikram Keshari Das uploaded RoR for Plot #142/A with possible OCR mismatch.",
+      "alert_type": "document_uploaded",
+      "severity": "info",
+      "case_id": 4,
+      "parcel_id": 14,
+      "created_at": "2026-08-22T14:15:00Z",
+      "is_read": true,
+      "mock_sms_dispatched": true
+    }
+  ]
+}

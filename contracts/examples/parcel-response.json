@@ -1,0 +1,117 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 14,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [85.8312, 20.1245],
+            [85.8345, 20.1248],
+            [85.8341, 20.1215],
+            [85.8308, 20.1212],
+            [85.8312, 20.1245]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 14,
+        "plot_number": "142/A",
+        "khata_number": "312",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.5,
+        "land_type": "Agricultural / Double Crop",
+        "risk_level": "High",
+        "risk_color": "#EF4444",
+        "delay_probability": 0.84,
+        "case_id": 4,
+        "case_number": "CASE-OD-2026-004",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Approval Pending",
+        "compensation_amount": 6750000,
+        "owners": [
+          { "id": 12, "name": "Bikram Keshari Das", "share_pct": 50, "phone": "+91 98610 99881" },
+          { "id": 13, "name": "Prasant Kumar Das", "share_pct": 50, "phone": "+91 98610 99882" }
+        ],
+        "pending_tasks_count": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 15,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [85.8345, 20.1248],
+            [85.8378, 20.1251],
+            [85.8374, 20.1218],
+            [85.8341, 20.1215],
+            [85.8345, 20.1248]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 15,
+        "plot_number": "143",
+        "khata_number": "315",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.2,
+        "land_type": "Homestead / Rural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.48,
+        "case_id": 4,
+        "case_number": "CASE-OD-2026-004",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Bank Verification",
+        "compensation_amount": 5400000,
+        "owners": [
+          { "id": 14, "name": "Smt. Manorama Rout", "share_pct": 100, "phone": "+91 94371 44552" }
+        ],
+        "pending_tasks_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 16,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [85.8378, 20.1251],
+            [85.8410, 20.1254],
+            [85.8406, 20.1221],
+            [85.8374, 20.1218],
+            [85.8378, 20.1251]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 16,
+        "plot_number": "144",
+        "khata_number": "318",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 5.8,
+        "land_type": "Agricultural / Irrigated",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.18,
+        "case_id": 5,
+        "case_number": "CASE-OD-2026-005",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Payment Disbursed",
+        "compensation_amount": 8700000,
+        "owners": [
+          { "id": 15, "name": "Rabindra Nath Mohanty", "share_pct": 100, "phone": "+91 97780 11223" }
+        ],
+        "pending_tasks_count": 0
+      }
+    }
+  ]
+}

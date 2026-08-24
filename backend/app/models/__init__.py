@@ -1,0 +1,38 @@
+from app.database import Base
+from app.models.department import Department
+from app.models.user import User
+from app.models.project import Project
+from app.models.village import Village
+from app.models.acquisition_case import AcquisitionCase
+from app.models.parcel import Parcel, ParcelOwnership
+from app.models.landowner import Landowner
+from app.models.document import Document, OCRResult
+from app.models.compensation import Compensation, CompensationStageLog
+from app.models.task import DepartmentalTask
+from app.models.prediction import RiskPrediction, PredictionFactor
+from app.models.alert import Alert
+from app.models.grievance import Grievance, GrievanceUpdate
+from app.models.activity_log import ActivityLog
+
+__all__ = [
+    "Base",
+    "Department",
+    "User",
+    "Project",
+    "Village",
+    "AcquisitionCase",
+    "Parcel",
+    "ParcelOwnership",
+    "Landowner",
+    "Document",
+    "OCRResult",
+    "Compensation",
+    "CompensationStageLog",
+    "DepartmentalTask",
+    "RiskPrediction",
+    "PredictionFactor",
+    "Alert",
+    "Grievance",
+    "GrievanceUpdate",
+    "ActivityLog",
+]

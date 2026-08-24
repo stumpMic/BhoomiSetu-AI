@@ -1,0 +1,64 @@
+{
+  "case_id": 4,
+  "case_number": "CASE-OD-2026-004",
+  "project_name": "Bhubaneswar-Puri Expressway Corridor",
+  "village_name": "Pipili",
+  "delay_probability": 0.84,
+  "risk_level": "High",
+  "predicted_delay_days": 145,
+  "model_version": "v1.4.0-rf-ensemble",
+  "prediction_time": "2026-08-22T14:30:00Z",
+  "contributing_factors": [
+    {
+      "factor": "Ownership Disputes",
+      "impact": 0.38,
+      "direction": "increases_risk",
+      "description": "Active title dispute recorded between co-sharers on Plot #142/A."
+    },
+    {
+      "factor": "Pending Cadastral Survey",
+      "impact": 0.24,
+      "direction": "increases_risk",
+      "description": "Joint boundary survey has been pending for over 28 days."
+    },
+    {
+      "factor": "Missing / Unverified Document",
+      "impact": 0.16,
+      "direction": "increases_risk",
+      "description": "Plot mismatch flagged on uploaded Record of Rights (RoR)."
+    },
+    {
+      "factor": "High Historical District Delay Rate",
+      "impact": 0.11,
+      "direction": "increases_risk",
+      "description": "Khurda district historical acquisition delay rate is 42%."
+    },
+    {
+      "factor": "Environmental Clearance Received",
+      "impact": -0.05,
+      "direction": "decreases_risk",
+      "description": "Forest and environmental clearance already granted."
+    }
+  ],
+  "recommended_actions": [
+    {
+      "title": "Schedule Joint Ownership Hearing",
+      "department": "Revenue Department",
+      "priority": "High",
+      "description": "Issue notice under Section 15 to all legal heirs for dispute reconciliation."
+    },
+    {
+      "title": "Deploy Cadastral Survey Unit",
+      "department": "Survey & Cadastral Directorate",
+      "priority": "High",
+      "description": "Fast-track physical boundary demarcations and DGPS survey."
+    },
+    {
+      "title": "Verify Document Discrepancy",
+      "department": "Revenue Department",
+      "priority": "Medium",
+      "description": "Cross-check uploaded Patta with Bhulekh digital mutation database."
+    }
+  ],
+  "disclaimer": "This prediction is decision-support information and must be reviewed by an authorised officer. It is not an automated legal decision."
+}

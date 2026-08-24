@@ -1,0 +1,4121 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8335,
+              20.1228
+            ],
+            [
+              85.8365,
+              20.1228
+            ],
+            [
+              85.8363,
+              20.1256
+            ],
+            [
+              85.8335,
+              20.1256
+            ],
+            [
+              85.8335,
+              20.1228
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 1,
+        "plot_number": "101",
+        "khata_number": "201",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 2,
+        "case_number": "CASE-OD-2026-002",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 2,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.837,
+              20.1228
+            ],
+            [
+              85.84,
+              20.1228
+            ],
+            [
+              85.8398,
+              20.1256
+            ],
+            [
+              85.837,
+              20.1256
+            ],
+            [
+              85.837,
+              20.1228
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 2,
+        "plot_number": "102",
+        "khata_number": "202",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 3,
+        "case_number": "CASE-OD-2026-003",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 3,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8405,
+              20.1228
+            ],
+            [
+              85.8435,
+              20.1228
+            ],
+            [
+              85.8433,
+              20.1256
+            ],
+            [
+              85.8405,
+              20.1256
+            ],
+            [
+              85.8405,
+              20.1228
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 3,
+        "plot_number": "103",
+        "khata_number": "203",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 4,
+        "case_number": "CASE-OD-2026-004",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 4,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.844,
+              20.1228
+            ],
+            [
+              85.847,
+              20.1228
+            ],
+            [
+              85.8468,
+              20.1256
+            ],
+            [
+              85.844,
+              20.1256
+            ],
+            [
+              85.844,
+              20.1228
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 4,
+        "plot_number": "104",
+        "khata_number": "204",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Homestead",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 5,
+        "case_number": "CASE-OD-2026-005",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8475,
+              20.1228
+            ],
+            [
+              85.8505,
+              20.1228
+            ],
+            [
+              85.8503,
+              20.1256
+            ],
+            [
+              85.8475,
+              20.1256
+            ],
+            [
+              85.8475,
+              20.1228
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 5,
+        "plot_number": "105",
+        "khata_number": "205",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 6,
+        "case_number": "CASE-OD-2026-006",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 6,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.851,
+              20.1228
+            ],
+            [
+              85.854,
+              20.1228
+            ],
+            [
+              85.8538,
+              20.1256
+            ],
+            [
+              85.851,
+              20.1256
+            ],
+            [
+              85.851,
+              20.1228
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 6,
+        "plot_number": "106",
+        "khata_number": "206",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 7,
+        "case_number": "CASE-OD-2026-007",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 7,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8545,
+              20.1228
+            ],
+            [
+              85.8575,
+              20.1228
+            ],
+            [
+              85.8573,
+              20.1256
+            ],
+            [
+              85.8545,
+              20.1256
+            ],
+            [
+              85.8545,
+              20.1228
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 7,
+        "plot_number": "107",
+        "khata_number": "207",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 8,
+        "case_number": "CASE-OD-2026-008",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 8,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.858,
+              20.1228
+            ],
+            [
+              85.861,
+              20.1228
+            ],
+            [
+              85.8608,
+              20.1256
+            ],
+            [
+              85.858,
+              20.1256
+            ],
+            [
+              85.858,
+              20.1228
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 8,
+        "plot_number": "108",
+        "khata_number": "208",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Homestead",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 9,
+        "case_number": "CASE-OD-2026-009",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 9,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8335,
+              20.126
+            ],
+            [
+              85.8365,
+              20.126
+            ],
+            [
+              85.8363,
+              20.1288
+            ],
+            [
+              85.8335,
+              20.1288
+            ],
+            [
+              85.8335,
+              20.126
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 9,
+        "plot_number": "109",
+        "khata_number": "209",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 10,
+        "case_number": "CASE-OD-2026-010",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 10,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.837,
+              20.126
+            ],
+            [
+              85.84,
+              20.126
+            ],
+            [
+              85.8398,
+              20.1288
+            ],
+            [
+              85.837,
+              20.1288
+            ],
+            [
+              85.837,
+              20.126
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 10,
+        "plot_number": "110",
+        "khata_number": "210",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Agricultural",
+        "risk_level": "High",
+        "risk_color": "#EF4444",
+        "delay_probability": 0.84,
+        "case_id": 4,
+        "case_number": "CASE-OD-2026-004",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 11,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8405,
+              20.126
+            ],
+            [
+              85.8435,
+              20.126
+            ],
+            [
+              85.8433,
+              20.1288
+            ],
+            [
+              85.8405,
+              20.1288
+            ],
+            [
+              85.8405,
+              20.126
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 11,
+        "plot_number": "111",
+        "khata_number": "211",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Agricultural",
+        "risk_level": "High",
+        "risk_color": "#EF4444",
+        "delay_probability": 0.84,
+        "case_id": 4,
+        "case_number": "CASE-OD-2026-004",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 12,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.844,
+              20.126
+            ],
+            [
+              85.847,
+              20.126
+            ],
+            [
+              85.8468,
+              20.1288
+            ],
+            [
+              85.844,
+              20.1288
+            ],
+            [
+              85.844,
+              20.126
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 12,
+        "plot_number": "142/A",
+        "khata_number": "312",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Homestead",
+        "risk_level": "High",
+        "risk_color": "#EF4444",
+        "delay_probability": 0.84,
+        "case_id": 4,
+        "case_number": "CASE-OD-2026-004",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Approval pending",
+        "compensation_amount": 7000000.0,
+        "owners_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 13,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8475,
+              20.126
+            ],
+            [
+              85.8505,
+              20.126
+            ],
+            [
+              85.8503,
+              20.1288
+            ],
+            [
+              85.8475,
+              20.1288
+            ],
+            [
+              85.8475,
+              20.126
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 13,
+        "plot_number": "142/B",
+        "khata_number": "312",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Agricultural",
+        "risk_level": "High",
+        "risk_color": "#EF4444",
+        "delay_probability": 0.84,
+        "case_id": 4,
+        "case_number": "CASE-OD-2026-004",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Approval pending",
+        "compensation_amount": 7000000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 14,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.851,
+              20.126
+            ],
+            [
+              85.854,
+              20.126
+            ],
+            [
+              85.8538,
+              20.1288
+            ],
+            [
+              85.851,
+              20.1288
+            ],
+            [
+              85.851,
+              20.126
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 14,
+        "plot_number": "114",
+        "khata_number": "214",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 4,
+        "case_number": "CASE-OD-2026-004",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 15,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8545,
+              20.126
+            ],
+            [
+              85.8575,
+              20.126
+            ],
+            [
+              85.8573,
+              20.1288
+            ],
+            [
+              85.8545,
+              20.1288
+            ],
+            [
+              85.8545,
+              20.126
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 15,
+        "plot_number": "115",
+        "khata_number": "215",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 4,
+        "case_number": "CASE-OD-2026-004",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 16,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.858,
+              20.126
+            ],
+            [
+              85.861,
+              20.126
+            ],
+            [
+              85.8608,
+              20.1288
+            ],
+            [
+              85.858,
+              20.1288
+            ],
+            [
+              85.858,
+              20.126
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 16,
+        "plot_number": "116",
+        "khata_number": "216",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Homestead",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 17,
+        "case_number": "CASE-OD-2026-017",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 17,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8335,
+              20.1292
+            ],
+            [
+              85.8365,
+              20.1292
+            ],
+            [
+              85.8363,
+              20.132
+            ],
+            [
+              85.8335,
+              20.132
+            ],
+            [
+              85.8335,
+              20.1292
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 17,
+        "plot_number": "117",
+        "khata_number": "217",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Agricultural",
+        "risk_level": "Completed",
+        "risk_color": "#3B82F6",
+        "delay_probability": 0.08,
+        "case_id": 18,
+        "case_number": "CASE-OD-2026-018",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Payment completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 18,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.837,
+              20.1292
+            ],
+            [
+              85.84,
+              20.1292
+            ],
+            [
+              85.8398,
+              20.132
+            ],
+            [
+              85.837,
+              20.132
+            ],
+            [
+              85.837,
+              20.1292
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 18,
+        "plot_number": "118",
+        "khata_number": "218",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 19,
+        "case_number": "CASE-OD-2026-019",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 19,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8405,
+              20.1292
+            ],
+            [
+              85.8435,
+              20.1292
+            ],
+            [
+              85.8433,
+              20.132
+            ],
+            [
+              85.8405,
+              20.132
+            ],
+            [
+              85.8405,
+              20.1292
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 19,
+        "plot_number": "119",
+        "khata_number": "219",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 20,
+        "case_number": "CASE-OD-2026-020",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 20,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.844,
+              20.1292
+            ],
+            [
+              85.847,
+              20.1292
+            ],
+            [
+              85.8468,
+              20.132
+            ],
+            [
+              85.844,
+              20.132
+            ],
+            [
+              85.844,
+              20.1292
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 20,
+        "plot_number": "120",
+        "khata_number": "220",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Homestead",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 21,
+        "case_number": "CASE-OD-2026-021",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 21,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8475,
+              20.1292
+            ],
+            [
+              85.8505,
+              20.1292
+            ],
+            [
+              85.8503,
+              20.132
+            ],
+            [
+              85.8475,
+              20.132
+            ],
+            [
+              85.8475,
+              20.1292
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 21,
+        "plot_number": "121",
+        "khata_number": "221",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 22,
+        "case_number": "CASE-OD-2026-022",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 22,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.851,
+              20.1292
+            ],
+            [
+              85.854,
+              20.1292
+            ],
+            [
+              85.8538,
+              20.132
+            ],
+            [
+              85.851,
+              20.132
+            ],
+            [
+              85.851,
+              20.1292
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 22,
+        "plot_number": "122",
+        "khata_number": "222",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 23,
+        "case_number": "CASE-OD-2026-023",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 23,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8545,
+              20.1292
+            ],
+            [
+              85.8575,
+              20.1292
+            ],
+            [
+              85.8573,
+              20.132
+            ],
+            [
+              85.8545,
+              20.132
+            ],
+            [
+              85.8545,
+              20.1292
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 23,
+        "plot_number": "123",
+        "khata_number": "223",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 24,
+        "case_number": "CASE-OD-2026-024",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 24,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.858,
+              20.1292
+            ],
+            [
+              85.861,
+              20.1292
+            ],
+            [
+              85.8608,
+              20.132
+            ],
+            [
+              85.858,
+              20.132
+            ],
+            [
+              85.858,
+              20.1292
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 24,
+        "plot_number": "124",
+        "khata_number": "224",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Homestead",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 25,
+        "case_number": "CASE-OD-2026-025",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 25,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8335,
+              20.1324
+            ],
+            [
+              85.8365,
+              20.1324
+            ],
+            [
+              85.8363,
+              20.1352
+            ],
+            [
+              85.8335,
+              20.1352
+            ],
+            [
+              85.8335,
+              20.1324
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 25,
+        "plot_number": "125",
+        "khata_number": "225",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Agricultural",
+        "risk_level": "Completed",
+        "risk_color": "#3B82F6",
+        "delay_probability": 0.08,
+        "case_id": 26,
+        "case_number": "CASE-OD-2026-026",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Payment completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 26,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.837,
+              20.1324
+            ],
+            [
+              85.84,
+              20.1324
+            ],
+            [
+              85.8398,
+              20.1352
+            ],
+            [
+              85.837,
+              20.1352
+            ],
+            [
+              85.837,
+              20.1324
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 26,
+        "plot_number": "126",
+        "khata_number": "226",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 27,
+        "case_number": "CASE-OD-2026-027",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 27,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8405,
+              20.1324
+            ],
+            [
+              85.8435,
+              20.1324
+            ],
+            [
+              85.8433,
+              20.1352
+            ],
+            [
+              85.8405,
+              20.1352
+            ],
+            [
+              85.8405,
+              20.1324
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 27,
+        "plot_number": "127",
+        "khata_number": "227",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 28,
+        "case_number": "CASE-OD-2026-028",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 28,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.844,
+              20.1324
+            ],
+            [
+              85.847,
+              20.1324
+            ],
+            [
+              85.8468,
+              20.1352
+            ],
+            [
+              85.844,
+              20.1352
+            ],
+            [
+              85.844,
+              20.1324
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 28,
+        "plot_number": "128",
+        "khata_number": "228",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Homestead",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 29,
+        "case_number": "CASE-OD-2026-029",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 29,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8475,
+              20.1324
+            ],
+            [
+              85.8505,
+              20.1324
+            ],
+            [
+              85.8503,
+              20.1352
+            ],
+            [
+              85.8475,
+              20.1352
+            ],
+            [
+              85.8475,
+              20.1324
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 29,
+        "plot_number": "129",
+        "khata_number": "229",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 30,
+        "case_number": "CASE-OD-2026-030",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 30,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.851,
+              20.1324
+            ],
+            [
+              85.854,
+              20.1324
+            ],
+            [
+              85.8538,
+              20.1352
+            ],
+            [
+              85.851,
+              20.1352
+            ],
+            [
+              85.851,
+              20.1324
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 30,
+        "plot_number": "130",
+        "khata_number": "200",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 1,
+        "case_number": "CASE-OD-2026-001",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 31,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8545,
+              20.1324
+            ],
+            [
+              85.8575,
+              20.1324
+            ],
+            [
+              85.8573,
+              20.1352
+            ],
+            [
+              85.8545,
+              20.1352
+            ],
+            [
+              85.8545,
+              20.1324
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 31,
+        "plot_number": "131",
+        "khata_number": "201",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 2,
+        "case_number": "CASE-OD-2026-002",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 32,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.858,
+              20.1324
+            ],
+            [
+              85.861,
+              20.1324
+            ],
+            [
+              85.8608,
+              20.1352
+            ],
+            [
+              85.858,
+              20.1352
+            ],
+            [
+              85.858,
+              20.1324
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 32,
+        "plot_number": "132",
+        "khata_number": "202",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Homestead",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 3,
+        "case_number": "CASE-OD-2026-003",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 33,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8335,
+              20.1356
+            ],
+            [
+              85.8365,
+              20.1356
+            ],
+            [
+              85.8363,
+              20.1384
+            ],
+            [
+              85.8335,
+              20.1384
+            ],
+            [
+              85.8335,
+              20.1356
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 33,
+        "plot_number": "133",
+        "khata_number": "203",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 4,
+        "case_number": "CASE-OD-2026-004",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 34,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.837,
+              20.1356
+            ],
+            [
+              85.84,
+              20.1356
+            ],
+            [
+              85.8398,
+              20.1384
+            ],
+            [
+              85.837,
+              20.1384
+            ],
+            [
+              85.837,
+              20.1356
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 34,
+        "plot_number": "134",
+        "khata_number": "204",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 5,
+        "case_number": "CASE-OD-2026-005",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 35,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8405,
+              20.1356
+            ],
+            [
+              85.8435,
+              20.1356
+            ],
+            [
+              85.8433,
+              20.1384
+            ],
+            [
+              85.8405,
+              20.1384
+            ],
+            [
+              85.8405,
+              20.1356
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 35,
+        "plot_number": "135",
+        "khata_number": "205",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 6,
+        "case_number": "CASE-OD-2026-006",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 36,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.844,
+              20.1356
+            ],
+            [
+              85.847,
+              20.1356
+            ],
+            [
+              85.8468,
+              20.1384
+            ],
+            [
+              85.844,
+              20.1384
+            ],
+            [
+              85.844,
+              20.1356
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 36,
+        "plot_number": "136",
+        "khata_number": "206",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Homestead",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 7,
+        "case_number": "CASE-OD-2026-007",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 37,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8475,
+              20.1356
+            ],
+            [
+              85.8505,
+              20.1356
+            ],
+            [
+              85.8503,
+              20.1384
+            ],
+            [
+              85.8475,
+              20.1384
+            ],
+            [
+              85.8475,
+              20.1356
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 37,
+        "plot_number": "137",
+        "khata_number": "207",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Agricultural",
+        "risk_level": "Completed",
+        "risk_color": "#3B82F6",
+        "delay_probability": 0.08,
+        "case_id": 8,
+        "case_number": "CASE-OD-2026-008",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Payment completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 38,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.851,
+              20.1356
+            ],
+            [
+              85.854,
+              20.1356
+            ],
+            [
+              85.8538,
+              20.1384
+            ],
+            [
+              85.851,
+              20.1384
+            ],
+            [
+              85.851,
+              20.1356
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 38,
+        "plot_number": "138",
+        "khata_number": "208",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 9,
+        "case_number": "CASE-OD-2026-009",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 39,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8545,
+              20.1356
+            ],
+            [
+              85.8575,
+              20.1356
+            ],
+            [
+              85.8573,
+              20.1384
+            ],
+            [
+              85.8545,
+              20.1384
+            ],
+            [
+              85.8545,
+              20.1356
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 39,
+        "plot_number": "139",
+        "khata_number": "209",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 10,
+        "case_number": "CASE-OD-2026-010",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 40,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.858,
+              20.1356
+            ],
+            [
+              85.861,
+              20.1356
+            ],
+            [
+              85.8608,
+              20.1384
+            ],
+            [
+              85.858,
+              20.1384
+            ],
+            [
+              85.858,
+              20.1356
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 40,
+        "plot_number": "140",
+        "khata_number": "210",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Homestead",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 11,
+        "case_number": "CASE-OD-2026-011",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 41,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8335,
+              20.1388
+            ],
+            [
+              85.8365,
+              20.1388
+            ],
+            [
+              85.8363,
+              20.1416
+            ],
+            [
+              85.8335,
+              20.1416
+            ],
+            [
+              85.8335,
+              20.1388
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 41,
+        "plot_number": "141",
+        "khata_number": "211",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 12,
+        "case_number": "CASE-OD-2026-012",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 42,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.837,
+              20.1388
+            ],
+            [
+              85.84,
+              20.1388
+            ],
+            [
+              85.8398,
+              20.1416
+            ],
+            [
+              85.837,
+              20.1416
+            ],
+            [
+              85.837,
+              20.1388
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 42,
+        "plot_number": "142",
+        "khata_number": "212",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 13,
+        "case_number": "CASE-OD-2026-013",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 43,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8405,
+              20.1388
+            ],
+            [
+              85.8435,
+              20.1388
+            ],
+            [
+              85.8433,
+              20.1416
+            ],
+            [
+              85.8405,
+              20.1416
+            ],
+            [
+              85.8405,
+              20.1388
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 43,
+        "plot_number": "143",
+        "khata_number": "213",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 14,
+        "case_number": "CASE-OD-2026-014",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 44,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.844,
+              20.1388
+            ],
+            [
+              85.847,
+              20.1388
+            ],
+            [
+              85.8468,
+              20.1416
+            ],
+            [
+              85.844,
+              20.1416
+            ],
+            [
+              85.844,
+              20.1388
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 44,
+        "plot_number": "144",
+        "khata_number": "214",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Homestead",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 15,
+        "case_number": "CASE-OD-2026-015",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 45,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8475,
+              20.1388
+            ],
+            [
+              85.8505,
+              20.1388
+            ],
+            [
+              85.8503,
+              20.1416
+            ],
+            [
+              85.8475,
+              20.1416
+            ],
+            [
+              85.8475,
+              20.1388
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 45,
+        "plot_number": "145",
+        "khata_number": "215",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 16,
+        "case_number": "CASE-OD-2026-016",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 46,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.851,
+              20.1388
+            ],
+            [
+              85.854,
+              20.1388
+            ],
+            [
+              85.8538,
+              20.1416
+            ],
+            [
+              85.851,
+              20.1416
+            ],
+            [
+              85.851,
+              20.1388
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 46,
+        "plot_number": "146",
+        "khata_number": "216",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 17,
+        "case_number": "CASE-OD-2026-017",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 47,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8545,
+              20.1388
+            ],
+            [
+              85.8575,
+              20.1388
+            ],
+            [
+              85.8573,
+              20.1416
+            ],
+            [
+              85.8545,
+              20.1416
+            ],
+            [
+              85.8545,
+              20.1388
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 47,
+        "plot_number": "147",
+        "khata_number": "217",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Agricultural",
+        "risk_level": "Completed",
+        "risk_color": "#3B82F6",
+        "delay_probability": 0.08,
+        "case_id": 18,
+        "case_number": "CASE-OD-2026-018",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Payment completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 48,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.858,
+              20.1388
+            ],
+            [
+              85.861,
+              20.1388
+            ],
+            [
+              85.8608,
+              20.1416
+            ],
+            [
+              85.858,
+              20.1416
+            ],
+            [
+              85.858,
+              20.1388
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 48,
+        "plot_number": "148",
+        "khata_number": "218",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Homestead",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 19,
+        "case_number": "CASE-OD-2026-019",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 49,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8335,
+              20.142
+            ],
+            [
+              85.8365,
+              20.142
+            ],
+            [
+              85.8363,
+              20.1448
+            ],
+            [
+              85.8335,
+              20.1448
+            ],
+            [
+              85.8335,
+              20.142
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 49,
+        "plot_number": "149",
+        "khata_number": "219",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 20,
+        "case_number": "CASE-OD-2026-020",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 50,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.837,
+              20.142
+            ],
+            [
+              85.84,
+              20.142
+            ],
+            [
+              85.8398,
+              20.1448
+            ],
+            [
+              85.837,
+              20.1448
+            ],
+            [
+              85.837,
+              20.142
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 50,
+        "plot_number": "150",
+        "khata_number": "220",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 21,
+        "case_number": "CASE-OD-2026-021",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 51,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8405,
+              20.142
+            ],
+            [
+              85.8435,
+              20.142
+            ],
+            [
+              85.8433,
+              20.1448
+            ],
+            [
+              85.8405,
+              20.1448
+            ],
+            [
+              85.8405,
+              20.142
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 51,
+        "plot_number": "151",
+        "khata_number": "221",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 22,
+        "case_number": "CASE-OD-2026-022",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 52,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.844,
+              20.142
+            ],
+            [
+              85.847,
+              20.142
+            ],
+            [
+              85.8468,
+              20.1448
+            ],
+            [
+              85.844,
+              20.1448
+            ],
+            [
+              85.844,
+              20.142
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 52,
+        "plot_number": "152",
+        "khata_number": "222",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Homestead",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 23,
+        "case_number": "CASE-OD-2026-023",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 53,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8475,
+              20.142
+            ],
+            [
+              85.8505,
+              20.142
+            ],
+            [
+              85.8503,
+              20.1448
+            ],
+            [
+              85.8475,
+              20.1448
+            ],
+            [
+              85.8475,
+              20.142
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 53,
+        "plot_number": "153",
+        "khata_number": "223",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 24,
+        "case_number": "CASE-OD-2026-024",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 54,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.851,
+              20.142
+            ],
+            [
+              85.854,
+              20.142
+            ],
+            [
+              85.8538,
+              20.1448
+            ],
+            [
+              85.851,
+              20.1448
+            ],
+            [
+              85.851,
+              20.142
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 54,
+        "plot_number": "154",
+        "khata_number": "224",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 25,
+        "case_number": "CASE-OD-2026-025",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 55,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8545,
+              20.142
+            ],
+            [
+              85.8575,
+              20.142
+            ],
+            [
+              85.8573,
+              20.1448
+            ],
+            [
+              85.8545,
+              20.1448
+            ],
+            [
+              85.8545,
+              20.142
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 55,
+        "plot_number": "155",
+        "khata_number": "225",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 26,
+        "case_number": "CASE-OD-2026-026",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 56,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.858,
+              20.142
+            ],
+            [
+              85.861,
+              20.142
+            ],
+            [
+              85.8608,
+              20.1448
+            ],
+            [
+              85.858,
+              20.1448
+            ],
+            [
+              85.858,
+              20.142
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 56,
+        "plot_number": "156",
+        "khata_number": "226",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Homestead",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 27,
+        "case_number": "CASE-OD-2026-027",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 57,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8335,
+              20.1452
+            ],
+            [
+              85.8365,
+              20.1452
+            ],
+            [
+              85.8363,
+              20.148
+            ],
+            [
+              85.8335,
+              20.148
+            ],
+            [
+              85.8335,
+              20.1452
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 57,
+        "plot_number": "157",
+        "khata_number": "227",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 28,
+        "case_number": "CASE-OD-2026-028",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 58,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.837,
+              20.1452
+            ],
+            [
+              85.84,
+              20.1452
+            ],
+            [
+              85.8398,
+              20.148
+            ],
+            [
+              85.837,
+              20.148
+            ],
+            [
+              85.837,
+              20.1452
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 58,
+        "plot_number": "158",
+        "khata_number": "228",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 29,
+        "case_number": "CASE-OD-2026-029",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 59,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8405,
+              20.1452
+            ],
+            [
+              85.8435,
+              20.1452
+            ],
+            [
+              85.8433,
+              20.148
+            ],
+            [
+              85.8405,
+              20.148
+            ],
+            [
+              85.8405,
+              20.1452
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 59,
+        "plot_number": "159",
+        "khata_number": "229",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 30,
+        "case_number": "CASE-OD-2026-030",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 60,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.844,
+              20.1452
+            ],
+            [
+              85.847,
+              20.1452
+            ],
+            [
+              85.8468,
+              20.148
+            ],
+            [
+              85.844,
+              20.148
+            ],
+            [
+              85.844,
+              20.1452
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 60,
+        "plot_number": "160",
+        "khata_number": "200",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Homestead",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 1,
+        "case_number": "CASE-OD-2026-001",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 61,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8475,
+              20.1452
+            ],
+            [
+              85.8505,
+              20.1452
+            ],
+            [
+              85.8503,
+              20.148
+            ],
+            [
+              85.8475,
+              20.148
+            ],
+            [
+              85.8475,
+              20.1452
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 61,
+        "plot_number": "161",
+        "khata_number": "201",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 2,
+        "case_number": "CASE-OD-2026-002",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 62,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.851,
+              20.1452
+            ],
+            [
+              85.854,
+              20.1452
+            ],
+            [
+              85.8538,
+              20.148
+            ],
+            [
+              85.851,
+              20.148
+            ],
+            [
+              85.851,
+              20.1452
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 62,
+        "plot_number": "162",
+        "khata_number": "202",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 3,
+        "case_number": "CASE-OD-2026-003",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 63,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8545,
+              20.1452
+            ],
+            [
+              85.8575,
+              20.1452
+            ],
+            [
+              85.8573,
+              20.148
+            ],
+            [
+              85.8545,
+              20.148
+            ],
+            [
+              85.8545,
+              20.1452
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 63,
+        "plot_number": "163",
+        "khata_number": "203",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 4,
+        "case_number": "CASE-OD-2026-004",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 64,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.858,
+              20.1452
+            ],
+            [
+              85.861,
+              20.1452
+            ],
+            [
+              85.8608,
+              20.148
+            ],
+            [
+              85.858,
+              20.148
+            ],
+            [
+              85.858,
+              20.1452
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 64,
+        "plot_number": "164",
+        "khata_number": "204",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Homestead",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 5,
+        "case_number": "CASE-OD-2026-005",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 65,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8335,
+              20.1484
+            ],
+            [
+              85.8365,
+              20.1484
+            ],
+            [
+              85.8363,
+              20.1512
+            ],
+            [
+              85.8335,
+              20.1512
+            ],
+            [
+              85.8335,
+              20.1484
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 65,
+        "plot_number": "165",
+        "khata_number": "205",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 6,
+        "case_number": "CASE-OD-2026-006",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 66,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.837,
+              20.1484
+            ],
+            [
+              85.84,
+              20.1484
+            ],
+            [
+              85.8398,
+              20.1512
+            ],
+            [
+              85.837,
+              20.1512
+            ],
+            [
+              85.837,
+              20.1484
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 66,
+        "plot_number": "166",
+        "khata_number": "206",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 7,
+        "case_number": "CASE-OD-2026-007",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 67,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8405,
+              20.1484
+            ],
+            [
+              85.8435,
+              20.1484
+            ],
+            [
+              85.8433,
+              20.1512
+            ],
+            [
+              85.8405,
+              20.1512
+            ],
+            [
+              85.8405,
+              20.1484
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 67,
+        "plot_number": "167",
+        "khata_number": "207",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 8,
+        "case_number": "CASE-OD-2026-008",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 68,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.844,
+              20.1484
+            ],
+            [
+              85.847,
+              20.1484
+            ],
+            [
+              85.8468,
+              20.1512
+            ],
+            [
+              85.844,
+              20.1512
+            ],
+            [
+              85.844,
+              20.1484
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 68,
+        "plot_number": "168",
+        "khata_number": "208",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Homestead",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 9,
+        "case_number": "CASE-OD-2026-009",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 69,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8475,
+              20.1484
+            ],
+            [
+              85.8505,
+              20.1484
+            ],
+            [
+              85.8503,
+              20.1512
+            ],
+            [
+              85.8475,
+              20.1512
+            ],
+            [
+              85.8475,
+              20.1484
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 69,
+        "plot_number": "169",
+        "khata_number": "209",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Agricultural",
+        "risk_level": "Medium",
+        "risk_color": "#F59E0B",
+        "delay_probability": 0.52,
+        "case_id": 10,
+        "case_number": "CASE-OD-2026-010",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 70,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.851,
+              20.1484
+            ],
+            [
+              85.854,
+              20.1484
+            ],
+            [
+              85.8538,
+              20.1512
+            ],
+            [
+              85.851,
+              20.1512
+            ],
+            [
+              85.851,
+              20.1484
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 70,
+        "plot_number": "170",
+        "khata_number": "210",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 11,
+        "case_number": "CASE-OD-2026-011",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 71,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8545,
+              20.1484
+            ],
+            [
+              85.8575,
+              20.1484
+            ],
+            [
+              85.8573,
+              20.1512
+            ],
+            [
+              85.8545,
+              20.1512
+            ],
+            [
+              85.8545,
+              20.1484
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 71,
+        "plot_number": "171",
+        "khata_number": "211",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 12,
+        "case_number": "CASE-OD-2026-012",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 72,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.858,
+              20.1484
+            ],
+            [
+              85.861,
+              20.1484
+            ],
+            [
+              85.8608,
+              20.1512
+            ],
+            [
+              85.858,
+              20.1512
+            ],
+            [
+              85.858,
+              20.1484
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 72,
+        "plot_number": "172",
+        "khata_number": "212",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Homestead",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 13,
+        "case_number": "CASE-OD-2026-013",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 73,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8335,
+              20.1516
+            ],
+            [
+              85.8365,
+              20.1516
+            ],
+            [
+              85.8363,
+              20.1544
+            ],
+            [
+              85.8335,
+              20.1544
+            ],
+            [
+              85.8335,
+              20.1516
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 73,
+        "plot_number": "173",
+        "khata_number": "213",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Agricultural",
+        "risk_level": "Completed",
+        "risk_color": "#3B82F6",
+        "delay_probability": 0.08,
+        "case_id": 14,
+        "case_number": "CASE-OD-2026-014",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Payment completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 74,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.837,
+              20.1516
+            ],
+            [
+              85.84,
+              20.1516
+            ],
+            [
+              85.8398,
+              20.1544
+            ],
+            [
+              85.837,
+              20.1544
+            ],
+            [
+              85.837,
+              20.1516
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 74,
+        "plot_number": "174",
+        "khata_number": "214",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Agricultural",
+        "risk_level": "Completed",
+        "risk_color": "#3B82F6",
+        "delay_probability": 0.08,
+        "case_id": 15,
+        "case_number": "CASE-OD-2026-015",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Payment completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 75,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8405,
+              20.1516
+            ],
+            [
+              85.8435,
+              20.1516
+            ],
+            [
+              85.8433,
+              20.1544
+            ],
+            [
+              85.8405,
+              20.1544
+            ],
+            [
+              85.8405,
+              20.1516
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 75,
+        "plot_number": "175",
+        "khata_number": "215",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 16,
+        "case_number": "CASE-OD-2026-016",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 76,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.844,
+              20.1516
+            ],
+            [
+              85.847,
+              20.1516
+            ],
+            [
+              85.8468,
+              20.1544
+            ],
+            [
+              85.844,
+              20.1544
+            ],
+            [
+              85.844,
+              20.1516
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 76,
+        "plot_number": "176",
+        "khata_number": "216",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Homestead",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 17,
+        "case_number": "CASE-OD-2026-017",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 77,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8475,
+              20.1516
+            ],
+            [
+              85.8505,
+              20.1516
+            ],
+            [
+              85.8503,
+              20.1544
+            ],
+            [
+              85.8475,
+              20.1544
+            ],
+            [
+              85.8475,
+              20.1516
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 77,
+        "plot_number": "177",
+        "khata_number": "217",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 18,
+        "case_number": "CASE-OD-2026-018",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 78,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.851,
+              20.1516
+            ],
+            [
+              85.854,
+              20.1516
+            ],
+            [
+              85.8538,
+              20.1544
+            ],
+            [
+              85.851,
+              20.1544
+            ],
+            [
+              85.851,
+              20.1516
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 78,
+        "plot_number": "178",
+        "khata_number": "218",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 19,
+        "case_number": "CASE-OD-2026-019",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 79,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8545,
+              20.1516
+            ],
+            [
+              85.8575,
+              20.1516
+            ],
+            [
+              85.8573,
+              20.1544
+            ],
+            [
+              85.8545,
+              20.1544
+            ],
+            [
+              85.8545,
+              20.1516
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 79,
+        "plot_number": "179",
+        "khata_number": "219",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Agricultural",
+        "risk_level": "Completed",
+        "risk_color": "#3B82F6",
+        "delay_probability": 0.08,
+        "case_id": 20,
+        "case_number": "CASE-OD-2026-020",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Payment completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 80,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.858,
+              20.1516
+            ],
+            [
+              85.861,
+              20.1516
+            ],
+            [
+              85.8608,
+              20.1544
+            ],
+            [
+              85.858,
+              20.1544
+            ],
+            [
+              85.858,
+              20.1516
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 80,
+        "plot_number": "180",
+        "khata_number": "220",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 1.5,
+        "land_type": "Homestead",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 21,
+        "case_number": "CASE-OD-2026-021",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 81,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8335,
+              20.1548
+            ],
+            [
+              85.8365,
+              20.1548
+            ],
+            [
+              85.8363,
+              20.1576
+            ],
+            [
+              85.8335,
+              20.1576
+            ],
+            [
+              85.8335,
+              20.1548
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 81,
+        "plot_number": "181",
+        "khata_number": "221",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 2.3,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 22,
+        "case_number": "CASE-OD-2026-022",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 82,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.837,
+              20.1548
+            ],
+            [
+              85.84,
+              20.1548
+            ],
+            [
+              85.8398,
+              20.1576
+            ],
+            [
+              85.837,
+              20.1576
+            ],
+            [
+              85.837,
+              20.1548
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 82,
+        "plot_number": "182",
+        "khata_number": "222",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.1,
+        "land_type": "Agricultural",
+        "risk_level": "Low",
+        "risk_color": "#10B981",
+        "delay_probability": 0.22,
+        "case_id": 23,
+        "case_number": "CASE-OD-2026-023",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 83,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.8405,
+              20.1548
+            ],
+            [
+              85.8435,
+              20.1548
+            ],
+            [
+              85.8433,
+              20.1576
+            ],
+            [
+              85.8405,
+              20.1576
+            ],
+            [
+              85.8405,
+              20.1548
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 83,
+        "plot_number": "183",
+        "khata_number": "223",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 3.9,
+        "land_type": "Agricultural",
+        "risk_level": "Completed",
+        "risk_color": "#3B82F6",
+        "delay_probability": 0.08,
+        "case_id": 24,
+        "case_number": "CASE-OD-2026-024",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Payment completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 84,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              85.844,
+              20.1548
+            ],
+            [
+              85.847,
+              20.1548
+            ],
+            [
+              85.8468,
+              20.1576
+            ],
+            [
+              85.844,
+              20.1576
+            ],
+            [
+              85.844,
+              20.1548
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 84,
+        "plot_number": "184",
+        "khata_number": "224",
+        "village_name": "Pipili",
+        "district": "Khurda",
+        "area_acres": 4.7,
+        "land_type": "Homestead",
+        "risk_level": "Insufficient",
+        "risk_color": "#9CA3AF",
+        "delay_probability": 0.4,
+        "case_id": 4,
+        "case_number": "CASE-OD-2026-004",
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "compensation_stage": "Valuation completed",
+        "compensation_amount": 4500000.0,
+        "owners_count": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "app_name": "BhoomiSetu AI",
+  "app_tagline": "Predictive Analytics for Early Detection of Land Acquisition Delays",
+  "nav": {
+    "dashboard": "Monitoring Dashboard",
+    "projects": "Projects",
+    "cases": "Acquisition Cases",
+    "map": "GIS Parcel Map",
+    "documents": "Document Verification",
+    "compensation": "Compensation Tracker",
+    "tasks": "Departmental Tasks",
+    "alerts": "Alerts Center",
+    "grievances": "Grievance Redressal",
+    "landowner_portal": "Landowner Portal",
+    "admin": "System Administration",
+    "logout": "Logout",
+    "login": "Sign In"
+  },
+  "roles": {
+    "admin": "Administrator",
+    "project_authority": "Project Authority",
+    "land_acquisition_officer": "Land Acquisition Officer",
+    "survey_officer": "Survey Officer",
+    "compensation_officer": "Compensation Officer",
+    "landowner": "Landowner / Beneficiary"
+  },
+  "risk": {
+    "low": "Low Risk",
+    "medium": "Medium Risk",
+    "high": "High Risk",
+    "completed": "Acquisition Completed",
+    "insufficient": "Insufficient Data",
+    "delay_probability": "Delay Probability",
+    "predicted_delay": "Predicted Delay Days",
+    "disclaimer": "This prediction is decision-support information and must be reviewed by an authorised officer. It is not an automated legal decision."
+  },
+  "dashboard": {
+    "total_projects": "Total Projects",
+    "total_cases": "Total Cases",
+    "total_parcels": "Total Land Parcels",
+    "acquired_area": "Acquired Land Area",
+    "overdue_tasks": "Overdue Tasks",
+    "open_grievances": "Open Grievances",
+    "pending_surveys": "Pending Cadastral Surveys",
+    "disputed_titles": "Ownership Disputes",
+    "kpi_summary": "Executive KPI Summary",
+    "risk_distribution": "Cases by Delay Risk Classification",
+    "causes_of_delay": "Frequent Causes of Acquisition Delays",
+    "monthly_progress": "Monthly Acquisition Trend",
+    "department_bottlenecks": "Departmental Task Bottlenecks"
+  },
+  "landowner": {
+    "welcome": "Welcome back",
+    "my_parcels": "My Land Parcels",
+    "compensation_progress": "Compensation Progress",
+    "upload_documents": "Upload Land Records (RoR/Patta)",
+    "file_grievance": "Submit Grievance / Objection",
+    "track_grievance": "Track Grievance Status",
+    "download_ack": "Download Acknowledgement",
+    "hearing_dates": "Scheduled Hearing Dates"
+  },
+  "common": {
+    "search": "Search by Plot / Khata / Case...",
+    "filter": "Filter",
+    "status": "Status",
+    "action": "Action",
+    "view_details": "View Details",
+    "save": "Save Changes",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "no_data": "No records found."
+  }
+}

@@ -1,0 +1,19 @@
+[
+  "total_parcels",
+  "total_landowners",
+  "total_land_area",
+  "missing_doc_pct",
+  "survey_completed_pct",
+  "ownership_disputes_count",
+  "court_cases_count",
+  "pending_approvals_count",
+  "compensation_progress_pct",
+  "bank_verification_pct",
+  "open_grievances_count",
+  "avg_dept_response_days",
+  "environmental_clearance",
+  "rehabilitation_required",
+  "district_delay_rate",
+  "overdue_tasks_count",
+  "days_remaining"
+]

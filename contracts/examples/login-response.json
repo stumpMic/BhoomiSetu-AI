@@ -1,0 +1,15 @@
+{
+  "access_token": "mock_jwt_token_bhoomisetu_2026_officer",
+  "token_type": "bearer",
+  "user": {
+    "id": 2,
+    "name": "Shri Ashok Patra",
+    "email": "officer.patra@bhoomisetu.gov.in",
+    "role": "land_acquisition_officer",
+    "role_display": "Land Acquisition Officer (LAO)",
+    "department_id": 1,
+    "department_name": "Revenue & Land Reforms Department",
+    "district": "Khurda",
+    "phone": "+91 94370 12345"
+  }
+}

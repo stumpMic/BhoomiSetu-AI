@@ -1,0 +1,8 @@
+{
+  "model_type": "RandomForestRegressor",
+  "n_estimators": 150,
+  "test_mae_days": 20.65,
+  "test_rmse_days": 28.03,
+  "test_r2_score": 0.8144,
+  "training_timestamp": "2026-08-23T08:37:22.715304"
+}

@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgis/postgis:15-3.3
+    container_name: bhoomisetu-database
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bhoomisetu_db
+      POSTGRES_USER: bhoomisetu_user
+      POSTGRES_PASSWORD: bhoomisetu_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bhoomisetu_user -d bhoomisetu_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: bhoomisetu-backend
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://bhoomisetu_user:bhoomisetu_pass@database:5432/bhoomisetu_db
+      - SECRET_KEY=bhoomisetu-ai-docker-secret-key-2026
+      - ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
+      - ML_MODEL_PATH=/app/models
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./machine-learning/models:/app/models:ro
+      - ./backend/uploads:/app/uploads
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: bhoomisetu-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000/api
+      - VITE_USE_MOCK_API=false
+
+volumes:
+  postgres_data:

@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NotificationAlert",
+  "type": "object",
+  "required": ["id", "title", "message", "alert_type", "severity", "created_at", "is_read"],
+  "properties": {
+    "id": { "type": "integer" },
+    "title": { "type": "string" },
+    "message": { "type": "string" },
+    "alert_type": {
+      "type": "string",
+      "enum": [
+        "risk_escalation",
+        "deadline_warning",
+        "task_overdue",
+        "ocr_mismatch",
+        "document_uploaded",
+        "compensation_updated",
+        "grievance_filed",
+        "grievance_resolved"
+      ]
+    },
+    "severity": { "type": "string", "enum": ["critical", "warning", "info", "success"] },
+    "case_id": { "type": ["integer", "null"] },
+    "parcel_id": { "type": ["integer", "null"] },
+    "recipient_role": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "is_read": { "type": "boolean" },
+    "mock_sms_dispatched": { "type": "boolean" }
+  }
+}

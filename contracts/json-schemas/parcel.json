@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ParcelFeature",
+  "type": "object",
+  "required": ["type", "geometry", "properties"],
+  "properties": {
+    "type": { "type": "string", "enum": ["Feature"] },
+    "geometry": {
+      "type": "object",
+      "required": ["type", "coordinates"],
+      "properties": {
+        "type": { "type": "string", "enum": ["Polygon", "MultiPolygon"] },
+        "coordinates": { "type": "array" }
+      }
+    },
+    "properties": {
+      "type": "object",
+      "required": [
+        "id",
+        "plot_number",
+        "khata_number",
+        "village_name",
+        "area_acres",
+        "land_type",
+        "risk_level",
+        "risk_color",
+        "case_id",
+        "case_number"
+      ],
+      "properties": {
+        "id": { "type": "integer" },
+        "plot_number": { "type": "string" },
+        "khata_number": { "type": "string" },
+        "village_name": { "type": "string" },
+        "area_acres": { "type": "number" },
+        "land_type": { "type": "string" },
+        "risk_level": { "type": "string", "enum": ["Low", "Medium", "High", "Completed", "Insufficient"] },
+        "risk_color": { "type": "string" },
+        "case_id": { "type": "integer" },
+        "case_number": { "type": "string" },
+        "compensation_stage": { "type": "string" },
+        "owners_count": { "type": "integer" }
+      }
+    }
+  }
+}

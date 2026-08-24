@@ -1,0 +1,40 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            85.815,
+            20.11
+          ],
+          [
+            85.835,
+            20.125
+          ],
+          [
+            85.855,
+            20.145
+          ],
+          [
+            85.89,
+            20.175
+          ],
+          [
+            85.95,
+            20.2
+          ]
+        ]
+      },
+      "properties": {
+        "project_id": 1,
+        "project_name": "Bhubaneswar-Puri Expressway Corridor",
+        "total_length_km": 64.5,
+        "status": "Under Acquisition"
+      }
+    }
+  ]
+}

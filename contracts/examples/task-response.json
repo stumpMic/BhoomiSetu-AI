@@ -1,0 +1,38 @@
+{
+  "tasks": [
+    {
+      "id": 8,
+      "title": "Verify RoR Plot Discrepancy for Plot 142/A",
+      "project_name": "Bhubaneswar-Puri Expressway Corridor",
+      "case_id": 4,
+      "case_number": "CASE-OD-2026-004",
+      "parcel_id": 14,
+      "plot_number": "142/A",
+      "assigned_department": "Revenue Department",
+      "assigned_officer_name": "Shri Ashok Patra",
+      "priority": "High",
+      "status": "In Progress",
+      "start_date": "2026-08-22",
+      "deadline": "2026-08-25",
+      "is_overdue": false,
+      "remarks": "Compare uploaded document RoR with original Settlement Register"
+    },
+    {
+      "id": 9,
+      "title": "Complete DGPS Boundary Survey for Pipili Parcels",
+      "project_name": "Bhubaneswar-Puri Expressway Corridor",
+      "case_id": 4,
+      "case_number": "CASE-OD-2026-004",
+      "parcel_id": 14,
+      "plot_number": "142/A",
+      "assigned_department": "Survey & Cadastral Directorate",
+      "assigned_officer_name": "Smt. Sunita Mishra",
+      "priority": "High",
+      "status": "Overdue",
+      "start_date": "2026-07-20",
+      "deadline": "2026-08-15",
+      "is_overdue": true,
+      "remarks": "Delayed due to non-availability of second GPS base rover unit"
+    }
+  ]
+}

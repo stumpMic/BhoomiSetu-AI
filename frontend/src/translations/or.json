@@ -1,0 +1,74 @@
+{
+  "app_name": "ଭୂମିସେତୁ AI (BhoomiSetu AI)",
+  "app_tagline": "ଜମି ଅଧିଗ୍ରହଣ ବିଳମ୍ବର ପ୍ରାଥମିକ ଚିହ୍ନଟ ପାଇଁ ପୂର୍ବାନୁମାନ ପ୍ରଣାଳୀ",
+  "nav": {
+    "dashboard": "ନିରୀକ୍ଷଣ ଡ୍ୟାସବୋର୍ଡ",
+    "projects": "ପ୍ରକଳ୍ପ ସମୂହ",
+    "cases": "ଅଧିଗ୍ରହଣ ମାମଲା",
+    "map": "ଜିଆଇଏସ୍ ପ୍ଲଟ୍ ମ୍ୟାପ୍",
+    "documents": "ଦସ୍ତାବିଜ୍ ଯାଞ୍ଚ",
+    "compensation": "କ୍ଷତିପୂରଣ ଟ୍ରାକର୍",
+    "tasks": "ବିଭାଗୀୟ କାର୍ଯ୍ୟ",
+    "alerts": "ସତର୍କତା କେନ୍ଦ୍ର",
+    "grievances": "ଅଭିଯୋଗ ନିବାରଣ",
+    "landowner_portal": "ଜମିମାଲିକ ପୋର୍ଟାଲ୍",
+    "admin": "ସିଷ୍ଟମ୍ ପ୍ରଶାସନ",
+    "logout": "ଲଗ୍ ଆଉଟ୍",
+    "login": "ଲଗ୍ ଇନ୍"
+  },
+  "roles": {
+    "admin": "ପ୍ରଶାସକ",
+    "project_authority": "ପ୍ରକଳ୍ପ ପ୍ରାଧିକରଣ",
+    "land_acquisition_officer": "ଜମି ଅଧିଗ୍ରହଣ ଅଧିକାରୀ",
+    "survey_officer": "ସର୍ବେକ୍ଷଣ ଅଧିକାରୀ",
+    "compensation_officer": "କ୍ଷତିପୂରଣ ଅଧିକାରୀ",
+    "landowner": "ଜମିମାଲିକ / କୃଷକ"
+  },
+  "risk": {
+    "low": "କମ୍ ବିପଦ",
+    "medium": "ମଧ୍ୟମ ବିପଦ",
+    "high": "ଉଚ୍ଚ ବିପଦ",
+    "completed": "ଅଧିଗ୍ରହଣ ସମ୍ପୂର୍ଣ୍ଣ",
+    "insufficient": "ଅପର୍ଯ୍ୟାପ୍ତ ତଥ୍ୟ",
+    "delay_probability": "ବିଳମ୍ବ ସମ୍ଭାବନା",
+    "predicted_delay": "ଆକଳିତ ବିଳମ୍ବ ଦିନ",
+    "disclaimer": "ଏହି ପୂର୍ବାନୁମାନ ଏକ ନିଷ୍ପତ୍ତି-ସହାୟକ ସୂଚନା ଏବଂ ଏହା ଅଧିକୃତ ଅଧିକାରୀଙ୍କ ଦ୍ୱାରା ଯାଞ୍ଚ ହେବା ଆବଶ୍ୟକ।"
+  },
+  "dashboard": {
+    "total_projects": "ମୋଟ ପ୍ରକଳ୍ପ",
+    "total_cases": "ମୋଟ ମାମଲା",
+    "total_parcels": "ମୋଟ ପ୍ଲଟ୍ ସଂଖ୍ୟା",
+    "acquired_area": "ଅଧିଗୃହୀତ ଜମି",
+    "overdue_tasks": "ବିଳମ୍ବିତ କାର୍ଯ୍ୟ",
+    "open_grievances": "ବିଚାରାଧୀନ ଅଭିଯୋଗ",
+    "pending_surveys": "ବାକି ଥିବା ସର୍ଭେ",
+    "disputed_titles": "ମାଲିକାନା ବିବାଦ",
+    "kpi_summary": "କେପିଆଇ ସାରାଂଶ",
+    "risk_distribution": "ବିପଦ ସ୍ତର ଅନୁସାରେ ମାମଲା",
+    "causes_of_delay": "ବିଳମ୍ବର ମୁଖ୍ୟ କାରଣ",
+    "monthly_progress": "ମାସିକ ପ୍ରଗତି",
+    "department_bottlenecks": "ବିଭାଗୀୟ କାର୍ଯ୍ୟ ବାଧା"
+  },
+  "landowner": {
+    "welcome": "ନମସ୍କାର",
+    "my_parcels": "ମୋର ଜମି ପ୍ଲଟ୍",
+    "compensation_progress": "କ୍ଷତିପୂରଣ ପ୍ରଗତି",
+    "upload_documents": "ଦଲିଲ ଅପଲୋଡ୍ କରନ୍ତୁ (ପଟ୍ଟା/ଆରଓଆର)",
+    "file_grievance": "ଅଭିଯୋଗ ଦାଖଲ କରନ୍ତୁ",
+    "track_grievance": "ଅଭିଯୋଗ ସ୍ଥିତି ଯାଞ୍ଚ",
+    "download_ack": "ରସିଦ୍ ଡାଉନଲୋଡ୍",
+    "hearing_dates": "ଶୁଣାଣି ତାରିଖ"
+  },
+  "common": {
+    "search": "ପ୍ଲଟ୍ / ଖାତା / କେସ୍ ନମ୍ବର ଖୋଜନ୍ତୁ...",
+    "filter": "ଫିଲ୍ଟର୍",
+    "status": "ସ୍ଥିତି",
+    "action": "କାର୍ଯ୍ୟାନୁଷ୍ଠାନ",
+    "view_details": "ବିବରଣୀ ଦେଖନ୍ତୁ",
+    "save": "ସଂରକ୍ଷଣ କରନ୍ତୁ",
+    "cancel": "ବାତିଲ୍",
+    "submit": "ଦାଖଲ କରନ୍ତୁ",
+    "loading": "ଲୋଡ୍ ହେଉଛି...",
+    "no_data": "କୌଣସି ତଥ୍ୟ ମିଳିଲା ନାହିଁ।"
+  }
+}

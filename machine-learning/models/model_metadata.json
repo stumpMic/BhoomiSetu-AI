@@ -1,0 +1,34 @@
+{
+  "model_name": "BhoomiSetu Delay Risk Classifier",
+  "version": "v1.4.0-rf-ensemble",
+  "metrics": {
+    "model_type": "RandomForestClassifier",
+    "n_estimators": 150,
+    "test_accuracy": 0.928,
+    "test_precision": 0.9577,
+    "test_recall": 0.9577,
+    "test_f1_score": 0.9577,
+    "test_roc_auc": 0.9697,
+    "training_timestamp": "2026-08-23T08:37:20.271496"
+  },
+  "feature_importances": {
+    "ownership_disputes_count": 0.2159,
+    "court_cases_count": 0.1232,
+    "compensation_progress_pct": 0.1139,
+    "bank_verification_pct": 0.0911,
+    "missing_doc_pct": 0.0754,
+    "survey_completed_pct": 0.0614,
+    "pending_approvals_count": 0.0517,
+    "overdue_tasks_count": 0.049,
+    "environmental_clearance": 0.0355,
+    "rehabilitation_required": 0.0342,
+    "avg_dept_response_days": 0.0268,
+    "total_land_area": 0.026,
+    "days_remaining": 0.0248,
+    "district_delay_rate": 0.0216,
+    "total_landowners": 0.0214,
+    "total_parcels": 0.0186,
+    "open_grievances_count": 0.0096
+  },
+  "updated_at": "2026-08-23T08:37:20.350770"
+}

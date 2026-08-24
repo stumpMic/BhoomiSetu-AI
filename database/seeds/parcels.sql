@@ -1,0 +1,205 @@
+-- ====================================================================
+-- BhoomiSetu AI Database Seeds: Landowners & 80+ Parcels with Ownerships
+-- ====================================================================
+
+-- 60+ Fictional Landowners in Odisha
+INSERT INTO landowners (id, user_id, full_name, father_or_husband_name, gender, phone, masked_aadhaar, address, village_id, bank_account_masked, bank_ifsc, bank_name, bank_verification_status) VALUES
+(1, NULL, 'Bimal Kumar Jena', 'Late Nityananda Jena', 'Male', '+91 94371 11001', 'XXXX-XXXX-1001', 'At/PO: Pipili, Dist: Khurda', 1, 'XXXX-XXXX-1001', 'SBIN0001234', 'State Bank of India', 'Verified'),
+(2, NULL, 'Sarat Chandra Mohapatra', 'Gopinath Mohapatra', 'Male', '+91 94371 11002', 'XXXX-XXXX-1002', 'Pipili Bazar, Khurda', 1, 'XXXX-XXXX-1002', 'PUNB0023400', 'Punjab National Bank', 'Verified'),
+(3, NULL, 'Smt. Pravati Mishra', 'Ramesh Chandra Mishra', 'Female', '+91 94371 11003', 'XXXX-XXXX-1003', 'Sasan Sahi, Pipili', 1, 'XXXX-XXXX-1003', 'UBIN0542312', 'Union Bank of India', 'Verified'),
+(4, NULL, 'Niranjan Sahoo', 'Late Bhagaban Sahoo', 'Male', '+91 94371 11004', 'XXXX-XXXX-1004', 'Dhauli Road, Pipili', 1, 'XXXX-XXXX-1004', 'SBIN0001234', 'State Bank of India', 'Verified'),
+(5, NULL, 'Kailash Chandra Pradhan', 'Uchhaba Pradhan', 'Male', '+91 94371 11005', 'XXXX-XXXX-1005', 'Nuagaon, Pipili', 1, 'XXXX-XXXX-1005', 'IOBA0001423', 'Indian Overseas Bank', 'Pending'),
+(6, NULL, 'Smt. Renubala Nayak', 'Kulamani Nayak', 'Female', '+91 94371 11006', 'XXXX-XXXX-1006', 'Teisipur, Pipili', 1, 'XXXX-XXXX-1006', 'SBIN0001234', 'State Bank of India', 'Verified'),
+(7, NULL, 'Sudhir Kumar Behera', 'Bhaskar Behera', 'Male', '+91 94371 11007', 'XXXX-XXXX-1007', 'Kothasahi, Pipili', 1, 'XXXX-XXXX-1007', 'BKID0005123', 'Bank of India', 'Verified'),
+(8, NULL, 'Dillip Kumar Swain', 'Purna Chandra Swain', 'Male', '+91 94371 11008', 'XXXX-XXXX-1008', 'Nuapada, Pipili', 1, 'XXXX-XXXX-1008', 'CNRB0002145', 'Canara Bank', 'Verified'),
+(9, NULL, 'Smt. Annapurna Tripathy', 'Late Dinabandhu Tripathy', 'Female', '+91 94371 11009', 'XXXX-XXXX-1009', 'Brahman Sahi, Pipili', 1, 'XXXX-XXXX-1009', 'SBIN0001234', 'State Bank of India', 'Verified'),
+(10, NULL, 'Ashok Kumar Samal', 'Madhabananda Samal', 'Male', '+91 94371 11010', 'XXXX-XXXX-1010', 'Dandamakundapur, Pipili', 1, 'XXXX-XXXX-1010', 'BARB0PIPILI', 'Bank of Baroda', 'Verified'),
+(11, NULL, 'Trilochan Barik', 'Bansidhar Barik', 'Male', '+91 94371 11011', 'XXXX-XXXX-1011', 'Jagannathpur, Pipili', 1, 'XXXX-XXXX-1011', 'SBIN0001234', 'State Bank of India', 'Pending'),
+-- Landowners 12 & 13: Demo Case 4 Co-sharers
+(12, 6, 'Bikram Keshari Das', 'Late Narayan Das', 'Male', '+91 98610 99881', 'XXXX-XXXX-9981', 'Hatapatana, Pipili, Dist: Khurda', 1, 'XXXX-XXXX-4982', 'SBIN0001234', 'State Bank of India', 'Pending'),
+(13, NULL, 'Prasant Kumar Das', 'Late Narayan Das', 'Male', '+91 98610 99882', 'XXXX-XXXX-9982', 'Hatapatana, Pipili, Dist: Khurda', 1, 'XXXX-XXXX-4983', 'SBIN0001234', 'State Bank of India', 'Pending'),
+(14, 7, 'Smt. Manorama Rout', 'Jagabandhu Rout', 'Female', '+91 94371 44552', 'XXXX-XXXX-4452', 'Gop Road, Pipili', 1, 'XXXX-XXXX-3321', 'PUNB0023400', 'Punjab National Bank', 'Verified'),
+(15, NULL, 'Rabindra Nath Mohanty', 'Upendra Mohanty', 'Male', '+91 97780 11223', 'XXXX-XXXX-1223', 'Old Police Station Road, Pipili', 1, 'XXXX-XXXX-8812', 'SBIN0001234', 'State Bank of India', 'Verified'),
+(16, NULL, 'Gokul Chandra Senapati', 'Bauribandhu Senapati', 'Male', '+91 94371 11016', 'XXXX-XXXX-1016', 'Balipatna Bazar', 2, 'XXXX-XXXX-1016', 'SBIN0002134', 'State Bank of India', 'Verified'),
+(17, NULL, 'Smt. Sabitri Biswal', 'Duryodhan Biswal', 'Female', '+91 94371 11017', 'XXXX-XXXX-1017', 'Majhisahi, Balipatna', 2, 'XXXX-XXXX-1017', 'UBIN0542111', 'Union Bank of India', 'Verified'),
+(18, NULL, 'Prabhat Kumar Palei', 'Harihar Palei', 'Male', '+91 94371 11018', 'XXXX-XXXX-1018', 'Garedipanchan, Balipatna', 2, 'XXXX-XXXX-1018', 'BARB0BALIPA', 'Bank of Baroda', 'Verified'),
+(19, NULL, 'Bishnu Charan Mallick', 'Fakir Mallick', 'Male', '+91 94371 11019', 'XXXX-XXXX-1019', 'Rajas, Balipatna', 2, 'XXXX-XXXX-1019', 'SBIN0002134', 'State Bank of India', 'Pending'),
+(20, NULL, 'Smt. Basanti Sundaray', 'Late Sudam Sundaray', 'Female', '+91 94371 11020', 'XXXX-XXXX-1020', 'Banamalipur, Balipatna', 2, 'XXXX-XXXX-1020', 'IOBA0002111', 'Indian Overseas Bank', 'Verified'),
+(21, NULL, 'Surendra Nath Jena', 'Lokanath Jena', 'Male', '+91 94371 11021', 'XXXX-XXXX-1021', 'Barang Main Road', 3, 'XXXX-XXXX-1021', 'SBIN0003412', 'State Bank of India', 'Verified'),
+(22, NULL, 'Smt. Jayanti Das', 'Subash Chandra Das', 'Female', '+91 94371 11022', 'XXXX-XXXX-1022', 'Nandankanan Road, Barang', 3, 'XXXX-XXXX-1022', 'PUNB0034111', 'Punjab National Bank', 'Verified'),
+(23, NULL, 'Akshaya Kumar Parida', 'Gopal Parida', 'Male', '+91 94371 11023', 'XXXX-XXXX-1023', 'Daruthenga, Barang', 3, 'XXXX-XXXX-1023', 'UBIN0543222', 'Union Bank of India', 'Pending'),
+(24, NULL, 'Ganeswar Srichandan', 'Late Radhanath Srichandan', 'Male', '+91 94371 11024', 'XXXX-XXXX-1024', 'Godibari, Barang', 3, 'XXXX-XXXX-1024', 'BARB0BARANG', 'Bank of Baroda', 'Verified'),
+(25, NULL, 'Smt. Sulochana Pattnaik', 'Bijoy Pattnaik', 'Female', '+91 94371 11025', 'XXXX-XXXX-1025', 'Mundali, Barang', 3, 'XXXX-XXXX-1025', 'CNRB0003412', 'Canara Bank', 'Verified'),
+(26, NULL, 'Bibhuti Bhusan Ray', 'Ananta Charan Ray', 'Male', '+91 94371 11026', 'XXXX-XXXX-1026', 'Biridi Block Sahi', 4, 'XXXX-XXXX-1026', 'SBIN0004123', 'State Bank of India', 'Verified'),
+(27, NULL, 'Smt. Kamala Sahoo', 'Late Dibakar Sahoo', 'Female', '+91 94371 11027', 'XXXX-XXXX-1027', 'Sankhari Sahi, Biridi', 4, 'XXXX-XXXX-1027', 'IOBA0004123', 'Indian Overseas Bank', 'Verified'),
+(28, NULL, 'Manoj Kumar Panda', 'Baidyanath Panda', 'Male', '+91 94371 11028', 'XXXX-XXXX-1028', 'Alva, Biridi', 4, 'XXXX-XXXX-1028', 'BKID0004123', 'Bank of India', 'Pending'),
+(29, NULL, 'Hemanta Kumar Lenka', 'Bichitrananda Lenka', 'Male', '+91 94371 11029', 'XXXX-XXXX-1029', 'Manguli, Biridi', 4, 'XXXX-XXXX-1029', 'PUNB0041234', 'Punjab National Bank', 'Verified'),
+(30, NULL, 'Smt. Sarojini Kanungo', 'Bipin Bihari Kanungo', 'Female', '+91 94371 11030', 'XXXX-XXXX-1030', 'Kandarpur, Biridi', 4, 'XXXX-XXXX-1030', 'SBIN0004123', 'State Bank of India', 'Verified'),
+(31, NULL, 'Artatran Nayak', 'Krupasindhu Nayak', 'Male', '+91 94371 11031', 'XXXX-XXXX-1031', 'Ersama Market', 5, 'XXXX-XXXX-1031', 'SBIN0005123', 'State Bank of India', 'Verified'),
+(32, NULL, 'Smt. Malati Majhi', 'Late Sanatan Majhi', 'Female', '+91 94371 11032', 'XXXX-XXXX-1032', 'Chatua, Ersama', 5, 'XXXX-XXXX-1032', 'UBIN0551234', 'Union Bank of India', 'Verified'),
+(33, NULL, 'Batakrushna Sethi', 'Bhima Sethi', 'Male', '+91 94371 11033', 'XXXX-XXXX-1033', 'Gadaharishpur, Ersama', 5, 'XXXX-XXXX-1033', 'BARB0ERSAMA', 'Bank of Baroda', 'Pending'),
+(34, NULL, 'Kishore Chandra Das', 'Gangadhar Das', 'Male', '+91 94371 11034', 'XXXX-XXXX-1034', 'Padmapur, Ersama', 5, 'XXXX-XXXX-1034', 'IOBA0005123', 'Indian Overseas Bank', 'Verified'),
+(35, NULL, 'Smt. Santilata Khatua', 'Late Dhruba Khatua', 'Female', '+91 94371 11035', 'XXXX-XXXX-1035', 'Ambiki, Ersama', 5, 'XXXX-XXXX-1035', 'SBIN0005123', 'State Bank of India', 'Verified'),
+(36, NULL, 'Pabitra Mohan Routray', 'Chintamani Routray', 'Male', '+91 94371 11036', 'XXXX-XXXX-1036', 'Kujang Block Road', 6, 'XXXX-XXXX-1036', 'SBIN0006123', 'State Bank of India', 'Verified'),
+(37, NULL, 'Smt. Hemalata Tarai', 'Late Naba Tarai', 'Female', '+91 94371 11037', 'XXXX-XXXX-1037', 'Pankapal, Kujang', 6, 'XXXX-XXXX-1037', 'PUNB0061234', 'Punjab National Bank', 'Verified'),
+(38, NULL, 'Abhimanyu Swain', 'Markanda Swain', 'Male', '+91 94371 11038', 'XXXX-XXXX-1038', 'Gandakipur, Kujang', 6, 'XXXX-XXXX-1038', 'CNRB0006123', 'Canara Bank', 'Verified'),
+(39, NULL, 'Duryodhan Muduli', 'Late Banchhanidhi Muduli', 'Male', '+91 94371 11039', 'XXXX-XXXX-1039', 'Zillanasi, Kujang', 6, 'XXXX-XXXX-1039', 'UBIN0561234', 'Union Bank of India', 'Pending'),
+(40, NULL, 'Smt. Saraswati Behera', 'Kailash Behera', 'Female', '+91 94371 11040', 'XXXX-XXXX-1040', 'Mangarajpur, Kujang', 6, 'XXXX-XXXX-1040', 'SBIN0006123', 'State Bank of India', 'Verified');
+
+-- Insert 84 Land Parcels across 6 villages & 32 cases
+INSERT INTO parcels (id, case_id, village_id, plot_number, khata_number, area_acres, land_type, valuation_per_acre_inr, total_valuation_inr, risk_level, risk_color, survey_status, acquisition_status) VALUES
+-- Case 1 (Pipili)
+(1, 1, 1, '101', '201', 2.50, 'Agricultural', 1200000.0, 3000000.0, 'Low', '#10B981', 'Completed', 'Joint Survey'),
+(2, 1, 1, '102', '202', 3.10, 'Agricultural', 1200000.0, 3720000.0, 'Low', '#10B981', 'Completed', 'Joint Survey'),
+(3, 1, 1, '103/1', '203', 1.80, 'Homestead', 2500000.0, 4500000.0, 'Low', '#10B981', 'In Progress', 'Joint Survey'),
+
+-- Case 2 (Pipili)
+(4, 2, 1, '110', '215', 4.20, 'Agricultural', 1200000.0, 5040000.0, 'Low', '#10B981', 'Completed', 'Objections Hearing'),
+(5, 2, 1, '111', '216', 2.90, 'Agricultural', 1200000.0, 3480000.0, 'Low', '#10B981', 'Completed', 'Objections Hearing'),
+(6, 2, 1, '112/A', '217', 1.50, 'Commercial', 3500000.0, 5250000.0, 'Medium', '#F59E0B', 'In Progress', 'Objections Hearing'),
+
+-- Case 3 (Pipili)
+(7, 3, 1, '120', '250', 3.80, 'Agricultural', 1200000.0, 4560000.0, 'Medium', '#F59E0B', 'Completed', 'Valuation'),
+(8, 3, 1, '121', '251', 2.40, 'Agricultural', 1200000.0, 2880000.0, 'Low', '#10B981', 'Completed', 'Valuation'),
+(9, 3, 1, '122', '252', 5.10, 'Agricultural', 1200000.0, 6120000.0, 'Medium', '#F59E0B', 'In Progress', 'Valuation'),
+
+-- *** CASE 4: PRIMARY DEMO CASE PARCELS (Pipili) ***
+(10, 4, 1, '140', '308', 2.80, 'Agricultural', 1500000.0, 4200000.0, 'High', '#EF4444', 'In Progress', 'Joint Survey'),
+(11, 4, 1, '141', '310', 3.40, 'Agricultural', 1500000.0, 5100000.0, 'High', '#EF4444', 'Pending', 'Joint Survey'),
+(12, 4, 1, '142/A', '312', 4.50, 'Agricultural', 1500000.0, 6750000.0, 'High', '#EF4444', 'Pending', 'Joint Survey'),
+(13, 4, 1, '142/B', '312', 2.20, 'Agricultural', 1500000.0, 3300000.0, 'High', '#EF4444', 'Pending', 'Joint Survey'),
+(14, 4, 1, '143', '315', 3.20, 'Homestead', 2800000.0, 8960000.0, 'Medium', '#F59E0B', 'Completed', 'Valuation'),
+(15, 4, 1, '144', '318', 5.80, 'Agricultural', 1500000.0, 8700000.0, 'Low', '#10B981', 'Completed', 'Valuation'),
+
+-- Case 5 (Pipili) - Completed/Disbursement
+(16, 5, 1, '150', '340', 3.60, 'Agricultural', 1500000.0, 5400000.0, 'Low', '#10B981', 'Completed', 'Compensation'),
+(17, 5, 1, '151', '341', 4.10, 'Agricultural', 1500000.0, 6150000.0, 'Completed', '#3B82F6', 'Completed', 'Compensation'),
+(18, 5, 1, '152', '342', 2.70, 'Commercial', 3200000.0, 8640000.0, 'Low', '#10B981', 'Completed', 'Compensation'),
+
+-- Case 6 to 10 (Balipatna)
+(19, 6, 2, '201', '101', 3.20, 'Agricultural', 1100000.0, 3520000.0, 'Low', '#10B981', 'Completed', 'Notification'),
+(20, 6, 2, '202', '102', 4.50, 'Agricultural', 1100000.0, 4950000.0, 'Low', '#10B981', 'Completed', 'Notification'),
+(21, 7, 2, '210', '115', 2.80, 'Agricultural', 1100000.0, 3080000.0, 'Medium', '#F59E0B', 'In Progress', 'Joint Survey'),
+(22, 7, 2, '211', '116', 3.90, 'Homestead', 2200000.0, 8580000.0, 'Medium', '#F59E0B', 'In Progress', 'Joint Survey'),
+(23, 8, 2, '220', '130', 5.20, 'Agricultural', 1100000.0, 5720000.0, 'High', '#EF4444', 'Pending', 'Valuation'),
+(24, 8, 2, '221', '131', 4.10, 'Forest', 800000.0, 3280000.0, 'High', '#EF4444', 'Pending', 'Valuation'),
+(25, 9, 2, '230', '145', 3.00, 'Agricultural', 1100000.0, 3300000.0, 'Completed', '#3B82F6', 'Completed', 'Possession'),
+(26, 10, 2, '240', '160', 4.80, 'Agricultural', 1100000.0, 5280000.0, 'Low', '#10B981', 'Completed', 'Compensation'),
+
+-- Case 11 to 15 (Barang)
+(27, 11, 3, '301', '401', 3.50, 'Agricultural', 1400000.0, 4900000.0, 'Low', '#10B981', 'Completed', 'Notification'),
+(28, 12, 3, '310', '412', 4.20, 'Homestead', 2800000.0, 11760000.0, 'Medium', '#F59E0B', 'In Progress', 'Joint Survey'),
+(29, 13, 3, '320', '425', 6.10, 'Agricultural', 1400000.0, 8540000.0, 'High', '#EF4444', 'Pending', 'Objections Hearing'),
+(30, 13, 3, '321', '426', 3.80, 'Commercial', 4000000.0, 15200000.0, 'High', '#EF4444', 'Pending', 'Objections Hearing'),
+(31, 14, 3, '330', '440', 2.90, 'Agricultural', 1400000.0, 4060000.0, 'Low', '#10B981', 'Completed', 'Valuation'),
+(32, 15, 3, '340', '455', 5.00, 'Agricultural', 1400000.0, 7000000.0, 'Low', '#10B981', 'Completed', 'Compensation'),
+
+-- Case 16 to 20 (Biridi)
+(33, 16, 4, '401', '501', 2.70, 'Agricultural', 1000000.0, 2700000.0, 'Low', '#10B981', 'Completed', 'Notification'),
+(34, 17, 4, '410', '512', 3.60, 'Agricultural', 1000000.0, 3600000.0, 'Medium', '#F59E0B', 'In Progress', 'Joint Survey'),
+(35, 18, 4, '420', '525', 4.50, 'Agricultural', 1000000.0, 4500000.0, 'High', '#EF4444', 'Pending', 'Valuation'),
+(36, 19, 4, '430', '538', 3.30, 'Agricultural', 1000000.0, 3300000.0, 'Low', '#10B981', 'Completed', 'Compensation'),
+(37, 20, 4, '440', '550', 5.20, 'Agricultural', 1000000.0, 5200000.0, 'Completed', '#3B82F6', 'Completed', 'Possession'),
+
+-- Case 21 to 25 (Ersama)
+(38, 21, 5, '501', '601', 4.00, 'Agricultural', 1300000.0, 5200000.0, 'Low', '#10B981', 'Completed', 'Notification'),
+(39, 22, 5, '510', '615', 3.80, 'Homestead', 2400000.0, 9120000.0, 'Medium', '#F59E0B', 'In Progress', 'Joint Survey'),
+(40, 23, 5, '520', '630', 6.50, 'Agricultural', 1300000.0, 8450000.0, 'High', '#EF4444', 'Pending', 'Objections Hearing'),
+(41, 24, 5, '530', '645', 3.10, 'Agricultural', 1300000.0, 4030000.0, 'Medium', '#F59E0B', 'In Progress', 'Valuation'),
+(42, 25, 5, '540', '660', 4.80, 'Agricultural', 1300000.0, 6240000.0, 'Low', '#10B981', 'Completed', 'Compensation'),
+
+-- Case 26 to 30 (Kujang)
+(43, 26, 6, '601', '701', 3.40, 'Agricultural', 1600000.0, 5440000.0, 'Low', '#10B981', 'Completed', 'Notification'),
+(44, 27, 6, '610', '712', 4.60, 'Commercial', 3800000.0, 17480000.0, 'Medium', '#F59E0B', 'In Progress', 'Joint Survey'),
+(45, 28, 6, '620', '725', 5.50, 'Agricultural', 1600000.0, 8800000.0, 'Medium', '#F59E0B', 'In Progress', 'Valuation'),
+(46, 29, 6, '630', '740', 3.90, 'Agricultural', 1600000.0, 6240000.0, 'Low', '#10B981', 'Completed', 'Compensation'),
+(47, 30, 6, '640', '755', 6.00, 'Agricultural', 1600000.0, 9600000.0, 'Completed', '#3B82F6', 'Completed', 'Possession'),
+
+-- Additional parcels to reach 84 total
+(48, 1, 1, '104', '204', 2.10, 'Agricultural', 1200000.0, 2520000.0, 'Low', '#10B981', 'Completed', 'Joint Survey'),
+(49, 2, 1, '113', '218', 3.30, 'Agricultural', 1200000.0, 3960000.0, 'Low', '#10B981', 'Completed', 'Objections Hearing'),
+(50, 3, 1, '123', '253', 2.80, 'Agricultural', 1200000.0, 3360000.0, 'Medium', '#F59E0B', 'In Progress', 'Valuation'),
+(51, 6, 2, '203', '103', 1.90, 'Agricultural', 1100000.0, 2090000.0, 'Low', '#10B981', 'Completed', 'Notification'),
+(52, 7, 2, '212', '117', 2.40, 'Agricultural', 1100000.0, 2640000.0, 'Medium', '#F59E0B', 'In Progress', 'Joint Survey'),
+(53, 8, 2, '222', '132', 3.70, 'Agricultural', 1100000.0, 4070000.0, 'High', '#EF4444', 'Pending', 'Valuation'),
+(54, 11, 3, '302', '402', 2.50, 'Agricultural', 1400000.0, 3500000.0, 'Low', '#10B981', 'Completed', 'Notification'),
+(55, 12, 3, '311', '413', 3.10, 'Agricultural', 1400000.0, 4340000.0, 'Medium', '#F59E0B', 'In Progress', 'Joint Survey'),
+(56, 13, 3, '322', '427', 4.40, 'Agricultural', 1400000.0, 6160000.0, 'High', '#EF4444', 'Pending', 'Objections Hearing'),
+(57, 16, 4, '402', '502', 2.20, 'Agricultural', 1000000.0, 2200000.0, 'Low', '#10B981', 'Completed', 'Notification'),
+(58, 17, 4, '411', '513', 3.50, 'Agricultural', 1000000.0, 3500000.0, 'Medium', '#F59E0B', 'In Progress', 'Joint Survey'),
+(59, 18, 4, '421', '526', 4.10, 'Agricultural', 1000000.0, 4100000.0, 'High', '#EF4444', 'Pending', 'Valuation'),
+(60, 21, 5, '502', '602', 3.00, 'Agricultural', 1300000.0, 3900000.0, 'Low', '#10B981', 'Completed', 'Notification'),
+(61, 22, 5, '511', '616', 2.70, 'Agricultural', 1300000.0, 3510000.0, 'Medium', '#F59E0B', 'In Progress', 'Joint Survey'),
+(62, 23, 5, '521', '631', 5.10, 'Agricultural', 1300000.0, 6630000.0, 'High', '#EF4444', 'Pending', 'Objections Hearing'),
+(63, 26, 6, '602', '702', 2.80, 'Agricultural', 1600000.0, 4480000.0, 'Low', '#10B981', 'Completed', 'Notification'),
+(64, 27, 6, '611', '713', 3.60, 'Agricultural', 1600000.0, 5760000.0, 'Medium', '#F59E0B', 'In Progress', 'Joint Survey'),
+(65, 28, 6, '621', '726', 4.20, 'Agricultural', 1600000.0, 6720000.0, 'Medium', '#F59E0B', 'In Progress', 'Valuation'),
+(66, 31, 1, '160', '370', 3.00, 'Agricultural', 1500000.0, 4500000.0, 'Medium', '#F59E0B', 'In Progress', 'Joint Survey'),
+(67, 31, 1, '161', '371', 2.50, 'Agricultural', 1500000.0, 3750000.0, 'Medium', '#F59E0B', 'In Progress', 'Joint Survey'),
+(68, 32, 3, '350', '480', 3.40, 'Agricultural', 1400000.0, 4760000.0, 'Medium', '#F59E0B', 'In Progress', 'Valuation'),
+(69, 32, 3, '351', '481', 4.10, 'Agricultural', 1400000.0, 5740000.0, 'Medium', '#F59E0B', 'In Progress', 'Valuation'),
+(70, 1, 1, '105', '205', 1.70, 'Agricultural', 1200000.0, 2040000.0, 'Low', '#10B981', 'Completed', 'Joint Survey'),
+(71, 2, 1, '114', '219', 2.30, 'Agricultural', 1200000.0, 2760000.0, 'Low', '#10B981', 'Completed', 'Objections Hearing'),
+(72, 3, 1, '124', '254', 3.10, 'Agricultural', 1200000.0, 3720000.0, 'Low', '#10B981', 'Completed', 'Valuation'),
+(73, 5, 1, '153', '343', 2.00, 'Homestead', 2600000.0, 5200000.0, 'Completed', '#3B82F6', 'Completed', 'Compensation'),
+(74, 9, 2, '231', '146', 2.50, 'Agricultural', 1100000.0, 2750000.0, 'Completed', '#3B82F6', 'Completed', 'Possession'),
+(75, 10, 2, '241', '161', 3.40, 'Agricultural', 1100000.0, 3740000.0, 'Low', '#10B981', 'Completed', 'Compensation'),
+(76, 14, 3, '331', '441', 2.10, 'Agricultural', 1400000.0, 2940000.0, 'Low', '#10B981', 'Completed', 'Valuation'),
+(77, 15, 3, '341', '456', 3.80, 'Agricultural', 1400000.0, 5320000.0, 'Low', '#10B981', 'Completed', 'Compensation'),
+(78, 19, 4, '431', '539', 2.90, 'Agricultural', 1000000.0, 2900000.0, 'Low', '#10B981', 'Completed', 'Compensation'),
+(79, 20, 4, '441', '551', 3.60, 'Agricultural', 1000000.0, 3600000.0, 'Completed', '#3B82F6', 'Completed', 'Possession'),
+(80, 24, 5, '531', '646', 2.40, 'Agricultural', 1300000.0, 3120000.0, 'Low', '#10B981', 'Completed', 'Valuation'),
+(81, 25, 5, '541', '661', 3.70, 'Agricultural', 1300000.0, 4810000.0, 'Low', '#10B981', 'Completed', 'Compensation'),
+(82, 29, 6, '631', '741', 2.60, 'Agricultural', 1600000.0, 4160000.0, 'Low', '#10B981', 'Completed', 'Compensation'),
+(83, 30, 6, '641', '756', 4.00, 'Agricultural', 1600000.0, 6400000.0, 'Completed', '#3B82F6', 'Completed', 'Possession'),
+(84, 4, 1, '145', '320', 3.00, 'Agricultural', 1500000.0, 4500000.0, 'Insufficient', '#9CA3AF', 'Pending', 'Joint Survey');
+
+-- Ownership Mapping (Connecting Landowners to Parcels)
+INSERT INTO parcel_ownerships (parcel_id, landowner_id, ownership_share_pct, is_primary_contact, dispute_flag, dispute_remarks) VALUES
+-- Demo Case 4 Parcels (Plot 142/A with co-sharer dispute between Bikram Das & Prasant Das)
+(12, 12, 50.0, 1, 1, 'Co-sharer title dispute on sub-plot demarcation'),
+(12, 13, 50.0, 0, 1, 'Co-sharer claim for independent mutation'),
+(10, 1, 100.0, 1, 0, NULL),
+(11, 2, 100.0, 1, 0, NULL),
+(13, 3, 100.0, 1, 0, NULL),
+(14, 14, 100.0, 1, 0, NULL),
+(15, 15, 100.0, 1, 0, NULL),
+
+-- Case 1 to 3
+(1, 1, 100.0, 1, 0, NULL),
+(2, 2, 100.0, 1, 0, NULL),
+(3, 3, 100.0, 1, 0, NULL),
+(4, 4, 100.0, 1, 0, NULL),
+(5, 5, 100.0, 1, 0, NULL),
+(6, 6, 100.0, 1, 0, NULL),
+(7, 7, 100.0, 1, 0, NULL),
+(8, 8, 100.0, 1, 0, NULL),
+(9, 9, 100.0, 1, 0, NULL),
+(16, 10, 100.0, 1, 0, NULL),
+(17, 11, 100.0, 1, 0, NULL),
+(18, 12, 100.0, 1, 0, NULL),
+(19, 16, 100.0, 1, 0, NULL),
+(20, 17, 100.0, 1, 0, NULL),
+(21, 18, 100.0, 1, 0, NULL),
+(22, 19, 100.0, 1, 0, NULL),
+(23, 20, 100.0, 1, 0, NULL),
+(24, 21, 100.0, 1, 0, NULL),
+(25, 22, 100.0, 1, 0, NULL),
+(26, 23, 100.0, 1, 0, NULL),
+(27, 24, 100.0, 1, 0, NULL),
+(28, 25, 100.0, 1, 0, NULL),
+(29, 26, 100.0, 1, 0, NULL),
+(30, 27, 100.0, 1, 0, NULL),
+(31, 28, 100.0, 1, 0, NULL),
+(32, 29, 100.0, 1, 0, NULL),
+(33, 30, 100.0, 1, 0, NULL),
+(34, 31, 100.0, 1, 0, NULL),
+(35, 32, 100.0, 1, 0, NULL),
+(36, 33, 100.0, 1, 0, NULL),
+(37, 34, 100.0, 1, 0, NULL),
+(38, 35, 100.0, 1, 0, NULL),
+(39, 36, 100.0, 1, 0, NULL),
+(40, 37, 100.0, 1, 0, NULL),
+(41, 38, 100.0, 1, 0, NULL),
+(42, 39, 100.0, 1, 0, NULL),
+(43, 40, 100.0, 1, 0, NULL);
