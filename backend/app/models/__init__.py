@@ -14,6 +14,10 @@ from app.models.alert import Alert
 from app.models.grievance import Grievance, GrievanceUpdate
 from app.models.activity_log import ActivityLog
 
+from app.models.hearing import Hearing
+from app.models.notice import Notice
+from app.models.claim import LandownerClaim
+
 __all__ = [
     "Base",
     "Department",
@@ -35,4 +39,7 @@ __all__ = [
     "Grievance",
     "GrievanceUpdate",
     "ActivityLog",
+    "Hearing",
+    "Notice",
+    "LandownerClaim",
 ]

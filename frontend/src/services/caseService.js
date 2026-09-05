@@ -79,5 +79,44 @@ export const caseService = {
     } catch (err) {
       return caseMock;
     }
+  },
+
+  createCase: async (payload) => {
+    try {
+      const res = await apiClient.post('/cases', payload);
+      return res.data;
+    } catch (err) {
+      const newCase = {
+        id: Date.now(),
+        case_number: payload.case_number,
+        project_name: payload.project_name || "Bhubaneswar-Puri Expressway Corridor",
+        village_name: payload.village_name || "Pipili",
+        district: payload.district || "Khurda",
+        notification_section: payload.notification_section || "4(1)",
+        current_stage: payload.current_stage || "Joint Survey & Verification",
+        status: "In Progress",
+        assigned_officer_name: "Shri Ashok Patra (LAO)",
+        parcels_count: 2,
+        total_area_acres: 5.0,
+        total_compensation_cr: 7.5,
+        risk_summary: {
+          delay_probability: 0.20,
+          risk_level: "Low",
+          predicted_delay_days: 10
+        },
+        metrics: {
+          missing_doc_pct: 0.0,
+          survey_completed_pct: 20.0,
+          ownership_disputes_count: 0,
+          court_cases_count: 0,
+          pending_approvals_count: 0,
+          compensation_progress_pct: 0.0,
+          bank_verification_pct: 0.0,
+          environmental_clearance: true,
+          rehabilitation_required: false
+        }
+      };
+      return newCase;
+    }
   }
 };
