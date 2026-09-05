@@ -26,4 +26,4 @@ jobs:
           python machine-learning/src/generate_data.py
           python machine-learning/src/train_classifier.py
           python machine-learning/src/train_regressor.py
-          pytest tests/integration
+          pytest tests/test_api_integration.py
