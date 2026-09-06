@@ -41,6 +41,8 @@ BhoomiSetu AI Full-Stack Platform
 
 ## 🚀 Quick Start (Local Run in 3 Minutes)
 
+> 📖 **Detailed Setup Guide**: For comprehensive local server installation, tools, environment setup, and Docker guides, see [SETUP_README.md](file:///c:/Users/ASUS/Sih-pr1/BhoomiSetu-AI/SETUP_README.md).
+
 ### Prerequisites
 - **Node.js**: v18+ (tested on v20/v22)
 - **Python**: 3.10+ (tested on Python 3.11)

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { taskService } from '../../services/taskService';
 import { useNotifications } from '../../context/NotificationContext';
-import { CheckSquare, Clock, AlertTriangle, CheckCircle2, User, Building } from 'lucide-react';
+import { Plus, CheckSquare, Clock, AlertTriangle, CheckCircle2, User, Building } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { AssignTaskModal } from '../../components/modals/AssignTaskModal';
 
 export const TasksManagementPage = () => {
   const { t } = useTranslation();
@@ -10,6 +11,7 @@ export const TasksManagementPage = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('ALL');
+  const [isAssignOpen, setIsAssignOpen] = useState(false);
 
   const loadTasks = async () => {
     setLoading(true);
@@ -52,18 +54,28 @@ export const TasksManagementPage = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-slate-200 shadow-sm text-xs font-semibold">
-          {['ALL', 'PENDING', 'OVERDUE', 'COMPLETED'].map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`px-3 py-1.5 rounded-lg transition-all ${
-                filter === f ? 'bg-govblue-700 text-white font-bold' : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              {f}
-            </button>
-          ))}
+        <div className="flex items-center gap-3 self-start sm:self-auto">
+          <button
+            onClick={() => setIsAssignOpen(true)}
+            className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all shadow-sm"
+          >
+            <Plus className="w-4 h-4 text-amber-400" />
+            <span>Assign Task to Survey Officer</span>
+          </button>
+
+          <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-slate-200 shadow-sm text-xs font-semibold">
+            {['ALL', 'PENDING', 'OVERDUE', 'COMPLETED'].map((f) => (
+              <button
+                key={f}
+                onClick={() => setFilter(f)}
+                className={`px-3 py-1.5 rounded-lg transition-all ${
+                  filter === f ? 'bg-govblue-700 text-white font-bold' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                {f}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -113,6 +125,12 @@ export const TasksManagementPage = () => {
           </div>
         ))}
       </div>
+
+      <AssignTaskModal
+        isOpen={isAssignOpen}
+        onClose={() => setIsAssignOpen(false)}
+        onTaskAssigned={loadTasks}
+      />
     </div>
   );
 };

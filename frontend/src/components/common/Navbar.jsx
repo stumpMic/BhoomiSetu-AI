@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useNotifications } from '../../context/NotificationContext';
 import { LanguageSelector } from './LanguageSelector';
-import { Bell, Shield, User, LogOut, FileText } from 'lucide-react';
+import { Bell, Shield, User, LogOut, FileText, LayoutDashboard } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export const Navbar = () => {
@@ -11,6 +11,8 @@ export const Navbar = () => {
   const { unreadCount } = useNotifications();
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const dashboardPath = user?.role === 'landowner' ? '/landowner' : '/dashboard';
 
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
@@ -57,6 +59,13 @@ export const Navbar = () => {
 
           {user ? (
             <div className="flex items-center gap-3 pl-3 border-l border-slate-200">
+              <Link
+                to={dashboardPath}
+                className="bg-govblue-700 hover:bg-govblue-800 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-all shadow-sm flex items-center gap-1.5"
+              >
+                <LayoutDashboard className="w-4 h-4 text-amber-400" />
+                <span>Dashboard</span>
+              </Link>
               <div className="hidden md:block text-right">
                 <div className="text-xs font-bold text-slate-900">{user.full_name}</div>
                 <div className="text-[11px] text-slate-500 font-medium">
