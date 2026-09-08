@@ -23,10 +23,28 @@ def init_and_seed_db():
             os.remove(DB_PATH)
             print("[+] Removed old database file.")
         except Exception as e:
-            print(f"[!] Note: {e}")
+            pass
 
     conn = sqlite3.connect(str(DB_PATH))
     cursor = conn.cursor()
+
+    # Drop existing tables if file was locked and couldn't be deleted
+    cursor.execute("PRAGMA foreign_keys = OFF;")
+    all_tables = [
+        "survey_predictive_metrics", "survey_status_history", "survey_reports",
+        "survey_resurvey_requests", "survey_discrepancies", "survey_evidence",
+        "survey_field_observations", "survey_gps_verifications", "survey_schedules",
+        "survey_document_verifications", "survey_requests",
+        "verification_requests", "land_verification_records", "officer_verification_records",
+        "officers", "activity_logs", "grievance_updates", "grievances", "alerts",
+        "prediction_factors", "risk_predictions", "departmental_tasks",
+        "compensation_stages_log", "compensations", "ocr_results", "documents",
+        "parcel_ownerships", "landowners", "parcels", "acquisition_cases",
+        "villages", "projects", "users", "departments"
+    ]
+    for tbl in all_tables:
+        cursor.execute(f"DROP TABLE IF EXISTS {tbl};")
+    conn.commit()
 
     # 1. Execute Schema
     schema_files = ["tables.sql", "indexes.sql"]
@@ -45,7 +63,9 @@ def init_and_seed_db():
         "parcels.sql",
         "compensations.sql",
         "tasks.sql",
-        "grievances.sql"
+        "grievances.sql",
+        "verification_records.sql",
+        "surveys.sql"
     ]
 
     for seed in seed_files:
@@ -63,15 +83,20 @@ def init_and_seed_db():
         "departments", "users", "projects", "villages",
         "acquisition_cases", "parcels", "landowners",
         "parcel_ownerships", "compensations", "departmental_tasks",
-        "grievances"
+        "grievances", "officers", "officer_verification_records",
+        "land_verification_records", "verification_requests",
+        "survey_requests", "survey_schedules", "survey_document_verifications",
+        "survey_gps_verifications", "survey_field_observations",
+        "survey_evidence", "survey_discrepancies", "survey_resurvey_requests",
+        "survey_reports", "survey_status_history", "survey_predictive_metrics"
     ]
     for table in tables:
         try:
             cursor.execute(f"SELECT COUNT(*) FROM {table}")
             cnt = cursor.fetchone()[0]
-            print(f"  [OK] {table:<22} : {cnt} records")
+            print(f"  [OK] {table:<32} : {cnt} records")
         except Exception as e:
-            print(f"  [ERR] {table:<22} : Error ({e})")
+            print(f"  [ERR] {table:<32} : Error ({e})")
 
     conn.close()
     print("\n[SUCCESS] Database initialization and seeding completed successfully!")

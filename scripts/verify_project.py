@@ -54,7 +54,10 @@ def verify_project():
             ("landowners", 40),
             ("compensations", 12),
             ("departmental_tasks", 8),
-            ("grievances", 5)
+            ("grievances", 5),
+            ("officer_verification_records", 5),
+            ("land_verification_records", 6),
+            ("verification_requests", 2)
         ]
         for t, min_cnt in tables:
             try:

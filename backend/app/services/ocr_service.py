@@ -30,19 +30,21 @@ class OCRService:
                         raw_text = content
                         
                         # Flexible Regex extraction heuristics
-                        name_match = re.search(r'(?:Name|Landowner|Owner|Pattadar)[s\(\)\:\s\d\.]+([A-Za-z\s]+?)(?:,|\n|\(|S/o|D/o|W/o|$)', content, re.IGNORECASE)
-                        if name_match and len(name_match.group(1).strip()) > 2:
-                            extracted["owner_name"] = name_match.group(1).strip()
+                        name_match = re.search(r'(?:Name|Landowner|Owner|Pattadar)[s\(\)\:\s\d\.]+([A-Za-z\s]+?)(?:,|\n|\(|S/o|D/o|W/o|\-|$)', content, re.IGNORECASE)
+                        if name_match:
+                            cand_name = name_match.group(1).strip()
+                            if len(cand_name) > 3:
+                                extracted["owner_name"] = cand_name
                             
-                        plot_match = re.search(r'(?:Plot|Plot\s*No|Khasra)[:\.\s]+([0-9A-Za-z/]+)', content, re.IGNORECASE)
+                        plot_match = re.search(r'(?:Plot(?:\s*Number|\s*No\.?)?|Khasra)[:\.\s]+([0-9A-Za-z/]+)', content, re.IGNORECASE)
                         if plot_match:
                             extracted["plot_number"] = plot_match.group(1).strip()
                             
-                        khata_match = re.search(r'(?:Khata|Khatiyan|Khata\s*No)[:\.\s]+([0-9]+)', content, re.IGNORECASE)
+                        khata_match = re.search(r'(?:Khata(?:\s*Number|\s*No\.?)?|Khatiyan)[:\.\s]+([0-9]+)', content, re.IGNORECASE)
                         if khata_match:
                             extracted["khata_number"] = khata_match.group(1).strip()
                             
-                        area_match = re.search(r'(?:Area|Acres|Rakba)[:\.\s]+([0-9\.]+)', content, re.IGNORECASE)
+                        area_match = re.search(r'(?:Area|Acres|Rakba|Total\s*Area)[:\.\s]+([0-9\.]+)', content, re.IGNORECASE)
                         if area_match:
                             try:
                                 extracted["area_acres"] = float(area_match.group(1).strip())
@@ -84,7 +86,7 @@ class OCRService:
             # 4. Fuzzy Compare Owner Name with RapidFuzz
             ext_name = extracted.get("owner_name", "")
             name_sim = fuzz.token_sort_ratio(str(official_owner_name).lower(), str(ext_name).lower())
-            if name_sim < 80.0:
+            if name_sim < 75.0:
                 flagged_issues.append(f"Landowner Name similarity score is {name_sim:.1f}% (Official: '{official_owner_name}', Extracted: '{ext_name}').")
 
         has_discrepancy = len(flagged_issues) > 0

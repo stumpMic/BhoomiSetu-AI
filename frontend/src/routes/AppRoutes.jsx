@@ -10,6 +10,7 @@ import { PublicLayout } from '../layouts/PublicLayout';
 // Public Pages
 import { LandingPage } from '../pages/LandingPage';
 import { LoginPage } from '../pages/auth/LoginPage';
+import { RegisterPage } from '../pages/auth/RegisterPage';
 import { UnauthorizedPage, NotFoundPage } from '../pages/UnauthorizedPage';
 
 // Officer / Admin Pages
@@ -27,6 +28,12 @@ import { TasksManagementPage } from '../pages/tasks/TasksManagementPage';
 import { AlertsCenterPage } from '../pages/alerts/AlertsCenterPage';
 import { GrievanceManagementPage } from '../pages/grievances/GrievanceManagementPage';
 import { AdminUserManagementPage } from '../pages/admin/AdminUserManagementPage';
+import { AdminVerificationDashboardPage } from '../pages/admin/AdminVerificationDashboardPage';
+
+// Survey Officer Module Pages
+import { SurveyDashboardPage } from '../pages/survey/SurveyDashboardPage';
+import { SurveyRequestsListPage } from '../pages/survey/SurveyRequestsListPage';
+import { SurveyExecutionPage } from '../pages/survey/SurveyExecutionPage';
 
 // Landowner Pages
 import { LandownerDashboardPage } from '../pages/landowner/LandownerDashboardPage';
@@ -63,6 +70,7 @@ export const AppRoutes = () => {
       <Route element={<PublicLayout />}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
       </Route>
 
@@ -87,7 +95,21 @@ export const AppRoutes = () => {
         <Route path="/tasks" element={<TasksManagementPage />} />
         <Route path="/alerts" element={<AlertsCenterPage />} />
         <Route path="/grievances" element={<GrievanceManagementPage />} />
+        <Route path="/admin/verifications" element={<AdminVerificationDashboardPage />} />
         <Route path="/admin/users" element={<AdminUserManagementPage />} />
+      </Route>
+
+      {/* Survey Officer Protected Routes (Strictly Survey Officer & Admin) */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'survey_officer']}>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/survey/dashboard" element={<SurveyDashboardPage />} />
+        <Route path="/survey/requests" element={<SurveyRequestsListPage />} />
+        <Route path="/survey/execute/:id" element={<SurveyExecutionPage />} />
       </Route>
 
       {/* Landowner Protected Routes */}

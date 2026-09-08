@@ -20,6 +20,8 @@ from app.api.compensation import router as compensation_router
 from app.api.tasks import router as tasks_router
 from app.api.alerts import router as alerts_router
 from app.api.grievances import router as grievances_router
+from app.api.admin_verifications import router as admin_verifications_router
+from app.api.surveys import router as surveys_router
 
 # Initialize tables
 Base.metadata.create_all(bind=engine)
@@ -59,6 +61,8 @@ app.include_router(compensation_router, prefix="/api")
 app.include_router(tasks_router, prefix="/api")
 app.include_router(alerts_router, prefix="/api")
 app.include_router(grievances_router, prefix="/api")
+app.include_router(admin_verifications_router, prefix="/api")
+app.include_router(surveys_router, prefix="/api")
 
 @app.get("/")
 def root():

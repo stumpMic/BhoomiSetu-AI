@@ -23,6 +23,9 @@ CREATE TABLE IF NOT EXISTS users (
     role VARCHAR(40) NOT NULL, -- admin, project_authority, land_acquisition_officer, survey_officer, compensation_officer, landowner
     department_id INTEGER REFERENCES departments(id) ON DELETE SET NULL,
     district VARCHAR(60),
+    state VARCHAR(60) DEFAULT 'Odisha',
+    address TEXT,
+    verification_status VARCHAR(30) DEFAULT 'PENDING_VERIFICATION', -- PENDING_VERIFICATION, VERIFIED, REJECTED, SUSPENDED
     is_active BOOLEAN DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -306,3 +309,277 @@ CREATE TABLE IF NOT EXISTS activity_logs (
     ip_address VARCHAR(45),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- 20. Government Officers Profile & Verification
+CREATE TABLE IF NOT EXISTS officers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    officer_id VARCHAR(50) NOT NULL UNIQUE,
+    department VARCHAR(120) NOT NULL,
+    designation VARCHAR(120) NOT NULL,
+    office_name VARCHAR(150) NOT NULL,
+    office_code VARCHAR(50) NOT NULL,
+    district VARCHAR(60) NOT NULL,
+    authorization_doc_path TEXT,
+    verification_status VARCHAR(30) DEFAULT 'PENDING_VERIFICATION', -- PENDING_VERIFICATION, VERIFIED, REJECTED, SUSPENDED
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 21. Officer Verification Records (Prototype Authorized Whitelist Dataset)
+CREATE TABLE IF NOT EXISTS officer_verification_records (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    officer_id VARCHAR(50) NOT NULL UNIQUE,
+    official_email VARCHAR(120) NOT NULL UNIQUE,
+    full_name VARCHAR(120) NOT NULL,
+    department VARCHAR(120) NOT NULL,
+    designation VARCHAR(120) NOT NULL,
+    office_code VARCHAR(50) NOT NULL,
+    district VARCHAR(60) NOT NULL,
+    verification_status VARCHAR(30) DEFAULT 'VERIFIED',
+    is_active BOOLEAN DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 22. Land Verification Records (Prototype Cadastral Revenue Dataset)
+CREATE TABLE IF NOT EXISTS land_verification_records (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    land_record_id VARCHAR(50) NOT NULL UNIQUE,
+    owner_name VARCHAR(150) NOT NULL,
+    district VARCHAR(60) NOT NULL,
+    tahasil VARCHAR(60) NOT NULL,
+    village VARCHAR(100) NOT NULL,
+    plot_number VARCHAR(40) NOT NULL,
+    khata_number VARCHAR(40) NOT NULL,
+    area_acres NUMERIC(8, 3) NOT NULL,
+    verification_status VARCHAR(30) DEFAULT 'VERIFIED',
+    is_verified BOOLEAN DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 23. Verification Requests (Admin Review & Approval Workflow)
+CREATE TABLE IF NOT EXISTS verification_requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    request_type VARCHAR(30) NOT NULL, -- LANDOWNER, OFFICER
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    reviewed_at TIMESTAMP,
+    reviewed_by_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    status VARCHAR(30) DEFAULT 'PENDING', -- PENDING, APPROVED, REJECTED
+    rejection_reason TEXT,
+    notes TEXT,
+    document_path TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ====================================================================
+-- SURVEY OFFICER (SO) MODULE TABLES
+-- ====================================================================
+
+-- 24. Survey Requests (LAO to SO Assignment)
+CREATE TABLE IF NOT EXISTS survey_requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    request_number VARCHAR(50) NOT NULL UNIQUE,
+    case_id INTEGER NOT NULL REFERENCES acquisition_cases(id) ON DELETE CASCADE,
+    parcel_id INTEGER NOT NULL REFERENCES parcels(id) ON DELETE CASCADE,
+    lao_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    assigned_so_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    status VARCHAR(30) DEFAULT 'ASSIGNED', -- ASSIGNED, ACCEPTED, SCHEDULED, IN_PROGRESS, SUBMITTED, UNDER_REVIEW, APPROVED, RETURNED, RESURVEY_REQUIRED, COMPLETED, REJECTED
+    priority VARCHAR(20) DEFAULT 'Medium', -- Low, Medium, High, Urgent
+    purpose VARCHAR(200) NOT NULL,
+    instructions TEXT,
+    assignment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    accepted_date TIMESTAMP,
+    scheduled_date DATE,
+    survey_start_date TIMESTAMP,
+    survey_completed_date TIMESTAMP,
+    submission_date TIMESTAMP,
+    review_date TIMESTAMP,
+    deadline DATE,
+    return_reason TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 25. Survey Document Verifications
+CREATE TABLE IF NOT EXISTS survey_document_verifications (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    survey_request_id INTEGER NOT NULL REFERENCES survey_requests(id) ON DELETE CASCADE,
+    document_id INTEGER REFERENCES documents(id) ON DELETE SET NULL,
+    doc_type VARCHAR(80) NOT NULL, -- Record of Rights (RoR), Land ownership document, Mutation record, Sale deed, Land map, Previous survey report, Other
+    doc_title VARCHAR(150) NOT NULL,
+    file_path TEXT,
+    verification_status VARCHAR(30) DEFAULT 'NOT_VERIFIED', -- VERIFIED, NOT_VERIFIED, MISMATCH, MISSING
+    mismatch_details TEXT,
+    remarks TEXT,
+    verified_at TIMESTAMP,
+    verified_by_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 26. Survey Schedules
+CREATE TABLE IF NOT EXISTS survey_schedules (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    survey_request_id INTEGER NOT NULL REFERENCES survey_requests(id) ON DELETE CASCADE,
+    scheduled_date DATE NOT NULL,
+    scheduled_time VARCHAR(20) NOT NULL,
+    expected_duration_hours NUMERIC(4, 1) DEFAULT 2.0,
+    field_team_members TEXT,
+    special_instructions TEXT,
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 27. Survey GPS & Location Verifications
+CREATE TABLE IF NOT EXISTS survey_gps_verifications (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    survey_request_id INTEGER NOT NULL REFERENCES survey_requests(id) ON DELETE CASCADE,
+    captured_latitude NUMERIC(10, 7),
+    captured_longitude NUMERIC(10, 7),
+    expected_latitude NUMERIC(10, 7),
+    expected_longitude NUMERIC(10, 7),
+    distance_from_expected_meters NUMERIC(8, 2),
+    location_status VARCHAR(40) DEFAULT 'GPS UNAVAILABLE', -- LOCATION VERIFIED, NEAR EXPECTED LOCATION, LOCATION MISMATCH, GPS UNAVAILABLE, MANUALLY ENTERED
+    is_manual_entry BOOLEAN DEFAULT 0,
+    captured_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    survey_points_geojson TEXT
+);
+
+-- 28. Survey Field Observations
+CREATE TABLE IF NOT EXISTS survey_field_observations (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    survey_request_id INTEGER NOT NULL REFERENCES survey_requests(id) ON DELETE CASCADE,
+    observed_area_acres NUMERIC(8, 3),
+    land_use VARCHAR(50) DEFAULT 'Agricultural', -- Agricultural, Homestead, Commercial, Forest, Barren, Industrial
+    crop_type VARCHAR(100),
+    irrigation_available BOOLEAN DEFAULT 0,
+    general_condition TEXT,
+    has_house BOOLEAN DEFAULT 0,
+    has_building BOOLEAN DEFAULT 0,
+    has_boundary_wall BOOLEAN DEFAULT 0,
+    has_well BOOLEAN DEFAULT 0,
+    has_pond BOOLEAN DEFAULT 0,
+    trees_count INTEGER DEFAULT 0,
+    has_electrical_infra BOOLEAN DEFAULT 0,
+    other_structures TEXT,
+    landowner_present BOOLEAN DEFAULT 1,
+    occupant_present BOOLEAN DEFAULT 1,
+    tenant_present BOOLEAN DEFAULT 0,
+    occupancy_remarks TEXT,
+    boundary_status VARCHAR(50) DEFAULT 'Boundary matches records', -- Boundary matches records, Boundary mismatch, Encroachment suspected, Neighboring parcel issue, Unable to verify, Other
+    boundary_remarks TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 29. Survey Photo / Video Evidence
+CREATE TABLE IF NOT EXISTS survey_evidence (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    survey_request_id INTEGER NOT NULL REFERENCES survey_requests(id) ON DELETE CASCADE,
+    category VARCHAR(60) NOT NULL, -- Land Boundary, Parcel Location, Existing Structure, Crop, Road/Access, Occupation, Encroachment, Document Issue, Other
+    title VARCHAR(150) NOT NULL,
+    description TEXT,
+    file_path TEXT NOT NULL,
+    file_type VARCHAR(20) DEFAULT 'photo', -- photo, video, document
+    latitude NUMERIC(10, 7),
+    longitude NUMERIC(10, 7),
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    uploaded_by_id INTEGER REFERENCES users(id) ON DELETE SET NULL
+);
+
+-- 30. Survey Discrepancies
+CREATE TABLE IF NOT EXISTS survey_discrepancies (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    survey_request_id INTEGER NOT NULL REFERENCES survey_requests(id) ON DELETE CASCADE,
+    category VARCHAR(60) NOT NULL, -- Ownership mismatch, Area mismatch, Survey number mismatch, Plot number mismatch, Boundary mismatch, GIS/map vs ground mismatch, Missing document, Structure not recorded, Occupancy mismatch, Encroachment, Other
+    description TEXT NOT NULL,
+    severity VARCHAR(20) DEFAULT 'MEDIUM', -- LOW, MEDIUM, HIGH, CRITICAL
+    evidence_id INTEGER REFERENCES survey_evidence(id) ON DELETE SET NULL,
+    remarks TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 31. Resurvey Requests Workflow
+CREATE TABLE IF NOT EXISTS survey_resurvey_requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    original_survey_request_id INTEGER NOT NULL REFERENCES survey_requests(id) ON DELETE CASCADE,
+    new_survey_request_id INTEGER REFERENCES survey_requests(id) ON DELETE SET NULL,
+    resurvey_reason TEXT NOT NULL,
+    priority VARCHAR(20) DEFAULT 'High',
+    required_action TEXT NOT NULL,
+    supporting_evidence TEXT,
+    remarks TEXT,
+    requested_by_id INTEGER NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+    requested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(30) DEFAULT 'PENDING_LAO_REVIEW', -- PENDING_LAO_REVIEW, APPROVED_FOR_RESURVEY, REJECTED
+    reviewed_by_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    reviewed_at TIMESTAMP
+);
+
+-- 32. Survey Reports (Structured Output, Digital Confirmation & Reviews)
+CREATE TABLE IF NOT EXISTS survey_reports (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    report_number VARCHAR(50) NOT NULL UNIQUE,
+    survey_request_id INTEGER NOT NULL UNIQUE REFERENCES survey_requests(id) ON DELETE CASCADE,
+    final_recommendation VARCHAR(60) NOT NULL, -- Survey Completed, Survey Completed with Discrepancy, Need Resurvey, Need Additional Documents, Boundary Verification Required, Landowner Verification Required, Field Measurement Required, Unable to Conduct Survey
+    final_remarks TEXT,
+    is_digitally_confirmed BOOLEAN DEFAULT 0,
+    certified_by_officer_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    certified_officer_name VARCHAR(120),
+    certified_at TIMESTAMP,
+    certification_statement TEXT,
+    checklist_json TEXT,
+    report_summary_json TEXT,
+    generated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    submitted_at TIMESTAMP,
+    reviewed_by_lao_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    lao_review_status VARCHAR(30), -- APPROVED, RETURNED_FOR_CORRECTION, RESURVEY_REQUIRED, REJECTED
+    lao_review_remarks TEXT,
+    lao_reviewed_at TIMESTAMP,
+    reviewed_by_co_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    co_review_status VARCHAR(30),
+    co_review_remarks TEXT,
+    co_reviewed_at TIMESTAMP
+);
+
+-- 33. Survey Status History & Audit Trail
+CREATE TABLE IF NOT EXISTS survey_status_history (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    survey_request_id INTEGER NOT NULL REFERENCES survey_requests(id) ON DELETE CASCADE,
+    previous_status VARCHAR(30),
+    new_status VARCHAR(30) NOT NULL,
+    action VARCHAR(100) NOT NULL,
+    remarks TEXT,
+    performed_by_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 34. Survey Predictive Delay Metrics
+CREATE TABLE IF NOT EXISTS survey_predictive_metrics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    survey_request_id INTEGER NOT NULL UNIQUE REFERENCES survey_requests(id) ON DELETE CASCADE,
+    assignment_date DATE,
+    acceptance_date DATE,
+    scheduled_date DATE,
+    survey_start_date DATE,
+    survey_completion_date DATE,
+    submission_date DATE,
+    document_mismatches_count INTEGER DEFAULT 0,
+    missing_docs_count INTEGER DEFAULT 0,
+    discrepancies_count INTEGER DEFAULT 0,
+    critical_discrepancies_count INTEGER DEFAULT 0,
+    resurvey_requests_count INTEGER DEFAULT 0,
+    corrections_count INTEGER DEFAULT 0,
+    landowner_availability_issue BOOLEAN DEFAULT 0,
+    field_access_issue BOOLEAN DEFAULT 0,
+    boundary_mismatch BOOLEAN DEFAULT 0,
+    gps_mismatch BOOLEAN DEFAULT 0,
+    doc_verification_duration_days NUMERIC(5, 2) DEFAULT 0.0,
+    survey_duration_days NUMERIC(5, 2) DEFAULT 0.0,
+    review_duration_days NUMERIC(5, 2) DEFAULT 0.0,
+    times_report_returned INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
