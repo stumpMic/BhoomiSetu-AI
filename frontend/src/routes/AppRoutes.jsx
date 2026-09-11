@@ -74,6 +74,19 @@ export const AppRoutes = () => {
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
       </Route>
 
+      {/* Shared Protected Routes (Map, Alerts) */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'project_authority', 'land_acquisition_officer', 'survey_officer', 'compensation_officer', 'landowner']}>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/map" element={<ParcelMapPage />} />
+        <Route path="/parcels/:id" element={<ParcelDetailsPage />} />
+        <Route path="/alerts" element={<AlertsCenterPage />} />
+      </Route>
+
       {/* Officer / Admin Protected Routes */}
       <Route
         element={
@@ -88,12 +101,9 @@ export const AppRoutes = () => {
         <Route path="/cases" element={<CasesListPage />} />
         <Route path="/cases/:id" element={<CaseDetailsPage />} />
         <Route path="/predictions/:id" element={<PredictionDetailsPage />} />
-        <Route path="/map" element={<ParcelMapPage />} />
-        <Route path="/parcels/:id" element={<ParcelDetailsPage />} />
         <Route path="/documents" element={<DocumentVerificationPage />} />
         <Route path="/compensation" element={<CompensationManagementPage />} />
         <Route path="/tasks" element={<TasksManagementPage />} />
-        <Route path="/alerts" element={<AlertsCenterPage />} />
         <Route path="/grievances" element={<GrievanceManagementPage />} />
         <Route path="/admin/verifications" element={<AdminVerificationDashboardPage />} />
         <Route path="/admin/users" element={<AdminUserManagementPage />} />

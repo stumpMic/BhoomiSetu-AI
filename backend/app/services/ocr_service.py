@@ -30,6 +30,7 @@ class OCRService:
                         raw_text = content
                         
                         # Flexible Regex extraction heuristics
+<<<<<<< HEAD
                         name_match = re.search(r'(?:Name|Landowner|Owner|Pattadar)[s\(\)\:\s\d\.]+([A-Za-z\s]+?)(?:,|\n|\(|S/o|D/o|W/o|\-|$)', content, re.IGNORECASE)
                         if name_match:
                             cand_name = name_match.group(1).strip()
@@ -37,6 +38,15 @@ class OCRService:
                                 extracted["owner_name"] = cand_name
                             
                         plot_match = re.search(r'(?:Plot(?:\s*Number|\s*No\.?)?|Khasra)[:\.\s]+([0-9A-Za-z/]+)', content, re.IGNORECASE)
+=======
+                        name_match = re.search(r'(?:Pattadar|Recorded Landowner|Landowner|Owner|Name)[^\n]*\n(?:\d+[\.\)]\s*)?([A-Za-z\s]{3,35}?)(?:,|\n|\(|S/o|D/o|W/o|$)', content, re.IGNORECASE)
+                        if not name_match:
+                            name_match = re.search(r'(?:Name|Owner|Pattadar)[:\s]+([A-Za-z\s]{3,35}?)(?:,|\n|\(|S/o|D/o|W/o|$)', content, re.IGNORECASE)
+                        if name_match and len(name_match.group(1).strip()) > 2:
+                            extracted["owner_name"] = name_match.group(1).strip()
+                            
+                        plot_match = re.search(r'(?:Plot\s*(?:Number|No)?|Khasra)[:\.\s]+([0-9A-Za-z/]+)', content, re.IGNORECASE)
+>>>>>>> f935a84b8be2cede8150d23f515708eb4dbd6d5c
                         if plot_match:
                             extracted["plot_number"] = plot_match.group(1).strip()
                             

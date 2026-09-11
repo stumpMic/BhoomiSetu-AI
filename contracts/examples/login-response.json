@@ -4,6 +4,7 @@
   "user": {
     "id": 2,
     "name": "Shri Ashok Patra",
+    "full_name": "Shri Ashok Patra",
     "email": "officer.patra@bhoomisetu.gov.in",
     "role": "land_acquisition_officer",
     "role_display": "Land Acquisition Officer (LAO)",

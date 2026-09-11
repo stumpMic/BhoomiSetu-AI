@@ -29,6 +29,10 @@ from app.models.survey import (
     SurveyPredictiveMetrics
 )
 
+from app.models.hearing import Hearing
+from app.models.notice import Notice
+from app.models.claim import LandownerClaim
+
 __all__ = [
     "Base",
     "Department",
@@ -54,6 +58,7 @@ __all__ = [
     "Grievance",
     "GrievanceUpdate",
     "ActivityLog",
+<<<<<<< HEAD
     "SurveyRequest",
     "SurveyDocumentVerification",
     "SurveySchedule",
@@ -65,4 +70,9 @@ __all__ = [
     "SurveyReport",
     "SurveyStatusHistory",
     "SurveyPredictiveMetrics"
+=======
+    "Hearing",
+    "Notice",
+    "LandownerClaim",
+>>>>>>> f935a84b8be2cede8150d23f515708eb4dbd6d5c
 ]

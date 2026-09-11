@@ -41,12 +41,21 @@ BhoomiSetu AI Full-Stack Platform
 
 ## 🚀 Quick Start (One-Click Launch & Manual Options)
 
+<<<<<<< HEAD
 ### Method 1: One-Click Launch (Recommended - No Windows SmartScreen Warning)
 Double-click either of the following files in the project root:
 - **`START_BHOOMISETU_AI.bat`**: Native Windows script that launches the FastAPI backend and React frontend dev servers, then opens your browser to `http://localhost:5173/`.
 - **`START_BHOOMISETU_SILENT.vbs`**: Silent launcher that starts all services without keeping console windows open.
 - **Desktop Shortcut**: Double-click `Launch BhoomiSetu AI.lnk` on your Windows Desktop.
 - To stop all services at any time, double-click **`STOP_BHOOMISETU_AI.bat`**.
+=======
+> 📖 **Detailed Setup Guide**: For comprehensive local server installation, tools, environment setup, and Docker guides, see [SETUP_README.md](file:///c:/Users/ASUS/Sih-pr1/BhoomiSetu-AI/SETUP_README.md).
+
+### Prerequisites
+- **Node.js**: v18+ (tested on v20/v22)
+- **Python**: 3.10+ (tested on Python 3.11)
+- **Git**
+>>>>>>> f935a84b8be2cede8150d23f515708eb4dbd6d5c
 
 ---
 

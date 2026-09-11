@@ -27,4 +27,8 @@ jobs:
           pip install pytest pytest-cov
       - name: Run backend tests
         run: |
+<<<<<<< HEAD
           pytest tests
+=======
+          pytest tests/test_ml_prediction.py tests/test_ocr_matching.py
+>>>>>>> f935a84b8be2cede8150d23f515708eb4dbd6d5c
