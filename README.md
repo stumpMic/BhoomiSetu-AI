@@ -39,24 +39,31 @@ BhoomiSetu AI Full-Stack Platform
 
 ---
 
-## 🚀 Quick Start (Local Run in 3 Minutes)
+## 🚀 Quick Start (One-Click Launch & Manual Options)
 
-### Prerequisites
-- **Node.js**: v18+ (tested on v20/v22)
-- **Python**: 3.10+ (tested on Python 3.11)
-- **Git**
+### Method 1: One-Click Launch (Recommended - No Windows SmartScreen Warning)
+Double-click either of the following files in the project root:
+- **`START_BHOOMISETU_AI.bat`**: Native Windows script that launches the FastAPI backend and React frontend dev servers, then opens your browser to `http://localhost:5173/`.
+- **`START_BHOOMISETU_SILENT.vbs`**: Silent launcher that starts all services without keeping console windows open.
+- **Desktop Shortcut**: Double-click `Launch BhoomiSetu AI.lnk` on your Windows Desktop.
+- To stop all services at any time, double-click **`STOP_BHOOMISETU_AI.bat`**.
 
-### Automated Setup (Windows PowerShell)
-```powershell
-# Run the all-in-one setup and startup script
-.\scripts\setup.ps1
-```
+---
 
-### Automated Setup (Linux / macOS)
-```bash
-chmod +x scripts/*.sh
-./scripts/setup.sh
-```
+### Method 2: Manual / Terminal Startup
+
+If you prefer running services manually in command prompts or PowerShell:
+
+1. **Terminal 1 (Backend API Server)**:
+   ```cmd
+   C:\Users\HP\python311\python.exe -m uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port 8000
+   ```
+2. **Terminal 2 (Frontend Web Server)**:
+   ```cmd
+   cd frontend
+   npm.cmd run dev -- --host 0.0.0.0 --port 5173
+   ```
+3. **Open Browser**: Navigate to `http://localhost:5173/` or double-click `OPEN_BHOOMISETU_AI.url`.
 
 ---
 

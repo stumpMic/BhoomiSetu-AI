@@ -1,85 +1,89 @@
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Threading;
-using System.Windows.Forms;
+"""
+BhoomiSetu AI - Launcher Generator Utility
+Generates clean native Windows launchers (batch and VBS) without triggering SmartScreen/Defender.
+"""
+import os
+from pathlib import Path
 
-namespace BhoomiSetuLauncher
-{
-    static class Program
-    {
-        [STAThread]
-        static void Main()
-        {
-            try
-            {
-                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-                string pythonExe = @"C:\Users\HP\python311\python.exe";
-                if (!File.Exists(pythonExe))
-                {
-                    pythonExe = "python";
-                }
+def generate_launchers():
+    root = Path(__file__).resolve().parent.parent
+    
+    stop_bat = """@echo off
+title BhoomiSetu AI - Stop Services
+color 0C
 
-                // 1. Check if backend is running (port 8000)
-                bool backendRunning = IsUrlResponding("http://localhost:8000/api/health");
-                if (!backendRunning)
-                {
-                    ProcessStartInfo backendPsi = new ProcessStartInfo();
-                    backendPsi.FileName = pythonExe;
-                    backendPsi.Arguments = "-m uvicorn app.main:app --app-dir backend --port 8000 --host 0.0.0.0";
-                    backendPsi.WorkingDirectory = baseDir;
-                    backendPsi.WindowStyle = ProcessWindowStyle.Hidden;
-                    backendPsi.CreateNoWindow = true;
-                    backendPsi.UseShellExecute = false;
-                    Process.Start(backendPsi);
-                }
+echo =======================================================================
+echo               BHOOMISETU AI - STOPPING ALL SERVICES                   
+echo =======================================================================
+echo.
 
-                // 2. Check if frontend is running (port 5173)
-                bool frontendRunning = IsUrlResponding("http://localhost:5173");
-                if (!frontendRunning)
-                {
-                    string npmPath = @"C:\Program Files\nodejs\npm.cmd";
-                    if (!File.Exists(npmPath)) npmPath = "npm.cmd";
+echo Stopping BhoomiSetu AI backend and frontend processes...
+for /f "tokens=5" %%a in ('netstat -aon ^| findstr ":8000" ^| findstr "LISTENING"') do (
+    taskkill /f /pid %%a >nul 2>nul
+)
+for /f "tokens=5" %%a in ('netstat -aon ^| findstr ":5173" ^| findstr "LISTENING"') do (
+    taskkill /f /pid %%a >nul 2>nul
+)
 
-                    ProcessStartInfo frontendPsi = new ProcessStartInfo();
-                    frontendPsi.FileName = npmPath;
-                    frontendPsi.Arguments = "run dev -- --host 0.0.0.0 --port 5173";
-                    frontendPsi.WorkingDirectory = Path.Combine(baseDir, "frontend");
-                    frontendPsi.WindowStyle = ProcessWindowStyle.Hidden;
-                    frontendPsi.CreateNoWindow = true;
-                    frontendPsi.UseShellExecute = false;
-                    Process.Start(frontendPsi);
-                }
+echo [OK] All BhoomiSetu AI services have been stopped.
+echo.
+pause
+"""
+    with open(root / "STOP_BHOOMISETU_AI.bat", "w", encoding="utf-8") as f:
+        f.write(stop_bat)
 
-                // Wait 2 seconds for services to ensure ready
-                Thread.Sleep(1500);
+    vbs_launcher = '''Set WshShell = CreateObject("WScript.Shell")
+Set fso = CreateObject("Scripting.FileSystemObject")
+strPath = fso.GetParentFolderName(WScript.ScriptFullName)
 
-                // 3. Open default browser to BhoomiSetu AI Web App
-                Process.Start("http://localhost:5173");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Could not launch BhoomiSetu AI: " + ex.Message, "BhoomiSetu AI Launcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+' 1. Start Backend API Server
+WshShell.Run "cmd.exe /c cd /d """ & strPath & """ && C:\\Users\\HP\\python311\\python.exe -m uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port 8000", 0, False
 
-        static bool IsUrlResponding(string url)
-        {
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                request.Timeout = 1500;
-                request.Method = "GET";
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                {
-                    return response.StatusCode == HttpStatusCode.OK;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-    }
-}
+' 2. Start Frontend Web Interface
+WshShell.Run "cmd.exe /c cd /d """ & strPath & "\\frontend"" && npm.cmd run dev -- --host 0.0.0.0 --port 5173", 0, False
+
+' 3. Wait 3 seconds
+WScript.Sleep 3000
+
+' 4. Open Default Web Browser
+WshShell.Run "http://localhost:5173"
+'''
+    with open(root / "START_BHOOMISETU_SILENT.vbs", "w", encoding="utf-8") as f:
+        f.write(vbs_launcher)
+
+    print("[SUCCESS] STOP_BHOOMISETU_AI.bat and START_BHOOMISETU_SILENT.vbs generated successfully.")
+    
+    # Create Desktop Shortcut
+    try:
+        desktop_dir = Path(os.environ.get("USERPROFILE", "C:\\Users\\HP")) / "Desktop"
+        if desktop_dir.exists():
+            shortcut_script = f'''Set WshShell = CreateObject("WScript.Shell")
+Set shortcut = WshShell.CreateShortcut("{desktop_dir}\\Launch BhoomiSetu AI.lnk")
+shortcut.TargetPath = "{root}\\START_BHOOMISETU_AI.bat"
+shortcut.WorkingDirectory = "{root}"
+shortcut.WindowStyle = 1
+shortcut.Description = "Launch BhoomiSetu AI Web Application"
+shortcut.IconLocation = "shell32.dll,220"
+shortcut.Save
+
+Set silentShortcut = WshShell.CreateShortcut("{desktop_dir}\\Launch BhoomiSetu AI (Silent).lnk")
+silentShortcut.TargetPath = "{root}\\START_BHOOMISETU_SILENT.vbs"
+silentShortcut.WorkingDirectory = "{root}"
+silentShortcut.WindowStyle = 1
+silentShortcut.Description = "Launch BhoomiSetu AI Web Application Silently"
+silentShortcut.IconLocation = "shell32.dll,14"
+silentShortcut.Save
+'''
+            temp_vbs = root / "scripts" / "_temp_shortcut.vbs"
+            with open(temp_vbs, "w", encoding="utf-8") as f:
+                f.write(shortcut_script)
+            os.system(f'cscript //nologo "{temp_vbs}"')
+            if temp_vbs.exists():
+                temp_vbs.unlink()
+            print("[SUCCESS] Desktop shortcuts created successfully on Windows Desktop!")
+    except Exception as e:
+        print(f"[NOTE] Could not create desktop shortcut automatically: {e}")
+
+if __name__ == "__main__":
+    generate_launchers()
+
