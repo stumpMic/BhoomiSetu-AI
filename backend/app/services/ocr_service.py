@@ -30,19 +30,21 @@ class OCRService:
                         raw_text = content
                         
                         # Flexible Regex extraction heuristics
-                        name_match = re.search(r'(?:Name|Landowner|Owner|Pattadar)[s\(\)\:\s\d\.]+([A-Za-z\s]+?)(?:,|\n|\(|S/o|D/o|W/o|$)', content, re.IGNORECASE)
+                        name_match = re.search(r'(?:1\.\s*|Name\s*[:\-]\s*|Landowner\s*[:\-]\s*|Owner\s*[:\-]\s*)([A-Za-z\s]+?)(?:,|\n|\(|S/o|D/o|W/o|$)', content, re.IGNORECASE)
+                        if not name_match:
+                            name_match = re.search(r'(?:Pattadar|Recorded Landowner)[^\n]*\n(?:1\.\s*)?([A-Za-z\s]+?)(?:,|\n|\(|S/o|D/o|W/o|$)', content, re.IGNORECASE)
                         if name_match and len(name_match.group(1).strip()) > 2:
                             extracted["owner_name"] = name_match.group(1).strip()
                             
-                        plot_match = re.search(r'(?:Plot|Plot\s*No|Khasra)[:\.\s]+([0-9A-Za-z/]+)', content, re.IGNORECASE)
+                        plot_match = re.search(r'(?:Plot\s*Number|Plot\s*No\.?|Plot|Khasra\s*No\.?|Khasra)[:\.\s]+([0-9A-Za-z/]+)', content, re.IGNORECASE)
                         if plot_match:
                             extracted["plot_number"] = plot_match.group(1).strip()
                             
-                        khata_match = re.search(r'(?:Khata|Khatiyan|Khata\s*No)[:\.\s]+([0-9]+)', content, re.IGNORECASE)
+                        khata_match = re.search(r'(?:Khata\s*Number|Khata\s*No\.?|Khata|Khatiyan\s*No\.?|Khatiyan)[:\.\s]+([0-9]+)', content, re.IGNORECASE)
                         if khata_match:
                             extracted["khata_number"] = khata_match.group(1).strip()
                             
-                        area_match = re.search(r'(?:Area|Acres|Rakba)[:\.\s]+([0-9\.]+)', content, re.IGNORECASE)
+                        area_match = re.search(r'(?:Total\s*Area|Land\s*Area|Area|Acres|Rakba)[:\.\s]+([0-9\.]+)', content, re.IGNORECASE)
                         if area_match:
                             try:
                                 extracted["area_acres"] = float(area_match.group(1).strip())

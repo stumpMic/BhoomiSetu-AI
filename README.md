@@ -46,6 +46,9 @@ BhoomiSetu AI Full-Stack Platform
 - **Python**: 3.10+ (tested on Python 3.11)
 - **Git**
 
+### Windows (One-Click Start)
+Just double-click **`START_BHOOMISETU_AI.bat`** in the project folder to start all services and directly open the web interface in your browser.
+
 ### Automated Setup (Windows PowerShell)
 ```powershell
 # Run the all-in-one setup and startup script

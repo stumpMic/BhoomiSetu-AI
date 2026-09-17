@@ -2,7 +2,7 @@ import os
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 from app.config import settings
 from app.database import engine, Base
 import app.models # Register all SQLAlchemy models
@@ -60,17 +60,36 @@ app.include_router(tasks_router, prefix="/api")
 app.include_router(alerts_router, prefix="/api")
 app.include_router(grievances_router, prefix="/api")
 
-@app.get("/")
-def root():
-    return {
-        "app": settings.APP_NAME,
-        "status": "Online",
-        "version": "1.0.0",
-        "environment": settings.APP_ENV,
-        "docs": "/docs",
-        "notice": "BhoomiSetu AI Hackathon Decision-Support Prototype"
-    }
-
 @app.get("/api/health")
 def health_check():
     return {"status": "healthy", "database": "connected", "ml_models": "ready"}
+
+# Mount Frontend Static Distribution & SPA Client-side Routes
+FRONTEND_DIST = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "dist"))
+if os.path.isdir(FRONTEND_DIST):
+    assets_dir = os.path.join(FRONTEND_DIST, "assets")
+    if os.path.isdir(assets_dir):
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="spa_assets")
+
+    @app.api_route("/{full_path:path}", methods=["GET", "HEAD"])
+    def serve_frontend_spa(request: Request, full_path: str):
+        if full_path.startswith("api/") or full_path == "api" or full_path.startswith("docs") or full_path.startswith("openapi.json") or full_path.startswith("redoc") or full_path.startswith("uploads/"):
+            return JSONResponse(status_code=404, content={"detail": "Not Found"})
+        target_file = os.path.join(FRONTEND_DIST, full_path)
+        if full_path and os.path.isfile(target_file):
+            return FileResponse(target_file)
+        index_file = os.path.join(FRONTEND_DIST, "index.html")
+        if os.path.isfile(index_file):
+            return FileResponse(index_file)
+        return JSONResponse(status_code=404, content={"detail": "Frontend build not found"})
+else:
+    @app.get("/")
+    def root():
+        return {
+            "app": settings.APP_NAME,
+            "status": "Online",
+            "version": "1.0.0",
+            "environment": settings.APP_ENV,
+            "docs": "/docs",
+            "notice": "BhoomiSetu AI Hackathon Decision-Support Prototype"
+        }
