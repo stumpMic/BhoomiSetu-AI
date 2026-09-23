@@ -27,6 +27,7 @@ import { CompensationManagementPage } from '../pages/compensation/CompensationMa
 import { TasksManagementPage } from '../pages/tasks/TasksManagementPage';
 import { AlertsCenterPage } from '../pages/alerts/AlertsCenterPage';
 import { GrievanceManagementPage } from '../pages/grievances/GrievanceManagementPage';
+import { NoticeManagementPage } from '../pages/notices/NoticeManagementPage';
 import { AdminUserManagementPage } from '../pages/admin/AdminUserManagementPage';
 import { AdminVerificationDashboardPage } from '../pages/admin/AdminVerificationDashboardPage';
 
@@ -69,6 +70,8 @@ export const AppRoutes = () => {
       {/* Public Routes */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/notice-board" element={<Navigate to="/#notice-board" replace />} />
+        <Route path="/public-notices" element={<Navigate to="/#notice-board" replace />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
@@ -107,6 +110,17 @@ export const AppRoutes = () => {
         <Route path="/grievances" element={<GrievanceManagementPage />} />
         <Route path="/admin/verifications" element={<AdminVerificationDashboardPage />} />
         <Route path="/admin/users" element={<AdminUserManagementPage />} />
+      </Route>
+
+      {/* LAO / Admin Protected Notice Management Route */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'land_acquisition_officer']}>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/notices" element={<NoticeManagementPage />} />
       </Route>
 
       {/* Survey Officer Protected Routes (Strictly Survey Officer & Admin) */}

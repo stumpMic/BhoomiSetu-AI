@@ -136,12 +136,15 @@ class SurveyService:
         priority_filter: Optional[str] = None,
         district_filter: Optional[str] = None,
         village_filter: Optional[str] = None,
-        search: Optional[str] = None
+        search: Optional[str] = None,
+        case_id: Optional[int] = None
     ) -> List[Dict[str, Any]]:
         """Queries and formats survey requests with flexible filtering and search."""
         query = db.query(SurveyRequest).join(Parcel, SurveyRequest.parcel_id == Parcel.id)
 
-        if current_user and current_user.role == "survey_officer":
+        if case_id:
+            query = query.filter(SurveyRequest.case_id == case_id)
+        elif current_user and current_user.role == "survey_officer":
             query = query.filter(
                 or_(SurveyRequest.assigned_so_id == current_user.id, SurveyRequest.assigned_so_id.is_(None))
             )
@@ -191,6 +194,7 @@ class SurveyService:
             risk_score = float(case.current_delay_probability) if case and case.current_delay_probability is not None else 0.45
             risk_level = case.current_risk_level if case and case.current_risk_level else "Medium"
 
+            obs = req.field_observation
             formatted.append({
                 "id": req.id,
                 "request_number": req.request_number,
@@ -215,7 +219,13 @@ class SurveyService:
                 "deadline": req.deadline,
                 "is_overdue": is_overdue,
                 "delay_risk_level": risk_level,
-                "delay_risk_score": risk_score
+                "delay_risk_score": risk_score,
+                "has_field_observation": bool(obs),
+                "observed_area_acres": float(obs.observed_area_acres) if (obs and obs.observed_area_acres) else None,
+                "has_ownership_dispute": bool(obs.has_ownership_dispute) if obs else False,
+                "has_court_case": bool(obs.has_court_case) if obs else False,
+                "has_structure_or_project": bool(obs.has_structure_or_project) if obs else False,
+                "survey_completed_date": req.survey_completed_date
             })
 
         return formatted
@@ -405,6 +415,26 @@ class SurveyService:
                 "occupancy_remarks": obs.occupancy_remarks,
                 "boundary_status": obs.boundary_status,
                 "boundary_remarks": obs.boundary_remarks,
+                # Ownership Dispute
+                "has_ownership_dispute": bool(obs.has_ownership_dispute),
+                "dispute_nature": obs.dispute_nature,
+                "dispute_parties": obs.dispute_parties,
+                "dispute_details": obs.dispute_details,
+                "dispute_remarks": obs.dispute_remarks,
+                # Court Case / Legal Dispute
+                "has_court_case": bool(obs.has_court_case),
+                "court_case_number": obs.court_case_number,
+                "court_name": obs.court_name,
+                "court_parties": obs.court_parties,
+                "court_case_description": obs.court_case_description,
+                "court_case_status": obs.court_case_status,
+                "court_case_remarks": obs.court_case_remarks,
+                # Structure / Project on Land
+                "has_structure_or_project": bool(obs.has_structure_or_project),
+                "structure_type": obs.structure_type,
+                "structure_description": obs.structure_description,
+                "structure_location": obs.structure_location,
+                "structure_remarks": obs.structure_remarks,
                 "updated_at": obs.updated_at
             }
 
@@ -440,14 +470,15 @@ class SurveyService:
             "request_number": req.request_number,
             "case_id": req.case_id,
             "case_number": case.case_number if case else f"CASE-{req.case_id}",
-            "case_title": case.title if case else "Acquisition Case",
+            "case_title": getattr(case, 'title', None) or (f"{project.name} - {case.case_number}" if case and project else "Acquisition Case"),
+            "title": req.purpose or getattr(case, 'title', None) or "Survey Request",
             "project_id": project.id if project else 1,
             "project_name": project.name if project else "NH-316 Expansion",
             "parcel_id": req.parcel_id,
             "plot_number": parcel.plot_number if parcel else "101",
             "khata_number": parcel.khata_number if parcel else "312",
             "village_name": village.name if village else "Pipili",
-            "district": case.district if case else "Khurda",
+            "district": getattr(case, 'district', None) or (village.district if village else "Khurda"),
             "recorded_area_acres": float(parcel.area_acres) if parcel else 4.5,
             "land_type": parcel.land_type if parcel else "Agricultural",
             "landowner_name": owner_name,
@@ -481,8 +512,8 @@ class SurveyService:
             "resurvey_requests": resurvey_list,
             "report": report_data,
             "status_history": history_list,
-            "delay_risk_score": float(case.risk_score) if case and case.risk_score else 0.45,
-            "delay_risk_level": case.risk_level if case and case.risk_level else "Medium",
+            "delay_risk_score": float(getattr(case, 'risk_score', None) or getattr(case, 'current_delay_probability', 0.45)),
+            "delay_risk_level": getattr(case, 'risk_level', None) or getattr(case, 'current_risk_level', 'Medium'),
             "predicted_delay_days": int(case.predicted_delay_days) if case and case.predicted_delay_days else 45
         }
 
@@ -498,7 +529,7 @@ class SurveyService:
             case_id=request_in.case_id,
             parcel_id=request_in.parcel_id,
             lao_id=current_user.id if current_user else 2,
-            assigned_so_id=request_in.assigned_so_id or 4, # Default SO Sunita Mishra
+            assigned_so_id=request_in.assigned_so_id or 3, # Default SO Smt. Sunita Mishra (ID 3)
             status="ASSIGNED",
             priority=request_in.priority,
             purpose=request_in.purpose,
@@ -821,6 +852,26 @@ class SurveyService:
             obs.occupancy_remarks = obs_in.occupancy_remarks
             obs.boundary_status = obs_in.boundary_status
             obs.boundary_remarks = obs_in.boundary_remarks
+            # Ownership Dispute
+            obs.has_ownership_dispute = obs_in.has_ownership_dispute
+            obs.dispute_nature = obs_in.dispute_nature
+            obs.dispute_parties = obs_in.dispute_parties
+            obs.dispute_details = obs_in.dispute_details
+            obs.dispute_remarks = obs_in.dispute_remarks
+            # Court Case / Legal Dispute
+            obs.has_court_case = obs_in.has_court_case
+            obs.court_case_number = obs_in.court_case_number
+            obs.court_name = obs_in.court_name
+            obs.court_parties = obs_in.court_parties
+            obs.court_case_description = obs_in.court_case_description
+            obs.court_case_status = obs_in.court_case_status
+            obs.court_case_remarks = obs_in.court_case_remarks
+            # Structure / Project on Land
+            obs.has_structure_or_project = obs_in.has_structure_or_project
+            obs.structure_type = obs_in.structure_type
+            obs.structure_description = obs_in.structure_description
+            obs.structure_location = obs_in.structure_location
+            obs.structure_remarks = obs_in.structure_remarks
             obs.updated_at = datetime.utcnow()
         else:
             obs = SurveyFieldObservation(
@@ -843,9 +894,32 @@ class SurveyService:
                 tenant_present=obs_in.tenant_present,
                 occupancy_remarks=obs_in.occupancy_remarks,
                 boundary_status=obs_in.boundary_status,
-                boundary_remarks=obs_in.boundary_remarks
+                boundary_remarks=obs_in.boundary_remarks,
+                has_ownership_dispute=obs_in.has_ownership_dispute,
+                dispute_nature=obs_in.dispute_nature,
+                dispute_parties=obs_in.dispute_parties,
+                dispute_details=obs_in.dispute_details,
+                dispute_remarks=obs_in.dispute_remarks,
+                has_court_case=obs_in.has_court_case,
+                court_case_number=obs_in.court_case_number,
+                court_name=obs_in.court_name,
+                court_parties=obs_in.court_parties,
+                court_case_description=obs_in.court_case_description,
+                court_case_status=obs_in.court_case_status,
+                court_case_remarks=obs_in.court_case_remarks,
+                has_structure_or_project=obs_in.has_structure_or_project,
+                structure_type=obs_in.structure_type,
+                structure_description=obs_in.structure_description,
+                structure_location=obs_in.structure_location,
+                structure_remarks=obs_in.structure_remarks
             )
             db.add(obs)
+
+        # Advance status to IN_PROGRESS if currently ASSIGNED or SCHEDULED
+        if req.status in ["ASSIGNED", "SCHEDULED"]:
+            req.status = "IN_PROGRESS"
+            if not req.survey_start_date:
+                req.survey_start_date = datetime.utcnow()
 
         if req.predictive_metrics:
             req.predictive_metrics.boundary_mismatch = (obs_in.boundary_status != "Boundary matches records")
@@ -999,6 +1073,55 @@ class SurveyService:
         report_num = f"SURV-REP-2026-{req.id:03d}"
         officer_name = current_user.full_name if current_user else (req.assigned_so.full_name if req.assigned_so else "Sunita Mishra")
 
+        report_summary = {
+            "survey_id": req.id,
+            "request_number": req.request_number,
+            "plot_number": req.parcel.plot_number if req.parcel else "N/A",
+            "khata_number": req.parcel.khata_number if req.parcel else "N/A",
+            "village_name": req.parcel.village.name if req.parcel and req.parcel.village else "Pipili",
+            "district": req.parcel.village.district if req.parcel and req.parcel.village else "Khurda",
+            "recorded_area_acres": float(req.parcel.area_acres) if req.parcel else 0.0,
+            "observed_area_acres": float(req.field_observation.observed_area_acres) if req.field_observation and req.field_observation.observed_area_acres else (float(req.parcel.area_acres) if req.parcel else 0.0),
+            "officer_name": officer_name,
+            "submission_date": datetime.utcnow().isoformat(),
+            # Ownership Dispute
+            "has_ownership_dispute": bool(req.field_observation.has_ownership_dispute) if req.field_observation else False,
+            "dispute_nature": req.field_observation.dispute_nature if req.field_observation else None,
+            "dispute_parties": req.field_observation.dispute_parties if req.field_observation else None,
+            "dispute_details": req.field_observation.dispute_details if req.field_observation else None,
+            "dispute_remarks": req.field_observation.dispute_remarks if req.field_observation else None,
+            # Court Case / Legal Dispute
+            "has_court_case": bool(req.field_observation.has_court_case) if req.field_observation else False,
+            "court_case_number": req.field_observation.court_case_number if req.field_observation else None,
+            "court_name": req.field_observation.court_name if req.field_observation else None,
+            "court_parties": req.field_observation.court_parties if req.field_observation else None,
+            "court_case_description": req.field_observation.court_case_description if req.field_observation else None,
+            "court_case_status": req.field_observation.court_case_status if req.field_observation else None,
+            "court_case_remarks": req.field_observation.court_case_remarks if req.field_observation else None,
+            # Structure / Project on Land
+            "has_structure_or_project": bool(req.field_observation.has_structure_or_project) if req.field_observation else False,
+            "structure_type": req.field_observation.structure_type if req.field_observation else None,
+            "structure_description": req.field_observation.structure_description if req.field_observation else None,
+            "structure_location": req.field_observation.structure_location if req.field_observation else None,
+            "structure_remarks": req.field_observation.structure_remarks if req.field_observation else None,
+            # Document Verifications
+            "document_verifications": [
+                {
+                    "doc_type": d.doc_type,
+                    "doc_title": d.doc_title,
+                    "verification_status": d.verification_status,
+                    "remarks": d.remarks,
+                    "mismatch_details": d.mismatch_details
+                }
+                for d in req.document_verifications
+            ],
+            "boundary_status": req.field_observation.boundary_status if req.field_observation else "Boundary verified",
+            "boundary_remarks": req.field_observation.boundary_remarks if req.field_observation else "",
+            "final_recommendation": submit_in.final_recommendation,
+            "final_remarks": submit_in.final_remarks
+        }
+        report_summary_str = json.dumps(report_summary)
+
         if req.report:
             rep = req.report
             rep.final_recommendation = submit_in.final_recommendation
@@ -1008,6 +1131,7 @@ class SurveyService:
             rep.certified_officer_name = officer_name
             rep.certified_at = datetime.utcnow()
             rep.certification_statement = submit_in.certification_statement
+            rep.report_summary_json = report_summary_str
             rep.submitted_at = datetime.utcnow()
         else:
             rep = SurveyReport(
@@ -1020,10 +1144,15 @@ class SurveyService:
                 certified_officer_name=officer_name,
                 certified_at=datetime.utcnow(),
                 certification_statement=submit_in.certification_statement,
+                report_summary_json=report_summary_str,
                 generated_at=datetime.utcnow(),
                 submitted_at=datetime.utcnow()
             )
             db.add(rep)
+
+        # Update parcel survey status
+        if req.parcel:
+            req.parcel.survey_status = "Completed"
 
         # Update metrics
         if req.predictive_metrics:
@@ -1034,14 +1163,25 @@ class SurveyService:
             survey_request_id=req.id,
             previous_status=old_status,
             new_status="SUBMITTED",
-            action="Survey Report Digitally Certified & Submitted",
+            action="Survey Report Digitally Certified & Submitted to LAO",
             remarks=f"Recommendation: {submit_in.final_recommendation}. Certified by {officer_name}.",
             performed_by_id=current_user.id if current_user else req.assigned_so_id
         )
         db.add(history)
         db.commit()
 
-        return {"status": "SUCCESS", "message": f"Survey report {report_num} submitted successfully for review.", "new_status": "SUBMITTED"}
+        # Recalculate case risk with survey findings
+        if req.case_id:
+            try:
+                RiskRecalculationService.recalculate_case_risk(
+                    db,
+                    req.case_id,
+                    trigger_reason=f"Survey Report {report_num} Submitted by {officer_name}"
+                )
+            except Exception as e:
+                print(f"Risk recalculation note: {e}")
+
+        return {"status": "SUCCESS", "message": f"Survey report {report_num} submitted successfully to LAO for review.", "new_status": "SUBMITTED"}
 
     @staticmethod
     def review_survey_report(db: Session, survey_id: int, review_in: SurveyReviewAction, current_user: Optional[User] = None) -> Dict[str, Any]:

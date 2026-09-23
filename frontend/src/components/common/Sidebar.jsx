@@ -15,7 +15,8 @@ import {
   Users,
   ShieldCheck,
   UserCheck,
-  Compass
+  Compass,
+  FileText
 } from 'lucide-react';
 
 export const Sidebar = () => {
@@ -32,6 +33,7 @@ export const Sidebar = () => {
     { to: '/documents', label: t('nav.documents'), icon: FileCheck, roles: ['admin', 'land_acquisition_officer', 'survey_officer'] },
     { to: '/compensation', label: t('nav.compensation'), icon: CreditCard, roles: ['admin', 'compensation_officer', 'land_acquisition_officer'] },
     { to: '/tasks', label: t('nav.tasks'), icon: CheckSquare, roles: ['admin', 'project_authority', 'land_acquisition_officer', 'survey_officer', 'compensation_officer'] },
+    { to: '/notices', label: 'Statutory Notices', icon: FileText, roles: ['admin', 'land_acquisition_officer'] },
     { to: '/grievances', label: t('nav.grievances'), icon: MessageSquareWarning, roles: ['admin', 'land_acquisition_officer', 'survey_officer', 'compensation_officer'] },
     { to: '/alerts', label: t('nav.alerts'), icon: Bell, roles: ['admin', 'project_authority', 'land_acquisition_officer', 'survey_officer', 'compensation_officer', 'landowner'] },
     { to: '/landowner', label: t('nav.landowner_portal'), icon: UserCheck, roles: ['landowner', 'admin'] },

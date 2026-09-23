@@ -51,10 +51,24 @@ class ParcelFeatureProperties(BaseModel):
     case_id: int
     case_number: str
     project_name: str
+    survey_status: Optional[str] = "Pending"
+    acquisition_status: Optional[str] = "Notification"
+    consent_status: Optional[str] = "Pending Consultation"
     compensation_stage: Optional[str] = None
+    compensation_status: Optional[str] = "Pending Verification"
+    document_status: Optional[str] = "RoR Verified"
+    visual_state: Optional[str] = "normal"
+    valuation_per_acre_inr: Optional[float] = 1000000.0
+    total_valuation_inr: Optional[float] = 0.0
     compensation_amount: Optional[float] = 0.0
     owners: List[OwnerShare] = []
     pending_tasks_count: Optional[int] = 0
+    conflict_reason: Optional[str] = None
+    conflict_type: Optional[str] = None
+    current_process_stage: Optional[str] = None
+    survey_number: Optional[str] = None
+    parcel_id: Optional[str] = None
+    owner_consent_status: Optional[str] = None
 
 class GeoJSONGeometry(BaseModel):
     type: str

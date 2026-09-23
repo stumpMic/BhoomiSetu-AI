@@ -58,7 +58,7 @@ export const taskService = {
 
   getSurveyOfficers: async () => {
     return [
-      { id: 4, full_name: "Shri Rajesh Jena", role: "survey_officer", department: "Cadastral Survey & Mapping" },
+      { id: 3, full_name: "Smt. Sunita Mishra", role: "survey_officer", department: "Cadastral Survey & Mapping" },
       { id: 5, full_name: "Smt. Priyadarshini Sahoo", role: "survey_officer", department: "Joint Field Verification" },
       { id: 6, full_name: "Shri Manoj Kumar Swain", role: "survey_officer", department: "Revenue Survey Wing" }
     ];

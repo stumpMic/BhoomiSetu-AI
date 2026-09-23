@@ -39,6 +39,12 @@ class SurveyRequestListItem(BaseModel):
     is_overdue: bool = False
     delay_risk_level: Optional[str] = "Low"
     delay_risk_score: Optional[float] = 0.0
+    has_field_observation: Optional[bool] = False
+    observed_area_acres: Optional[float] = None
+    has_ownership_dispute: Optional[bool] = False
+    has_court_case: Optional[bool] = False
+    has_structure_or_project: Optional[bool] = False
+    survey_completed_date: Optional[datetime] = None
 
     class Config:
         from_attributes = True
@@ -147,6 +153,29 @@ class SurveyObservationsUpdate(BaseModel):
     boundary_status: str = "Boundary matches records" # Boundary matches records, Boundary mismatch, Encroachment suspected, Neighboring parcel issue, Unable to verify, Other
     boundary_remarks: Optional[str] = None
 
+    # Ownership Dispute
+    has_ownership_dispute: bool = False
+    dispute_nature: Optional[str] = None
+    dispute_parties: Optional[str] = None
+    dispute_details: Optional[str] = None
+    dispute_remarks: Optional[str] = None
+
+    # Court Case / Legal Dispute
+    has_court_case: bool = False
+    court_case_number: Optional[str] = None
+    court_name: Optional[str] = None
+    court_parties: Optional[str] = None
+    court_case_description: Optional[str] = None
+    court_case_status: Optional[str] = None
+    court_case_remarks: Optional[str] = None
+
+    # Structure / Project on Land
+    has_structure_or_project: bool = False
+    structure_type: Optional[str] = None
+    structure_description: Optional[str] = None
+    structure_location: Optional[str] = None
+    structure_remarks: Optional[str] = None
+
 class SurveyObservationsResponse(BaseModel):
     id: int
     survey_request_id: int
@@ -169,6 +198,30 @@ class SurveyObservationsResponse(BaseModel):
     occupancy_remarks: Optional[str] = None
     boundary_status: str
     boundary_remarks: Optional[str] = None
+
+    # Ownership Dispute
+    has_ownership_dispute: bool = False
+    dispute_nature: Optional[str] = None
+    dispute_parties: Optional[str] = None
+    dispute_details: Optional[str] = None
+    dispute_remarks: Optional[str] = None
+
+    # Court Case / Legal Dispute
+    has_court_case: bool = False
+    court_case_number: Optional[str] = None
+    court_name: Optional[str] = None
+    court_parties: Optional[str] = None
+    court_case_description: Optional[str] = None
+    court_case_status: Optional[str] = None
+    court_case_remarks: Optional[str] = None
+
+    # Structure / Project on Land
+    has_structure_or_project: bool = False
+    structure_type: Optional[str] = None
+    structure_description: Optional[str] = None
+    structure_location: Optional[str] = None
+    structure_remarks: Optional[str] = None
+
     updated_at: Optional[datetime] = None
 
     class Config:
@@ -320,6 +373,7 @@ class SurveyRequestDetailResponse(BaseModel):
     case_id: int
     case_number: str
     case_title: str
+    title: Optional[str] = None
     project_id: int
     project_name: str
     parcel_id: int

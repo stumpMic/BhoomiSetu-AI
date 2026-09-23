@@ -47,8 +47,9 @@ def list_survey_requests(
     district: Optional[str] = Query(None, description="Filter by district"),
     village: Optional[str] = Query(None, description="Filter by village name"),
     search: Optional[str] = Query(None, description="Search by request number, landowner, or plot"),
+    case_id: Optional[int] = Query(None, description="Filter by acquisition case ID"),
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_roles(["survey_officer", "admin"]))
+    current_user: User = Depends(require_roles(["survey_officer", "land_acquisition_officer", "compensation_officer", "admin"]))
 ):
     """Lists assigned survey requests with multi-parameter filtering and search."""
     return SurveyService.get_surveys_list(
@@ -58,7 +59,8 @@ def list_survey_requests(
         priority_filter=priority,
         district_filter=district,
         village_filter=village,
-        search=search
+        search=search,
+        case_id=case_id
     )
 
 
@@ -77,7 +79,7 @@ def create_survey_request(
 def get_survey_request_detail(
     id: int,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_roles(["survey_officer", "admin"]))
+    current_user: User = Depends(require_roles(["survey_officer", "land_acquisition_officer", "compensation_officer", "admin"]))
 ):
     """Retrieves complete details for a specific survey request, including all sub-modules."""
     return SurveyService.get_survey_detail(db=db, survey_id=id, current_user=current_user)

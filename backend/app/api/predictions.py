@@ -4,7 +4,11 @@ from typing import List, Optional
 from app.database import get_db
 from app.models.acquisition_case import AcquisitionCase
 from app.models.prediction import RiskPrediction, PredictionFactor
-from app.schemas.prediction import PredictionResponse, PredictionHistoryResponse, PredictionHistoryItem, ContributingFactor, RecommendedAction
+from app.schemas.prediction import (
+    PredictionResponse, PredictionHistoryResponse, PredictionHistoryItem,
+    ContributingFactor, RecommendedAction, RouteSimulationPredictRequest,
+    SimulationPredictionResponse
+)
 from app.services.risk_recalculation_service import RiskRecalculationService
 from app.services.recommendation_service import RecommendationService
 
@@ -85,3 +89,47 @@ def get_prediction_history(case_id: int, db: Session = Depends(get_db)):
     ]
 
     return PredictionHistoryResponse(case_id=case_id, history=history)
+
+@router.post("/simulate", response_model=SimulationPredictionResponse)
+def simulate_route_prediction(payload: RouteSimulationPredictRequest):
+    """
+    Simulates ML Delay Prediction for a proposed 3D project route based on
+    the aggregated statutory features of all geometrically intersected parcels.
+    Reuses the existing Random Forest classifier, regressor, and explainability engine.
+    """
+    from datetime import datetime
+    from app.services.prediction_service import PredictionService
+
+    features_dict = payload.dict()
+    pred = PredictionService.predict(features_dict)
+
+    factors = [
+        ContributingFactor(
+            factor=f["factor"],
+            impact=float(f["impact"]),
+            direction=f["direction"],
+            description=f["description"]
+        )
+        for f in pred.get("contributing_factors", [])
+    ]
+
+    recs = [
+        RecommendedAction(
+            title=r["title"],
+            department=r["department"],
+            priority=r["priority"],
+            description=r["description"]
+        )
+        for r in pred.get("recommended_actions", [])
+    ]
+
+    return SimulationPredictionResponse(
+        delay_probability=float(pred["delay_probability"]),
+        risk_level=pred["risk_level"],
+        predicted_delay_days=int(pred["predicted_delay_days"]),
+        model_version=pred.get("model_version", "v1.4.0-rf-ensemble"),
+        prediction_time=datetime.utcnow(),
+        contributing_factors=factors,
+        recommended_actions=recs,
+        disclaimer=pred.get("disclaimer", "This prediction is decision-support information and must be reviewed by an authorised officer. It is not an automated legal decision.")
+    )

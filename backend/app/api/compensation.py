@@ -12,7 +12,7 @@ from app.dependencies import get_current_user, require_roles
 from app.services.notification_service import NotificationService
 from app.services.risk_recalculation_service import RiskRecalculationService
 
-router = APIRouter(prefix="/compensations", tags=["Compensation Tracker"])
+router = APIRouter(tags=["Compensation Tracker"])
 
 STAGES_ORDER = [
     "Land valuation pending",
@@ -26,7 +26,8 @@ STAGES_ORDER = [
     "Payment completed"
 ]
 
-@router.get("", response_model=List[CompensationResponse])
+@router.get("/compensations", response_model=List[CompensationResponse])
+@router.get("/compensation", response_model=List[CompensationResponse])
 def list_compensations(
     case_id: Optional[int] = None,
     stage: Optional[str] = None,
@@ -76,6 +77,7 @@ def list_compensations(
             total_award_inr=float(c.total_award_inr or 0.0),
             landowner_share_amount_inr=float(c.landowner_share_inr or 0.0),
             current_stage=c.current_stage,
+            stage=c.current_stage,
             stage_index=c.stage_index,
             stages_timeline=timeline,
             bank_details=bank,
@@ -83,7 +85,8 @@ def list_compensations(
         ))
     return results
 
-@router.get("/{id}", response_model=CompensationResponse)
+@router.get("/compensations/{id}", response_model=CompensationResponse)
+@router.get("/compensation/{id}", response_model=CompensationResponse)
 def get_compensation(id: int, db: Session = Depends(get_db)):
     c = db.query(Compensation).filter(Compensation.id == id).first()
     if not c:
@@ -123,13 +126,15 @@ def get_compensation(id: int, db: Session = Depends(get_db)):
         total_award_inr=float(c.total_award_inr or 0.0),
         landowner_share_amount_inr=float(c.landowner_share_inr or 0.0),
         current_stage=c.current_stage,
+        stage=c.current_stage,
         stage_index=c.stage_index,
         stages_timeline=timeline,
         bank_details=bank,
         mock_payment_ref=c.mock_payment_ref
     )
 
-@router.put("/{id}/stage")
+@router.put("/compensations/{id}/stage")
+@router.put("/compensation/{id}/stage")
 def update_compensation_stage(
     id: int,
     payload: CompensationStageUpdateRequest,
@@ -140,7 +145,10 @@ def update_compensation_stage(
     if not c:
         raise HTTPException(status_code=404, detail="Compensation record not found")
 
-    new_stage = payload.stage_name
+    new_stage = payload.stage_name or payload.stage
+    if not new_stage:
+        raise HTTPException(status_code=400, detail="stage_name or stage is required")
+
     new_idx = STAGES_ORDER.index(new_stage) + 1 if new_stage in STAGES_ORDER else c.stage_index + 1
 
     c.current_stage = new_stage
@@ -169,7 +177,7 @@ def update_compensation_stage(
     NotificationService.create_alert(
         db=db,
         title="Compensation Stage Updated",
-        message=f"Compensation for Plot #{c.parcel.plot_number if c.parcel else ''} advanced to '{new_stage}'. Award Amount: ₹{float(c.landowner_share_inr)/100000:.2f} Lakhs.",
+        message=f"Compensation for Plot #{c.parcel.plot_number if c.parcel else ''} advanced to '{new_stage}'. Award Amount: Rs. {float(c.landowner_share_inr)/100000:.2f} Lakhs.",
         alert_type="compensation_updated",
         severity="success",
         case_id=c.case_id,
@@ -184,5 +192,6 @@ def update_compensation_stage(
         "message": f"Compensation advanced to {new_stage}",
         "compensation_id": c.id,
         "current_stage": c.current_stage,
+        "stage": c.current_stage,
         "stage_index": c.stage_index
     }

@@ -41,6 +41,10 @@ class NotificationService:
 
         if dispatch_sms:
             logger.info(f"[MOCK SMS GATEWAY] Dispatched SMS -> Alert ID: {alert.id} | Type: {alert_type} | Message: {message}")
-            print(f"[MOCK SMS GATEWAY] Dispatched SMS -> {title}: {message}")
+            try:
+                print(f"[MOCK SMS GATEWAY] Dispatched SMS -> {title}: {message}")
+            except Exception:
+                safe_str = f"[MOCK SMS GATEWAY] Dispatched SMS -> {title}: {message}".encode("ascii", errors="replace").decode("ascii")
+                print(safe_str)
 
         return alert

@@ -128,6 +128,30 @@ class SurveyFieldObservation(Base):
     occupancy_remarks = Column(Text, nullable=True)
     boundary_status = Column(String(50), default="Boundary matches records")
     boundary_remarks = Column(Text, nullable=True)
+
+    # Ownership Dispute
+    has_ownership_dispute = Column(Boolean, default=False)
+    dispute_nature = Column(String(100), nullable=True)
+    dispute_parties = Column(Text, nullable=True)
+    dispute_details = Column(Text, nullable=True)
+    dispute_remarks = Column(Text, nullable=True)
+
+    # Court Case / Legal Dispute
+    has_court_case = Column(Boolean, default=False)
+    court_case_number = Column(String(100), nullable=True)
+    court_name = Column(String(150), nullable=True)
+    court_parties = Column(Text, nullable=True)
+    court_case_description = Column(Text, nullable=True)
+    court_case_status = Column(String(50), nullable=True)
+    court_case_remarks = Column(Text, nullable=True)
+
+    # Structure / Project on Land
+    has_structure_or_project = Column(Boolean, default=False)
+    structure_type = Column(String(100), nullable=True)
+    structure_description = Column(Text, nullable=True)
+    structure_location = Column(Text, nullable=True)
+    structure_remarks = Column(Text, nullable=True)
+
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

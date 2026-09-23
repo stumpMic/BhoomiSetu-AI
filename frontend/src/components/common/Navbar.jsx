@@ -84,13 +84,38 @@ export const Navbar = () => {
               </button>
             </div>
           ) : (
-            <Link
-              to="/login"
-              className="bg-govblue-700 hover:bg-govblue-800 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all shadow-sm flex items-center gap-1.5"
-            >
-              <User className="w-4 h-4" />
-              Sign In
-            </Link>
+            <div className="flex items-center gap-2.5">
+              <Link
+                to="/#notice-board"
+                onClick={(e) => {
+                  if (window.location.pathname === '/') {
+                    e.preventDefault();
+                    const el = document.getElementById('notice-board');
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth' });
+                      window.history.pushState(null, '', '/#notice-board');
+                    }
+                  }
+                }}
+                className="bg-gradient-to-r from-amber-50 to-amber-100/80 hover:from-amber-100 hover:to-amber-200 text-amber-950 border border-amber-300 hover:border-amber-400 text-xs font-bold px-3.5 py-2 rounded-xl transition-all shadow-sm flex items-center gap-2 group"
+                title="View Public Notice Board"
+              >
+                <div className="relative flex items-center justify-center">
+                  <FileText className="w-4 h-4 text-amber-700 group-hover:scale-110 transition-transform" />
+                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-rose-600"></span>
+                </div>
+                <span>Notice Board</span>
+              </Link>
+
+              <Link
+                to="/login"
+                className="bg-govblue-700 hover:bg-govblue-800 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all shadow-sm flex items-center gap-1.5"
+              >
+                <User className="w-4 h-4" />
+                <span>Sign In</span>
+              </Link>
+            </div>
           )}
         </div>
       </div>

@@ -34,7 +34,12 @@ import {
   ChevronRight,
   Info,
   Award,
-  Zap
+  Zap,
+  FileSpreadsheet,
+  Scale,
+  Gavel,
+  HelpCircle,
+  CheckSquare
 } from 'lucide-react';
 
 // Fix Leaflet default icon issues
@@ -124,7 +129,27 @@ export const SurveyExecutionPage = () => {
     tenant_present: false,
     occupancy_remarks: 'Primary landowner Shri Ramesh Rout verified on-site with Aadhaar ID.',
     boundary_status: 'Boundary matches records',
-    boundary_remarks: 'North boundary pegs match village revenue map.'
+    boundary_remarks: 'North boundary pegs match village revenue map.',
+    // Ownership Dispute
+    has_ownership_dispute: false,
+    dispute_nature: '',
+    dispute_parties: '',
+    dispute_details: '',
+    dispute_remarks: '',
+    // Court Case / Legal Dispute
+    has_court_case: false,
+    court_case_number: '',
+    court_name: '',
+    court_parties: '',
+    court_case_description: '',
+    court_case_status: 'Pending',
+    court_case_remarks: '',
+    // Structure / Project on Land
+    has_structure_or_project: false,
+    structure_type: 'House / Residential Building (Pucca)',
+    structure_description: '',
+    structure_location: '',
+    structure_remarks: ''
   });
 
   // 5. Evidence Upload
@@ -236,7 +261,27 @@ export const SurveyExecutionPage = () => {
           tenant_present: data.field_observation.tenant_present ?? false,
           occupancy_remarks: data.field_observation.occupancy_remarks || '',
           boundary_status: data.field_observation.boundary_status || 'Boundary matches records',
-          boundary_remarks: data.field_observation.boundary_remarks || ''
+          boundary_remarks: data.field_observation.boundary_remarks || '',
+          // Ownership Dispute
+          has_ownership_dispute: Boolean(data.field_observation.has_ownership_dispute),
+          dispute_nature: data.field_observation.dispute_nature || '',
+          dispute_parties: data.field_observation.dispute_parties || '',
+          dispute_details: data.field_observation.dispute_details || '',
+          dispute_remarks: data.field_observation.dispute_remarks || '',
+          // Court Case / Legal Dispute
+          has_court_case: Boolean(data.field_observation.has_court_case),
+          court_case_number: data.field_observation.court_case_number || '',
+          court_name: data.field_observation.court_name || '',
+          court_parties: data.field_observation.court_parties || '',
+          court_case_description: data.field_observation.court_case_description || '',
+          court_case_status: data.field_observation.court_case_status || 'Pending',
+          court_case_remarks: data.field_observation.court_case_remarks || '',
+          // Structure / Project on Land
+          has_structure_or_project: Boolean(data.field_observation.has_structure_or_project),
+          structure_type: data.field_observation.structure_type || 'House / Residential Building (Pucca)',
+          structure_description: data.field_observation.structure_description || '',
+          structure_location: data.field_observation.structure_location || '',
+          structure_remarks: data.field_observation.structure_remarks || ''
         });
       } else {
         setObsData(prev => ({ ...prev, observed_area_acres: data.recorded_area_acres }));
@@ -325,6 +370,20 @@ export const SurveyExecutionPage = () => {
     }
   };
 
+  const handleSaveDocsAndNavigate = async (targetTab) => {
+    try {
+      setActionLoading(true);
+      await surveyService.verifyDocuments(id, { documents: docItems });
+      showFeedback('Document verifications saved.');
+      if (targetTab) setActiveTab(targetTab);
+      loadSurvey();
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Failed to save document verifications.');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   // 3. Capture / Verify GPS
   const handleCaptureLiveGps = () => {
     if (!navigator.geolocation) {
@@ -402,18 +461,36 @@ export const SurveyExecutionPage = () => {
 
   // 4. Save Field Observations
   const handleSaveObservations = async (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     try {
       setActionLoading(true);
       await surveyService.updateObservations(id, {
         ...obsData,
-        observed_area_acres: parseFloat(obsData.observed_area_acres),
+        observed_area_acres: parseFloat(obsData.observed_area_acres || survey?.recorded_area_acres || 0),
         trees_count: parseInt(obsData.trees_count || 0)
       });
       showFeedback('Field observations updated successfully.');
       loadSurvey();
     } catch (err) {
       setError(err.response?.data?.detail || 'Failed to save field observations.');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleSaveObservationsAndNavigate = async (targetTab) => {
+    try {
+      setActionLoading(true);
+      await surveyService.updateObservations(id, {
+        ...obsData,
+        observed_area_acres: parseFloat(obsData.observed_area_acres || survey?.recorded_area_acres || 0),
+        trees_count: parseInt(obsData.trees_count || 0)
+      });
+      showFeedback('Survey progress saved successfully.');
+      if (targetTab) setActiveTab(targetTab);
+      loadSurvey();
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Failed to save observations.');
     } finally {
       setActionLoading(false);
     }
@@ -501,20 +578,25 @@ export const SurveyExecutionPage = () => {
 
   // 8. Submit Final Survey Report
   const handleSubmitReport = async (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     if (!reportData.digital_signature_confirmed) {
       setError('You must confirm digital certification before submitting the survey report.');
       return;
     }
     try {
       setActionLoading(true);
+      await surveyService.updateObservations(id, {
+        ...obsData,
+        observed_area_acres: parseFloat(obsData.observed_area_acres || survey?.recorded_area_acres || 0),
+        trees_count: parseInt(obsData.trees_count || 0)
+      });
       await surveyService.submitSurveyReport(id, {
         digital_signature_confirmed: true,
         certification_statement: reportData.certification_statement,
         final_recommendation: reportData.final_recommendation,
         final_remarks: reportData.final_remarks
       });
-      showFeedback('Survey Report digitally signed and successfully submitted to LAO / CO.');
+      showFeedback('Survey Report digitally signed and successfully submitted to LAO!');
       loadSurvey();
     } catch (err) {
       setError(err.response?.data?.detail || 'Failed to submit survey report.');
@@ -584,13 +666,30 @@ export const SurveyExecutionPage = () => {
 
   if (!survey) {
     return (
-      <div className="p-8 text-center bg-white rounded-2xl border border-slate-200">
-        <AlertTriangle className="w-12 h-12 text-rose-500 mx-auto mb-3" />
-        <h2 className="text-lg font-bold text-slate-800">Survey Record Not Found</h2>
-        <p className="text-sm text-slate-500 mt-1">The requested survey assignment does not exist or you do not have permission.</p>
-        <Link to="/survey/dashboard" className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-govblue-700 text-white rounded-xl text-xs font-bold">
-          <ArrowLeft className="w-4 h-4" /> Back to Survey Dashboard
-        </Link>
+      <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 max-w-lg mx-auto my-12 shadow-sm space-y-4">
+        <div className="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center mx-auto text-rose-600 border border-rose-100">
+          <AlertTriangle className="w-7 h-7" />
+        </div>
+        <div>
+          <h2 className="text-lg font-bold text-slate-800">Unable to load survey details</h2>
+          <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+            {error || 'Unable to connect to survey records or the requested survey assignment is currently unavailable. Please try again.'}
+          </p>
+        </div>
+        <div className="pt-2 flex items-center justify-center gap-3">
+          <button
+            onClick={loadSurvey}
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-govblue-700 hover:bg-govblue-800 text-white rounded-xl text-xs font-bold transition shadow-sm"
+          >
+            <RefreshCw className="w-4 h-4" /> Retry
+          </button>
+          <Link
+            to="/survey/dashboard"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition"
+          >
+            <ArrowLeft className="w-4 h-4" /> Back to Dashboard
+          </Link>
+        </div>
       </div>
     );
   }
@@ -739,16 +838,19 @@ export const SurveyExecutionPage = () => {
       {/* Main Tab Navigation */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-200">
         {[
-          { id: 'overview', label: '1. Overview & Context', icon: Info },
-          { id: 'docs', label: '2. Document Verification', icon: FileCheck, badge: survey.document_verifications?.length },
-          { id: 'schedule', label: '3. Schedule & Team', icon: Calendar },
-          { id: 'gps', label: '4. GPS & Spatial Map', icon: MapPin, status: survey.gps_verification?.location_status },
-          { id: 'observations', label: '5. Field Observations', icon: FileText },
-          { id: 'evidence', label: '6. Media Evidence', icon: Camera, badge: survey.evidence_items?.length },
-          { id: 'discrepancies', label: '7. Discrepancies', icon: AlertTriangle, badge: survey.discrepancies?.length, alert: survey.discrepancies?.length > 0 },
-          { id: 'resurvey', label: '8. Resurvey Workflow', icon: RefreshCw, badge: survey.resurvey_requests?.length },
-          { id: 'report', label: '9. Digital Report & Submit', icon: ShieldCheck },
-          { id: 'audit', label: '10. Audit History & ML', icon: Clock }
+          { id: 'overview', label: '1. Survey Information', icon: Info },
+          { id: 'dispute', label: '2. Ownership Dispute', icon: AlertTriangle, alert: obsData.has_ownership_dispute },
+          { id: 'court', label: '3. Court Case / Legal Dispute', icon: Gavel, alert: obsData.has_court_case },
+          { id: 'structure', label: '4. Structure / Project', icon: Building, alert: obsData.has_structure_or_project },
+          { id: 'docs', label: '5. Document Verification', icon: FileCheck, badge: survey.document_verifications?.length },
+          { id: 'observations', label: '6. Remarks & Observations', icon: FileText },
+          { id: 'report', label: '7. Review & Submit to LAO', icon: ShieldCheck },
+          { id: 'gps', label: 'GPS Map & Centroid', icon: MapPin, status: survey.gps_verification?.location_status },
+          { id: 'evidence', label: 'Media Evidence', icon: Camera, badge: survey.evidence_items?.length },
+          { id: 'schedule', label: 'Schedule & Team', icon: Calendar },
+          { id: 'discrepancies', label: 'Discrepancies', icon: AlertCircle, badge: survey.discrepancies?.length, alert: survey.discrepancies?.length > 0 },
+          { id: 'resurvey', label: 'Resurvey', icon: RefreshCw, badge: survey.resurvey_requests?.length },
+          { id: 'audit', label: 'Audit Log', icon: Clock }
         ].map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -833,6 +935,47 @@ export const SurveyExecutionPage = () => {
                 </p>
                 <div className="text-[11px] text-slate-400 pt-1">
                   Purpose: <strong>{survey.purpose}</strong> • Issued by: <strong>{survey.lao_name || 'Land Acquisition Officer'}</strong>
+                </div>
+              </div>
+
+              {/* Recorded vs Observed Area Physical Verification */}
+              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-3">
+                <div className="font-extrabold text-slate-900 flex items-center justify-between">
+                  <span className="flex items-center gap-1.5">
+                    <Scale className="w-4 h-4 text-govblue-700" />
+                    Physical Cadastral Area Verification
+                  </span>
+                  <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold ${
+                    Math.abs(areaDeviationPct) > 5 ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'
+                  }`}>
+                    Variance: {areaDeviationPct > 0 ? `+${areaDeviationPct}` : areaDeviationPct}%
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  <div className="p-2.5 bg-white rounded-lg border border-slate-200">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase block">Recorded Revenue Area</span>
+                    <span className="font-black text-slate-800 text-sm">{survey.recorded_area_acres} Acres</span>
+                  </div>
+                  <div className="p-2.5 bg-white rounded-lg border border-slate-200">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase block">Observed Field Area</span>
+                    <span className="font-black text-govblue-900 text-sm">{obsData.observed_area_acres || survey.recorded_area_acres} Acres</span>
+                  </div>
+                  <div className="p-2.5 bg-white rounded-lg border border-slate-200">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase block">Boundary Demarcation</span>
+                    <span className="font-bold text-slate-800 text-xs truncate block">{obsData.boundary_status}</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('dispute')}
+                    className="flex items-center gap-2 px-5 py-2.5 bg-govblue-700 hover:bg-govblue-800 text-white rounded-xl text-xs font-bold shadow-md transition"
+                  >
+                    <span>Proceed to Step 2: Ownership Dispute</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
             </div>
@@ -949,17 +1092,476 @@ export const SurveyExecutionPage = () => {
         </div>
       )}
 
-      {/* 2. DOCUMENT VERIFICATION TAB */}
+      {/* 2. OWNERSHIP DISPUTE TAB */}
+      {activeTab === 'dispute' && (
+        <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+          <div className="border-b border-slate-100 pb-4">
+            <div className="flex items-center gap-2 text-govblue-700 text-xs font-bold uppercase tracking-wider">
+              <span>Step 2 of 7</span>
+              <span>•</span>
+              <span>Land Title & Conflict Verification</span>
+            </div>
+            <h3 className="text-lg font-extrabold text-slate-900 mt-1 flex items-center gap-2">
+              <Scale className="w-5 h-5 text-govblue-700" />
+              Ownership Dispute Verification
+            </h3>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Verify whether any competing ownership claims, family inheritance disputes, or boundary conflicts exist on Plot #{survey.plot_number}.
+            </p>
+          </div>
+
+          {/* Primary Question */}
+          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+            <label className="block text-sm font-extrabold text-slate-900">
+              Is there any ownership dispute for this land?
+            </label>
+            <div className="flex flex-wrap items-center gap-4">
+              <button
+                type="button"
+                onClick={() => setObsData({ ...obsData, has_ownership_dispute: true })}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs transition border ${
+                  obsData.has_ownership_dispute
+                    ? 'bg-rose-600 text-white border-rose-600 shadow-md ring-2 ring-rose-200'
+                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+                }`}
+              >
+                <AlertTriangle className="w-4 h-4" /> YES, Dispute Exists
+              </button>
+              <button
+                type="button"
+                onClick={() => setObsData({ ...obsData, has_ownership_dispute: false })}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs transition border ${
+                  !obsData.has_ownership_dispute
+                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-md ring-2 ring-emerald-200'
+                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+                }`}
+              >
+                <CheckCircle2 className="w-4 h-4" /> NO Disputes (Clear Title)
+              </button>
+            </div>
+          </div>
+
+          {/* Dynamic Dispute Details (If YES) */}
+          {obsData.has_ownership_dispute ? (
+            <div className="p-6 rounded-2xl border border-rose-200 bg-rose-50/40 space-y-5">
+              <div className="flex items-center gap-2 text-rose-800 font-extrabold text-sm border-b border-rose-200 pb-2">
+                <AlertTriangle className="w-4 h-4 text-rose-600" />
+                Ownership Dispute Particulars & Documentation
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div>
+                  <label className="block font-bold text-slate-800 mb-1">Nature of Dispute *</label>
+                  <select
+                    value={obsData.dispute_nature || 'Family inheritance / partition'}
+                    onChange={(e) => setObsData({ ...obsData, dispute_nature: e.target.value })}
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-rose-500 font-semibold text-xs"
+                  >
+                    <option value="Family inheritance / partition">Family inheritance / partition</option>
+                    <option value="Boundary conflict with neighbor">Boundary conflict with neighbor</option>
+                    <option value="Co-sharer claim without partition">Co-sharer claim without partition</option>
+                    <option value="Illegal encroachment claim">Illegal encroachment claim</option>
+                    <option value="Tenant / sharecropper claim">Tenant / sharecropper claim</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-800 mb-1">Parties Involved in Dispute *</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Ramesh Rout vs Suresh Rout & Brothers"
+                    value={obsData.dispute_parties}
+                    onChange={(e) => setObsData({ ...obsData, dispute_parties: e.target.value })}
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-rose-500 text-xs"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1 text-xs">
+                <label className="block font-bold text-slate-800">Detailed Description of Dispute *</label>
+                <textarea
+                  rows={3}
+                  placeholder="Describe the nature of disagreement, claimed portions, documented evidence presented, or oral objections..."
+                  value={obsData.dispute_details}
+                  onChange={(e) => setObsData({ ...obsData, dispute_details: e.target.value })}
+                  className="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-rose-500 text-xs"
+                />
+              </div>
+
+              <div className="space-y-1 text-xs">
+                <label className="block font-bold text-slate-800">Survey Officer Remarks / Field Observations</label>
+                <textarea
+                  rows={2}
+                  placeholder="Record officer remarks, mediator statements, or physical boundary marks affected by the dispute..."
+                  value={obsData.dispute_remarks}
+                  onChange={(e) => setObsData({ ...obsData, dispute_remarks: e.target.value })}
+                  className="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-rose-500 text-xs"
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="p-5 rounded-2xl border border-emerald-200 bg-emerald-50/60 flex items-center gap-3 text-xs text-emerald-800">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+              <div>
+                <span className="font-extrabold block">Clear Ownership Verified</span>
+                <span>No ownership dispute, family conflict, or adverse possession reported for Plot #{survey.plot_number}. Proceed cleanly.</span>
+              </div>
+            </div>
+          )}
+
+          {/* Stepper Navigation */}
+          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+            <button
+              type="button"
+              onClick={() => setActiveTab('overview')}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold transition"
+            >
+              <ArrowLeft className="w-4 h-4" /> Back to Survey Info
+            </button>
+
+            <button
+              type="button"
+              disabled={actionLoading}
+              onClick={() => handleSaveObservationsAndNavigate('court')}
+              className="flex items-center gap-2 px-6 py-2.5 bg-govblue-700 hover:bg-govblue-800 text-white rounded-xl text-xs font-bold shadow-md transition"
+            >
+              <span>Save & Continue to Court Case</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* 3. COURT CASE / LEGAL DISPUTE TAB */}
+      {activeTab === 'court' && (
+        <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+          <div className="border-b border-slate-100 pb-4">
+            <div className="flex items-center gap-2 text-govblue-700 text-xs font-bold uppercase tracking-wider">
+              <span>Step 3 of 7</span>
+              <span>•</span>
+              <span>Judicial & Statutory Injunction Check</span>
+            </div>
+            <h3 className="text-lg font-extrabold text-slate-900 mt-1 flex items-center gap-2">
+              <Gavel className="w-5 h-5 text-govblue-700" />
+              Court Case & Legal Dispute Verification
+            </h3>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Verify if any litigation, injunction, stay order, or revenue appeal is pending in civil court or land tribunal.
+            </p>
+          </div>
+
+          {/* Primary Question */}
+          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+            <label className="block text-sm font-extrabold text-slate-900">
+              Is there any ongoing court case or legal dispute related to this land?
+            </label>
+            <div className="flex flex-wrap items-center gap-4">
+              <button
+                type="button"
+                onClick={() => setObsData({ ...obsData, has_court_case: true })}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs transition border ${
+                  obsData.has_court_case
+                    ? 'bg-rose-600 text-white border-rose-600 shadow-md ring-2 ring-rose-200'
+                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+                }`}
+              >
+                <Gavel className="w-4 h-4" /> YES, Legal Dispute / Case Exists
+              </button>
+              <button
+                type="button"
+                onClick={() => setObsData({ ...obsData, has_court_case: false })}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs transition border ${
+                  !obsData.has_court_case
+                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-md ring-2 ring-emerald-200'
+                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+                }`}
+              >
+                <CheckCircle2 className="w-4 h-4" /> NO Legal Disputes (Clean Record)
+              </button>
+            </div>
+          </div>
+
+          {/* Dynamic Legal Details (If YES) */}
+          {obsData.has_court_case ? (
+            <div className="p-6 rounded-2xl border border-rose-200 bg-rose-50/40 space-y-5">
+              <div className="flex items-center gap-2 text-rose-800 font-extrabold text-sm border-b border-rose-200 pb-2">
+                <Gavel className="w-4 h-4 text-rose-600" />
+                Judicial Case Particulars & Injunction Status
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                <div>
+                  <label className="block font-bold text-slate-800 mb-1">Court Case Number *</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. CS No. 104/2023 or WP(C) 4120/2024"
+                    value={obsData.court_case_number}
+                    onChange={(e) => setObsData({ ...obsData, court_case_number: e.target.value })}
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-rose-500 font-mono text-xs font-bold"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-800 mb-1">Court / Authority Name *</label>
+                  <select
+                    value={obsData.court_name || 'Civil Court (Senior Division)'}
+                    onChange={(e) => setObsData({ ...obsData, court_name: e.target.value })}
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-rose-500 text-xs font-semibold"
+                  >
+                    <option value="Civil Court (Senior Division)">Civil Court (Senior Division)</option>
+                    <option value="Civil Court (Junior Division)">Civil Court (Junior Division)</option>
+                    <option value="High Court of Orissa">High Court of Orissa</option>
+                    <option value="Revenue Court / Sub-Collector">Revenue Court / Sub-Collector</option>
+                    <option value="Land Acquisition Tribunal">Land Acquisition Tribunal (LARR)</option>
+                    <option value="Tehsildar Mutation Court">Tehsildar Mutation Court</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-800 mb-1">Stay Order / Injunction Status *</label>
+                  <select
+                    value={obsData.court_case_status || 'Pending Hearing'}
+                    onChange={(e) => setObsData({ ...obsData, court_case_status: e.target.value })}
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-rose-500 text-xs font-bold text-rose-700"
+                  >
+                    <option value="None">None (No Stay)</option>
+                    <option value="Interim Stay">Interim Stay on Possession</option>
+                    <option value="Injunction">Injunction Granted</option>
+                    <option value="Pending Hearing">Pending Hearing</option>
+                    <option value="Decided">Decided / Disposed</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div>
+                  <label className="block font-bold text-slate-800 mb-1">Parties Involved (Petitioner vs Respondent) *</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Petitioner: Shri B. K. Das vs Respondent: State of Odisha & Others"
+                    value={obsData.court_parties}
+                    onChange={(e) => setObsData({ ...obsData, court_parties: e.target.value })}
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-rose-500 text-xs"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-800 mb-1">Case Description</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Challenge against survey demarcation and partition deed validity"
+                    value={obsData.court_case_description}
+                    onChange={(e) => setObsData({ ...obsData, court_case_description: e.target.value })}
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-rose-500 text-xs"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1 text-xs">
+                <label className="block font-bold text-slate-800">Survey Officer Remarks</label>
+                <textarea
+                  rows={2}
+                  placeholder="Record whether physical acquisition can proceed or if stay order prohibits possession..."
+                  value={obsData.court_case_remarks}
+                  onChange={(e) => setObsData({ ...obsData, court_case_remarks: e.target.value })}
+                  className="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-rose-500 text-xs"
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="p-5 rounded-2xl border border-emerald-200 bg-emerald-50/60 flex items-center gap-3 text-xs text-emerald-800">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+              <div>
+                <span className="font-extrabold block">No Ongoing Litigation</span>
+                <span>No court cases, injunctions, or stay orders registered against Plot #{survey.plot_number}. Proceed cleanly.</span>
+              </div>
+            </div>
+          )}
+
+          {/* Stepper Navigation */}
+          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+            <button
+              type="button"
+              onClick={() => setActiveTab('dispute')}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold transition"
+            >
+              <ArrowLeft className="w-4 h-4" /> Back to Ownership Dispute
+            </button>
+
+            <button
+              type="button"
+              disabled={actionLoading}
+              onClick={() => handleSaveObservationsAndNavigate('structure')}
+              className="flex items-center gap-2 px-6 py-2.5 bg-govblue-700 hover:bg-govblue-800 text-white rounded-xl text-xs font-bold shadow-md transition"
+            >
+              <span>Save & Continue to Structure / Project</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* 4. STRUCTURE / PROJECT ON LAND TAB */}
+      {activeTab === 'structure' && (
+        <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+          <div className="border-b border-slate-100 pb-4">
+            <div className="flex items-center gap-2 text-govblue-700 text-xs font-bold uppercase tracking-wider">
+              <span>Step 4 of 7</span>
+              <span>•</span>
+              <span>Built Assets & Valuation Enumeration</span>
+            </div>
+            <h3 className="text-lg font-extrabold text-slate-900 mt-1 flex items-center gap-2">
+              <Building className="w-5 h-5 text-govblue-700" />
+              Existing Structure & Project Verification
+            </h3>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Verify whether any buildings, wells, walls, religious shrines, or ongoing projects exist on Plot #{survey.plot_number}.
+            </p>
+          </div>
+
+          {/* Primary Question */}
+          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+            <label className="block text-sm font-extrabold text-slate-900">
+              Is there any existing structure or project on the land?
+            </label>
+            <div className="flex flex-wrap items-center gap-4">
+              <button
+                type="button"
+                onClick={() => setObsData({ ...obsData, has_structure_or_project: true })}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs transition border ${
+                  obsData.has_structure_or_project
+                    ? 'bg-blue-600 text-white border-blue-600 shadow-md ring-2 ring-blue-200'
+                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+                }`}
+              >
+                <Building className="w-4 h-4" /> YES, Structure / Project Exists
+              </button>
+              <button
+                type="button"
+                onClick={() => setObsData({ ...obsData, has_structure_or_project: false })}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs transition border ${
+                  !obsData.has_structure_or_project
+                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-md ring-2 ring-emerald-200'
+                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+                }`}
+              >
+                <CheckCircle2 className="w-4 h-4" /> NO Structures (Vacant Land)
+              </button>
+            </div>
+          </div>
+
+          {/* Dynamic Structure Details (If YES) */}
+          {obsData.has_structure_or_project ? (
+            <div className="p-6 rounded-2xl border border-blue-200 bg-blue-50/40 space-y-5">
+              <div className="flex items-center gap-2 text-govblue-900 font-extrabold text-sm border-b border-blue-200 pb-2">
+                <Building className="w-4 h-4 text-govblue-700" />
+                Structure Specifications & Valuation Impact
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div>
+                  <label className="block font-bold text-slate-800 mb-1">Structure Type *</label>
+                  <select
+                    value={obsData.structure_type || 'Residential house'}
+                    onChange={(e) => setObsData({ ...obsData, structure_type: e.target.value })}
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-govblue-500 font-semibold text-xs"
+                  >
+                    <option value="Residential house">Residential house</option>
+                    <option value="Commercial building">Commercial building</option>
+                    <option value="Boundary wall">Boundary wall</option>
+                    <option value="Well / Borewell">Well / Borewell</option>
+                    <option value="Religious structure">Religious structure</option>
+                    <option value="Pond / Water body">Pond / Water body</option>
+                    <option value="Shed / Outhouse">Shed / Outhouse</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-800 mb-1">Location on Parcel *</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Center, North-East corner, Western boundary"
+                    value={obsData.structure_location}
+                    onChange={(e) => setObsData({ ...obsData, structure_location: e.target.value })}
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-govblue-500 text-xs font-semibold"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1 text-xs">
+                <label className="block font-bold text-slate-800">Description / Specifications of Structure *</label>
+                <textarea
+                  rows={3}
+                  placeholder="e.g. Single-story RCC structure measuring 35ft x 28ft, plaster finish, electrified, borewell pump adjacent..."
+                  value={obsData.structure_description}
+                  onChange={(e) => setObsData({ ...obsData, structure_description: e.target.value })}
+                  className="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-govblue-500 text-xs"
+                />
+              </div>
+
+              <div className="space-y-1 text-xs">
+                <label className="block font-bold text-slate-800">Impact on Acquisition / Remarks</label>
+                <textarea
+                  rows={2}
+                  placeholder="e.g. Requires structural valuation by PWD Executive Engineer under Section 29 of RFCTLARR Act..."
+                  value={obsData.structure_remarks}
+                  onChange={(e) => setObsData({ ...obsData, structure_remarks: e.target.value })}
+                  className="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-govblue-500 text-xs"
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="p-5 rounded-2xl border border-emerald-200 bg-emerald-50/60 flex items-center gap-3 text-xs text-emerald-800">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+              <div>
+                <span className="font-extrabold block">Vacant Land Verified</span>
+                <span>No buildings, permanent structures, wells, or ongoing projects identified on this parcel. Proceed cleanly.</span>
+              </div>
+            </div>
+          )}
+
+          {/* Stepper Navigation */}
+          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+            <button
+              type="button"
+              onClick={() => setActiveTab('court')}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold transition"
+            >
+              <ArrowLeft className="w-4 h-4" /> Back to Court Case
+            </button>
+
+            <button
+              type="button"
+              disabled={actionLoading}
+              onClick={() => handleSaveObservationsAndNavigate('docs')}
+              className="flex items-center gap-2 px-6 py-2.5 bg-govblue-700 hover:bg-govblue-800 text-white rounded-xl text-xs font-bold shadow-md transition"
+            >
+              <span>Save & Continue to Document Verification</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* 5. DOCUMENT VERIFICATION TAB */}
       {activeTab === 'docs' && (
         <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
             <div>
-              <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+              <div className="flex items-center gap-2 text-govblue-700 text-xs font-bold uppercase tracking-wider">
+                <span>Step 5 of 7</span>
+                <span>•</span>
+                <span>Statutory Revenue Records</span>
+              </div>
+              <h3 className="text-lg font-extrabold text-slate-900 mt-1 flex items-center gap-2">
                 <FileCheck className="w-5 h-5 text-govblue-700" />
-                Statutory Document Cross-Verification
+                Document Verification & Cross-Examination
               </h3>
               <p className="text-xs text-slate-500 mt-0.5">
-                Verify physical land records against official District Revenue & Settlement archives.
+                Verify physical land records against official District Revenue & Settlement archives. Select status and record remarks for each document.
               </p>
             </div>
 
@@ -981,28 +1583,29 @@ export const SurveyExecutionPage = () => {
                     <h4 className="text-sm font-bold text-slate-800">{doc.doc_title}</h4>
                   </div>
 
-                  {/* Verification Status Toggle */}
-                  <div className="flex items-center gap-1.5 bg-white p-1 rounded-lg border border-slate-200 text-xs font-bold">
-                    {['VERIFIED', 'MISMATCH', 'MISSING'].map((st) => (
+                  {/* Verification Status Toggle: VERIFIED, MISSING, MISMATCHED, UNAVAILABLE */}
+                  <div className="flex flex-wrap items-center gap-1.5 bg-white p-1 rounded-lg border border-slate-200 text-xs font-bold">
+                    {[
+                      { key: 'VERIFIED', label: 'VERIFIED', activeClass: 'bg-emerald-600 text-white shadow-sm' },
+                      { key: 'MISSING', label: 'MISSING', activeClass: 'bg-amber-600 text-white shadow-sm' },
+                      { key: 'MISMATCHED', label: 'MISMATCHED', activeClass: 'bg-rose-600 text-white shadow-sm' },
+                      { key: 'UNAVAILABLE', label: 'UNAVAILABLE', activeClass: 'bg-slate-700 text-white shadow-sm' }
+                    ].map(({ key, label, activeClass }) => (
                       <button
-                        key={st}
+                        key={key}
                         type="button"
                         onClick={() => {
                           const updated = [...docItems];
-                          updated[idx].verification_status = st;
+                          updated[idx].verification_status = key;
                           setDocItems(updated);
                         }}
-                        className={`px-3 py-1 rounded transition ${
-                          doc.verification_status === st
-                            ? st === 'VERIFIED'
-                              ? 'bg-emerald-600 text-white shadow-sm'
-                              : st === 'MISMATCH'
-                              ? 'bg-rose-600 text-white shadow-sm'
-                              : 'bg-amber-600 text-white shadow-sm'
+                        className={`px-2.5 py-1 rounded text-[11px] transition ${
+                          doc.verification_status === key || (key === 'MISMATCHED' && doc.verification_status === 'MISMATCH')
+                            ? activeClass
                             : 'text-slate-600 hover:bg-slate-100'
                         }`}
                       >
-                        {st}
+                        {label}
                       </button>
                     ))}
                   </div>
@@ -1025,7 +1628,7 @@ export const SurveyExecutionPage = () => {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-500 mb-1">Verification Remarks</label>
+                    <label className="block text-[11px] font-semibold text-slate-500 mb-1">Verification Remarks *</label>
                     <input
                       type="text"
                       placeholder="e.g. Original Patta verified with Tehsildar seal"
@@ -1043,13 +1646,23 @@ export const SurveyExecutionPage = () => {
             ))}
           </div>
 
-          <div className="flex justify-end pt-2">
+          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
             <button
-              onClick={handleSaveDocs}
-              disabled={actionLoading}
-              className="px-5 py-2.5 bg-govblue-700 hover:bg-govblue-800 text-white text-xs font-bold rounded-xl shadow-md transition"
+              type="button"
+              onClick={() => setActiveTab('structure')}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold transition"
             >
-              Save Document Verification Checklist
+              <ArrowLeft className="w-4 h-4" /> Back to Structure / Project
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleSaveDocsAndNavigate('observations')}
+              disabled={actionLoading}
+              className="flex items-center gap-2 px-6 py-2.5 bg-govblue-700 hover:bg-govblue-800 text-white text-xs font-bold rounded-xl shadow-md transition"
+            >
+              <span>Save & Continue to Remarks & Observations</span>
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -1353,17 +1966,22 @@ export const SurveyExecutionPage = () => {
         </div>
       )}
 
-      {/* 5. FIELD OBSERVATIONS TAB */}
+      {/* 6. FIELD OBSERVATIONS & REMARKS TAB */}
       {activeTab === 'observations' && (
         <form onSubmit={handleSaveObservations} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
             <div>
-              <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+              <div className="flex items-center gap-2 text-govblue-700 text-xs font-bold uppercase tracking-wider">
+                <span>Step 6 of 7</span>
+                <span>•</span>
+                <span>Physical Field Verification</span>
+              </div>
+              <h3 className="text-lg font-extrabold text-slate-900 mt-1 flex items-center gap-2">
                 <FileText className="w-5 h-5 text-govblue-700" />
-                Physical Field Observations & Asset Enumeration
+                Remarks & Physical Field Observations
               </h3>
               <p className="text-xs text-slate-500 mt-0.5">
-                Record actual ground dimensions, vegetation, permanent structures, and tenancy verification.
+                Record actual boundary status, ground land use, observed area, tree count, and physical verification remarks.
               </p>
             </div>
 
@@ -1409,11 +2027,12 @@ export const SurveyExecutionPage = () => {
                   className="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-govblue-500 bg-white"
                 >
                   <option value="Agricultural">Agricultural</option>
-                  <option value="Homestead">Homestead</option>
+                  <option value="Residential">Residential</option>
                   <option value="Commercial">Commercial</option>
-                  <option value="Forest">Forest</option>
                   <option value="Barren">Barren</option>
                   <option value="Industrial">Industrial</option>
+                  <option value="Mixed">Mixed</option>
+                  <option value="Forest">Forest</option>
                 </select>
               </div>
 
@@ -1528,41 +2147,75 @@ export const SurveyExecutionPage = () => {
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-600 mb-1">Boundary Ground Status</label>
+                <label className="block font-semibold text-slate-600 mb-1">Boundary Ground Status *</label>
                 <select
                   value={obsData.boundary_status}
                   onChange={(e) => setObsData({ ...obsData, boundary_status: e.target.value })}
                   className="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-govblue-500 bg-white"
                 >
                   <option value="Boundary matches records">Boundary matches records</option>
-                  <option value="Boundary mismatch">Boundary mismatch</option>
-                  <option value="Encroachment suspected">Encroachment suspected</option>
-                  <option value="Neighboring parcel issue">Neighboring parcel issue</option>
-                  <option value="Unable to verify">Unable to verify</option>
+                  <option value="Encroachment detected">Encroachment detected</option>
+                  <option value="Boundary overlap with adjacent plot">Boundary overlap with adjacent plot</option>
+                  <option value="Disputed boundary">Disputed boundary</option>
+                  <option value="Unclear / Submerged">Unclear / Submerged</option>
                   <option value="Other">Other</option>
                 </select>
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-600 mb-1">Occupancy / Demarcation Notes</label>
+                <label className="block font-semibold text-slate-600 mb-1">Survey Officer Field Verification Remarks</label>
                 <textarea
                   rows={2}
                   value={obsData.occupancy_remarks}
                   onChange={(e) => setObsData({ ...obsData, occupancy_remarks: e.target.value })}
                   className="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-govblue-500 bg-white"
-                  placeholder="Record identity checks and neighbour statements"
+                  placeholder="Record identity checks, ground demarcation conditions, and neighbour statements"
                 />
               </div>
             </div>
           </div>
 
-          <div className="flex justify-end pt-2">
+          {/* Live GPS Verification Quick Status */}
+          <div className="p-4 rounded-xl border border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-govblue-100 text-govblue-800 flex items-center justify-center shrink-0">
+                <MapPin className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="font-bold text-slate-800 block">Spatial Demarcation & GPS Status</span>
+                <span className="text-[11px] text-slate-500">
+                  {gpsData.captured_latitude ? `Fix: ${gpsData.captured_latitude}, ${gpsData.captured_longitude} (${survey.gps_verification?.location_status || 'Verified'})` : 'No live coordinates captured yet'}
+                </span>
+              </div>
+            </div>
             <button
-              type="submit"
-              disabled={actionLoading}
-              className="px-6 py-2.5 bg-govblue-700 hover:bg-govblue-800 text-white text-xs font-bold rounded-xl shadow-md transition"
+              type="button"
+              onClick={handleCaptureLiveGps}
+              disabled={gpsCapturing}
+              className="flex items-center gap-2 px-3.5 py-1.5 bg-govblue-700 hover:bg-govblue-800 text-white rounded-lg text-xs font-bold transition shrink-0"
             >
-              Save All Field Observations
+              <Compass className={`w-3.5 h-3.5 ${gpsCapturing ? 'animate-spin' : ''}`} />
+              {gpsCapturing ? 'Capturing Fix...' : 'Capture GPS Coordinates'}
+            </button>
+          </div>
+
+          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+            <button
+              type="button"
+              onClick={() => setActiveTab('docs')}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold transition"
+            >
+              <ArrowLeft className="w-4 h-4" /> Back to Document Verification
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleSaveObservationsAndNavigate('report')}
+              disabled={actionLoading}
+              className="flex items-center gap-2 px-6 py-2.5 bg-govblue-700 hover:bg-govblue-800 text-white rounded-xl text-xs font-bold shadow-md transition"
+            >
+              <span>Save & Review Survey Report (Step 7)</span>
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
         </form>
@@ -1770,38 +2423,265 @@ export const SurveyExecutionPage = () => {
         </div>
       )}
 
-      {/* 9. DIGITAL REPORT & SIGNATURE SUBMISSION TAB */}
+      {/* 7. DIGITAL REPORT & SIGNATURE SUBMISSION TAB */}
       {activeTab === 'report' && (
         <form onSubmit={handleSubmitReport} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
           <div className="border-b border-slate-100 pb-4">
-            <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-govblue-700" />
-              Digital Survey Certification & Report Submission
+            <div className="flex items-center gap-2 text-govblue-700 text-xs font-bold uppercase tracking-wider">
+              <span>Step 7 of 7</span>
+              <span>•</span>
+              <span>Final Comprehensive Review & Statutory Dispatch</span>
+            </div>
+            <h3 className="text-xl font-extrabold text-slate-900 mt-1 flex items-center gap-2">
+              <ShieldCheck className="w-6 h-6 text-govblue-700" />
+              Review Survey Report & Submit to LAO
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
-              Review compiled findings, sign digitally with legal certification, and submit for LAO / CO statutory approval.
+              Review compiled cadastral findings, ownership disputes, court cases, structural assets, and statutory verifications before digital certification.
             </p>
           </div>
 
-          {/* Compiled Summary Box */}
-          <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 text-xs">
-            <h4 className="font-extrabold text-slate-800 text-xs uppercase tracking-wider">Executive Survey Summary</h4>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-slate-700">
+          {/* Submission Status Alert (if already submitted or completed) */}
+          {['SUBMITTED', 'UNDER_REVIEW', 'COMPLETED', 'APPROVED'].includes(survey.status) && (
+            <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
               <div>
-                <span className="text-slate-400 text-[10px] block">Recorded Area:</span>
-                <span className="font-bold">{survey.recorded_area_acres} Ac</span>
+                <span className="font-extrabold block">Survey Report Official Status: {survey.status.replace(/_/g, ' ')}</span>
+                <span>This survey report has been digitally signed and submitted to the Land Acquisition Officer (LAO).</span>
               </div>
-              <div>
-                <span className="text-slate-400 text-[10px] block">Observed Area:</span>
-                <span className="font-bold">{obsData.observed_area_acres} Ac</span>
+            </div>
+          )}
+
+          {/* COMPREHENSIVE REVIEW SUMMARY CARDS (Steps 1 to 6) */}
+          <div className="space-y-4">
+            <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+              <Info className="w-4 h-4 text-govblue-700" /> Compiled Survey Field Verification Summary
+            </h4>
+
+            {/* Card 1: Cadastral Specifications & Area */}
+            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                <span className="font-extrabold text-xs text-slate-800 flex items-center gap-1.5">
+                  <FileSpreadsheet className="w-4 h-4 text-govblue-700" /> 1. Cadastral Parcel & Area Specifications
+                </span>
+                <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
+                  Math.abs(areaDeviationPct) > 5 ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'
+                }`}>
+                  Variance: {areaDeviationPct > 0 ? `+${areaDeviationPct}` : areaDeviationPct}%
+                </span>
               </div>
-              <div>
-                <span className="text-slate-400 text-[10px] block">Discrepancies:</span>
-                <span className="font-bold text-rose-600">{survey.discrepancies?.length || 0} items</span>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                <div>
+                  <span className="text-[10px] text-slate-400 block font-semibold uppercase">Plot / Khata</span>
+                  <span className="font-bold text-slate-800">Plot #{survey.plot_number} • Khata #{survey.khata_number}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-400 block font-semibold uppercase">Location</span>
+                  <span className="font-bold text-slate-800">{survey.village_name}, {survey.district}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-400 block font-semibold uppercase">Recorded Revenue Area</span>
+                  <span className="font-bold text-slate-800">{survey.recorded_area_acres} Acres</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-400 block font-semibold uppercase">Observed Ground Area</span>
+                  <span className="font-bold text-govblue-900">{obsData.observed_area_acres || survey.recorded_area_acres} Acres</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-400 block font-semibold uppercase">Boundary Demarcation</span>
+                  <span className="font-bold text-slate-800">{obsData.boundary_status}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-400 block font-semibold uppercase">Land Use</span>
+                  <span className="font-bold text-slate-800">{obsData.land_use}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-400 block font-semibold uppercase">Trees Count</span>
+                  <span className="font-bold text-slate-800">{obsData.trees_count || 0} Trees</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-400 block font-semibold uppercase">Landowner</span>
+                  <span className="font-bold text-slate-800">{survey.landowner_name}</span>
+                </div>
               </div>
-              <div>
-                <span className="text-slate-400 text-[10px] block">GPS Status:</span>
-                <span className="font-bold text-emerald-700">{survey.gps_verification?.location_status || 'Verified'}</span>
+            </div>
+
+            {/* Card 2: Ownership Dispute Verification */}
+            <div className={`p-5 rounded-2xl border space-y-3 ${obsData.has_ownership_dispute ? 'bg-rose-50/50 border-rose-200' : 'bg-emerald-50/40 border-emerald-200'}`}>
+              <div className="flex items-center justify-between border-b pb-2 border-slate-200">
+                <span className="font-extrabold text-xs text-slate-800 flex items-center gap-1.5">
+                  <Scale className="w-4 h-4 text-govblue-700" /> 2. Ownership Dispute Status
+                </span>
+                <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${
+                  obsData.has_ownership_dispute ? 'bg-rose-600 text-white' : 'bg-emerald-600 text-white'
+                }`}>
+                  {obsData.has_ownership_dispute ? 'DISPUTE REPORTED (YES)' : 'NO DISPUTES - CLEAR TITLE (NO)'}
+                </span>
+              </div>
+
+              {obsData.has_ownership_dispute ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div>
+                    <span className="text-[10px] text-slate-400 block font-semibold uppercase">Nature of Dispute:</span>
+                    <span className="font-bold text-rose-800">{obsData.dispute_nature || 'Family inheritance / partition'}</span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-400 block font-semibold uppercase">Parties Involved:</span>
+                    <span className="font-bold text-slate-800">{obsData.dispute_parties || 'Not specified'}</span>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <span className="text-[10px] text-slate-400 block font-semibold uppercase">Dispute Description:</span>
+                    <span className="text-slate-700">{obsData.dispute_details || 'Recorded in field inspection.'}</span>
+                  </div>
+                  {obsData.dispute_remarks && (
+                    <div className="sm:col-span-2">
+                      <span className="text-[10px] text-slate-400 block font-semibold uppercase">Officer Observations:</span>
+                      <span className="text-slate-700">{obsData.dispute_remarks}</span>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="text-xs text-emerald-800">
+                  Physical inquiry and revenue records confirm clean title with no family or neighbor boundary disputes.
+                </div>
+              )}
+            </div>
+
+            {/* Card 3: Court Case / Legal Dispute Verification */}
+            <div className={`p-5 rounded-2xl border space-y-3 ${obsData.has_court_case ? 'bg-rose-50/50 border-rose-200' : 'bg-emerald-50/40 border-emerald-200'}`}>
+              <div className="flex items-center justify-between border-b pb-2 border-slate-200">
+                <span className="font-extrabold text-xs text-slate-800 flex items-center gap-1.5">
+                  <Gavel className="w-4 h-4 text-govblue-700" /> 3. Court Case / Legal Dispute Status
+                </span>
+                <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${
+                  obsData.has_court_case ? 'bg-rose-600 text-white' : 'bg-emerald-600 text-white'
+                }`}>
+                  {obsData.has_court_case ? 'ACTIVE LITIGATION / STAY (YES)' : 'NO LITIGATION - CLEAN TITLE (NO)'}
+                </span>
+              </div>
+
+              {obsData.has_court_case ? (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                  <div>
+                    <span className="text-[10px] text-slate-400 block font-semibold uppercase">Case Number:</span>
+                    <span className="font-mono font-bold text-rose-800">{obsData.court_case_number || 'N/A'}</span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-400 block font-semibold uppercase">Court / Authority:</span>
+                    <span className="font-bold text-slate-800">{obsData.court_name || 'Civil Court'}</span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-400 block font-semibold uppercase">Injunction / Stay Status:</span>
+                    <span className="font-bold text-rose-700">{obsData.court_case_status || 'Pending Hearing'}</span>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <span className="text-[10px] text-slate-400 block font-semibold uppercase">Parties:</span>
+                    <span className="font-bold text-slate-800">{obsData.court_parties || 'N/A'}</span>
+                  </div>
+                  <div className="sm:col-span-3">
+                    <span className="text-[10px] text-slate-400 block font-semibold uppercase">Matter in Controversy:</span>
+                    <span className="text-slate-700">{obsData.court_case_description || 'Recorded in field verification.'}</span>
+                  </div>
+                  {obsData.court_case_remarks && (
+                    <div className="sm:col-span-3">
+                      <span className="text-[10px] text-slate-400 block font-semibold uppercase">Legal Findings & Remarks:</span>
+                      <span className="text-slate-700">{obsData.court_case_remarks}</span>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="text-xs text-emerald-800">
+                  No judicial proceedings, writ petitions, injunctions, or stay orders registered against Plot #{survey.plot_number}.
+                </div>
+              )}
+            </div>
+
+            {/* Card 4: Structure / Project Verification */}
+            <div className={`p-5 rounded-2xl border space-y-3 ${obsData.has_structure_or_project ? 'bg-blue-50/50 border-blue-200' : 'bg-slate-50 border-slate-200'}`}>
+              <div className="flex items-center justify-between border-b pb-2 border-slate-200">
+                <span className="font-extrabold text-xs text-slate-800 flex items-center gap-1.5">
+                  <Building className="w-4 h-4 text-govblue-700" /> 4. Existing Structure / Project on Land
+                </span>
+                <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${
+                  obsData.has_structure_or_project ? 'bg-blue-600 text-white' : 'bg-slate-600 text-white'
+                }`}>
+                  {obsData.has_structure_or_project ? 'STRUCTURE PRESENT (YES)' : 'VACANT LAND (NO)'}
+                </span>
+              </div>
+
+              {obsData.has_structure_or_project ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div>
+                    <span className="text-[10px] text-slate-400 block font-semibold uppercase">Structure Type:</span>
+                    <span className="font-bold text-govblue-900">{obsData.structure_type || 'Residential house'}</span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-400 block font-semibold uppercase">Location on Parcel:</span>
+                    <span className="font-bold text-slate-800">{obsData.structure_location || 'Center of plot'}</span>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <span className="text-[10px] text-slate-400 block font-semibold uppercase">Description / Dimensions:</span>
+                    <span className="text-slate-700">{obsData.structure_description || 'Recorded during inspection.'}</span>
+                  </div>
+                  {obsData.structure_remarks && (
+                    <div className="sm:col-span-2">
+                      <span className="text-[10px] text-slate-400 block font-semibold uppercase">Valuation Impact / Officer Remarks:</span>
+                      <span className="text-slate-700">{obsData.structure_remarks}</span>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="text-xs text-slate-600">
+                  Land is completely vacant. No houses, permanent masonry structures, wells, or ongoing projects identified.
+                </div>
+              )}
+            </div>
+
+            {/* Card 5: Document Verification Table */}
+            <div className="p-5 rounded-2xl bg-white border border-slate-200 space-y-3">
+              <div className="flex items-center justify-between border-b pb-2 border-slate-200">
+                <span className="font-extrabold text-xs text-slate-800 flex items-center gap-1.5">
+                  <FileCheck className="w-4 h-4 text-govblue-700" /> 5. Statutory Document Verifications Checklist
+                </span>
+                <span className="text-slate-400 text-[11px] font-semibold">
+                  {docItems.filter(d => d.verification_status === 'VERIFIED').length} of {docItems.length} Verified
+                </span>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-50 text-slate-500 font-bold border-b border-slate-200">
+                    <tr>
+                      <th className="py-2 px-3">Document Title</th>
+                      <th className="py-2 px-3">Type</th>
+                      <th className="py-2 px-3">Status</th>
+                      <th className="py-2 px-3">Verification Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 font-medium">
+                    {docItems.map((doc, idx) => (
+                      <tr key={idx} className="hover:bg-slate-50">
+                        <td className="py-2.5 px-3 font-bold text-slate-800">{doc.doc_title}</td>
+                        <td className="py-2.5 px-3 text-slate-500">{doc.doc_type}</td>
+                        <td className="py-2.5 px-3">
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-extrabold ${
+                            doc.verification_status === 'VERIFIED'
+                              ? 'bg-emerald-100 text-emerald-800'
+                              : doc.verification_status === 'MISMATCHED' || doc.verification_status === 'MISMATCH'
+                              ? 'bg-rose-100 text-rose-800'
+                              : doc.verification_status === 'MISSING'
+                              ? 'bg-amber-100 text-amber-800'
+                              : 'bg-slate-200 text-slate-700'
+                          }`}>
+                            {doc.verification_status}
+                          </span>
+                        </td>
+                        <td className="py-2.5 px-3 text-slate-600">{doc.remarks || doc.mismatch_details || 'Verified with district revenue record.'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -1812,7 +2692,7 @@ export const SurveyExecutionPage = () => {
             <select
               value={reportData.final_recommendation}
               onChange={(e) => setReportData({ ...reportData, final_recommendation: e.target.value })}
-              className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-govblue-500 bg-white font-semibold"
+              className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-govblue-500 bg-white font-semibold"
             >
               <option value="Survey Completed">Survey Completed (Ready for Section 19)</option>
               <option value="Survey Completed with Discrepancy">Survey Completed with Discrepancy (Conditional)</option>
@@ -1825,12 +2705,12 @@ export const SurveyExecutionPage = () => {
 
           {/* Final Remarks */}
           <div className="space-y-2 text-xs">
-            <label className="block font-bold text-slate-800">Survey Officer Concluding Remarks</label>
+            <label className="block font-bold text-slate-800">Survey Officer Concluding Remarks & Recommendations</label>
             <textarea
               rows={3}
               value={reportData.final_remarks}
               onChange={(e) => setReportData({ ...reportData, final_remarks: e.target.value })}
-              className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-govblue-500 bg-white"
+              className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-govblue-500 bg-white"
               placeholder="Detailed synthesis of findings for Land Acquisition Officer..."
             />
           </div>
@@ -1899,17 +2779,26 @@ export const SurveyExecutionPage = () => {
             </label>
           </div>
 
-          <div className="flex justify-end pt-2">
+          {/* Stepper & Submission Actions */}
+          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+            <button
+              type="button"
+              onClick={() => setActiveTab('observations')}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold transition"
+            >
+              <ArrowLeft className="w-4 h-4" /> Back to Remarks & Observations
+            </button>
+
             <button
               type="submit"
               disabled={actionLoading || !reportData.digital_signature_confirmed}
-              className={`flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold shadow-lg transition ${
+              className={`flex items-center gap-2 px-8 py-3.5 rounded-xl text-xs font-black shadow-lg transition tracking-wider uppercase ${
                 reportData.digital_signature_confirmed
-                  ? 'bg-govblue-800 hover:bg-govblue-900 text-white cursor-pointer'
+                  ? 'bg-govblue-800 hover:bg-govblue-900 text-white cursor-pointer hover:shadow-xl'
                   : 'bg-slate-300 text-slate-500 cursor-not-allowed'
               }`}
             >
-              <Send className="w-4 h-4" /> Submit Report to LAO & CO
+              <Send className="w-4 h-4" /> SUBMIT SURVEY REPORT TO LAO
             </button>
           </div>
         </form>

@@ -58,7 +58,6 @@ __all__ = [
     "Grievance",
     "GrievanceUpdate",
     "ActivityLog",
-<<<<<<< HEAD
     "SurveyRequest",
     "SurveyDocumentVerification",
     "SurveySchedule",
@@ -69,10 +68,8 @@ __all__ = [
     "SurveyResurveyRequest",
     "SurveyReport",
     "SurveyStatusHistory",
-    "SurveyPredictiveMetrics"
-=======
+    "SurveyPredictiveMetrics",
     "Hearing",
     "Notice",
-    "LandownerClaim",
->>>>>>> f935a84b8be2cede8150d23f515708eb4dbd6d5c
+    "LandownerClaim"
 ]

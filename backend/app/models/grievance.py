@@ -24,6 +24,9 @@ class Grievance(Base):
     # Relationships
     case = relationship("AcquisitionCase", back_populates="grievances")
     landowner = relationship("Landowner", back_populates="grievances")
+    parcel = relationship("Parcel")
+    assigned_department = relationship("Department")
+    assigned_officer = relationship("User", foreign_keys=[assigned_officer_id])
     updates = relationship("GrievanceUpdate", back_populates="grievance", cascade="all, delete-orphan")
 
 

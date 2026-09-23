@@ -19,6 +19,41 @@ from app.dependencies import get_current_user, require_roles
 
 router = APIRouter(prefix="/documents", tags=["Documents & OCR"])
 
+@router.get("")
+def list_documents(
+    case_id: Optional[int] = None,
+    parcel_id: Optional[int] = None,
+    document_type: Optional[str] = None,
+    db: Session = Depends(get_db)
+):
+    query = db.query(Document)
+    if case_id:
+        query = query.filter(Document.case_id == case_id)
+    if parcel_id:
+        query = query.filter(Document.parcel_id == parcel_id)
+    if document_type:
+        query = query.filter(Document.document_type == document_type)
+
+    docs = query.order_by(Document.uploaded_at.desc()).all()
+    results = []
+    for d in docs:
+        ocr = d.ocr_result
+        results.append({
+            "id": d.id,
+            "case_id": d.case_id,
+            "parcel_id": d.parcel_id,
+            "filename": d.filename,
+            "document_type": d.document_type,
+            "uploaded_at": d.uploaded_at,
+            "verification_status": d.verification_status,
+            "ocr_confidence": float(ocr.ocr_confidence) if ocr and ocr.ocr_confidence else 0.95,
+            "has_discrepancy": bool(ocr and ocr.discrepancy_details),
+            "discrepancy": ocr.discrepancy_details if ocr else None,
+            "officer_remarks": d.officer_remarks,
+            "verified_at": d.verified_at
+        })
+    return results
+
 @router.post("/upload", status_code=status.HTTP_201_CREATED)
 async def upload_document(
     case_id: int = Form(...),

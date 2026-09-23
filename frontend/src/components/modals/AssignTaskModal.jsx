@@ -13,9 +13,9 @@ export const AssignTaskModal = ({ isOpen, onClose, preselectedCaseId, preselecte
     case_id: preselectedCaseId || 4,
     case_number: preselectedCaseNumber || "CASE-OD-2026-004",
     project_id: 1,
-    assigned_department_id: 1,
-    assigned_officer_id: 4,
-    assigned_officer_name: "Shri Rajesh Jena",
+    assigned_department_id: 2,
+    assigned_officer_id: 3,
+    assigned_officer_name: "Smt. Sunita Mishra",
     priority: "High",
     deadline: "2026-09-25",
     remarks: "Survey report with geotagged boundary coordinates to be uploaded directly upon field completion."
@@ -95,7 +95,7 @@ export const AssignTaskModal = ({ isOpen, onClose, preselectedCaseId, preselecte
                   setFormData({
                     ...formData,
                     assigned_officer_id: selectedId,
-                    assigned_officer_name: off ? off.full_name : "Shri Rajesh Jena"
+                    assigned_officer_name: off ? off.full_name : "Smt. Sunita Mishra"
                   });
                 }}
                 className="w-full p-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-govblue-500 outline-none"

@@ -1,23 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { useNotifications } from '../../context/NotificationContext';
 import { dashboardService } from '../../services/dashboardService';
+import { noticeService } from '../../services/noticeService';
 import { StatCard } from '../../components/common/StatCard';
 import { RiskBadge } from '../../components/common/RiskBadge';
 import { useTranslation } from 'react-i18next';
-import { Plus, FolderKanban, FileSpreadsheet, MapPin, AlertTriangle, Clock, MessageSquareWarning, CreditCard, Building, CheckCircle2, TrendingUp, ArrowUpRight, Filter } from 'lucide-react';
+import {
+  Plus, FolderKanban, FileSpreadsheet, MapPin, AlertTriangle, Clock,
+  MessageSquareWarning, CreditCard, Building, CheckCircle2, TrendingUp,
+  ArrowUpRight, Filter, FileText, Edit, Eye, Power
+} from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line, CartesianGrid, Legend
 } from 'recharts';
 import { CreateCaseModal } from '../../components/modals/CreateCaseModal';
+import { CreateNoticeModal } from '../../components/modals/CreateNoticeModal';
 
 export const DashboardPage = () => {
+  const { user } = useAuth();
+  const { showToast } = useNotifications();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState('ALL');
   const [isCreateCaseOpen, setIsCreateCaseOpen] = useState(false);
+
+  // Notice Management state for LAO & Admin
+  const [notices, setNotices] = useState([]);
+  const [isCreateNoticeOpen, setIsCreateNoticeOpen] = useState(false);
+  const [editingNotice, setEditingNotice] = useState(null);
+
+  const canManageNotices = user && ['admin', 'land_acquisition_officer'].includes(user.role);
+
+  const loadNotices = async () => {
+    try {
+      const list = await noticeService.getNotices();
+      setNotices(list || []);
+    } catch (e) {
+      console.warn('Could not load notices on dashboard:', e);
+    }
+  };
 
   useEffect(() => {
     const loadDashboard = async () => {
@@ -26,7 +52,30 @@ export const DashboardPage = () => {
       setData(res);
     };
     loadDashboard();
-  }, []);
+    if (canManageNotices) {
+      loadNotices();
+    }
+  }, [canManageNotices]);
+
+  const handlePublishNotice = async (id, noticeNum) => {
+    try {
+      await noticeService.publishNotice(id);
+      showToast(`Notice ${noticeNum} is now Published and visible on the Public Home Page!`, 'success');
+      loadNotices();
+    } catch (e) {
+      showToast('Failed to publish notice: ' + (e.response?.data?.detail || e.message), 'error');
+    }
+  };
+
+  const handleDeactivateNotice = async (id, noticeNum) => {
+    try {
+      await noticeService.deactivateNotice(id);
+      showToast(`Notice ${noticeNum} deactivated from Public Home Page.`, 'info');
+      loadNotices();
+    } catch (e) {
+      showToast('Failed to deactivate notice: ' + (e.response?.data?.detail || e.message), 'error');
+    }
+  };
 
   if (!data) {
     return (
@@ -51,13 +100,27 @@ export const DashboardPage = () => {
           <h2 className="font-extrabold text-slate-900 text-base">LAO Monitoring & Operations Hub</h2>
           <p className="text-xs text-slate-500">Live AI delay risk tracking, case creation, and multi-department statutory workflows.</p>
         </div>
-        <button
-          onClick={() => setIsCreateCaseOpen(true)}
-          className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all shadow-sm"
-        >
-          <Plus className="w-4 h-4 text-amber-400" />
-          <span>Create New Case</span>
-        </button>
+        <div className="flex items-center gap-2">
+          {canManageNotices && (
+            <button
+              onClick={() => {
+                setEditingNotice(null);
+                setIsCreateNoticeOpen(true);
+              }}
+              className="bg-govblue-50 hover:bg-govblue-100 text-govblue-800 font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all border border-govblue-200 shadow-sm"
+            >
+              <FileText className="w-4 h-4 text-govblue-700" />
+              <span>Create Notice</span>
+            </button>
+          )}
+          <button
+            onClick={() => setIsCreateCaseOpen(true)}
+            className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all shadow-sm"
+          >
+            <Plus className="w-4 h-4 text-amber-400" />
+            <span>Create New Case</span>
+          </button>
+        </div>
       </div>
 
       {/* Top Banner Alert for High Risk Demo */}
@@ -281,10 +344,153 @@ export const DashboardPage = () => {
         </div>
       </div>
 
+      {/* Statutory Notice Board Management Section (LAO / Admin Only) */}
+      {canManageNotices && (
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 bg-govblue-50 rounded-xl text-govblue-700">
+                <FileText className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="font-bold text-slate-900 text-sm">
+                    Statutory Notice Board & Publication Hub
+                  </h3>
+                  <span className="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full">
+                    {notices.filter(n => n.status === 'Published').length} Live on Home Page
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500">
+                  Notices published here appear immediately on the public website notice board.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Link
+                to="/notices"
+                className="text-xs font-bold text-govblue-700 hover:text-govblue-800 hover:underline px-3 py-1.5 rounded-lg border border-govblue-200"
+              >
+                View Full Notice Registry ({notices.length}) →
+              </Link>
+              <button
+                onClick={() => {
+                  setEditingNotice(null);
+                  setIsCreateNoticeOpen(true);
+                }}
+                className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow-sm"
+              >
+                <Plus className="w-3.5 h-3.5 text-amber-400" />
+                <span>Create Notice</span>
+              </button>
+            </div>
+          </div>
+
+          {notices.length === 0 ? (
+            <div className="text-center py-8 text-slate-400 text-xs">
+              No statutory notices created yet. Click "Create Notice" to draft or publish your first statutory notice.
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-200 uppercase tracking-wider text-[10px]">
+                  <tr>
+                    <th className="py-2.5 px-3">Notice Ref & Type</th>
+                    <th className="py-2.5 px-3">Title</th>
+                    <th className="py-2.5 px-2">Priority</th>
+                    <th className="py-2.5 px-2">Publish Date</th>
+                    <th className="py-2.5 px-2">Status</th>
+                    <th className="py-2.5 px-3 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
+                  {notices.slice(0, 4).map((n) => (
+                    <tr key={n.id} className="hover:bg-slate-50 transition">
+                      <td className="py-2.5 px-3">
+                        <span className="font-mono font-bold text-govblue-800 block text-xs">{n.notice_number}</span>
+                        <span className="text-[10px] text-slate-400 block">{n.notice_type}</span>
+                      </td>
+                      <td className="py-2.5 px-3 max-w-xs">
+                        <span className="font-bold text-slate-900 block truncate" title={n.title}>{n.title}</span>
+                        <span className="text-[11px] text-slate-500 block truncate">{n.content_summary}</span>
+                      </td>
+                      <td className="py-2.5 px-2 whitespace-nowrap">
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+                          n.priority === 'Urgent'
+                            ? 'bg-rose-100 text-rose-800'
+                            : n.priority === 'Important'
+                            ? 'bg-amber-100 text-amber-800'
+                            : 'bg-blue-100 text-blue-800'
+                        }`}>
+                          {n.priority || 'Normal'}
+                        </span>
+                      </td>
+                      <td className="py-2.5 px-2 whitespace-nowrap text-[11px] text-slate-600">
+                        {n.publish_date}
+                      </td>
+                      <td className="py-2.5 px-2 whitespace-nowrap">
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold border ${
+                          n.status === 'Published'
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                            : n.status === 'Draft'
+                            ? 'bg-amber-50 text-amber-700 border-amber-200'
+                            : 'bg-slate-100 text-slate-600 border-slate-200'
+                        }`}>
+                          {n.status}
+                        </span>
+                      </td>
+                      <td className="py-2.5 px-3 text-right whitespace-nowrap">
+                        <div className="flex items-center justify-end gap-1.5">
+                          <button
+                            onClick={() => {
+                              setEditingNotice(n);
+                              setIsCreateNoticeOpen(true);
+                            }}
+                            className="p-1 rounded-lg text-govblue-700 hover:bg-govblue-50 transition"
+                            title="Edit Notice"
+                          >
+                            <Edit className="w-3.5 h-3.5" />
+                          </button>
+                          {n.status === 'Draft' && (
+                            <button
+                              onClick={() => handlePublishNotice(n.id, n.notice_number)}
+                              className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-2 py-1 rounded text-[10px] transition"
+                            >
+                              Publish
+                            </button>
+                          )}
+                          {n.status === 'Published' && (
+                            <button
+                              onClick={() => handleDeactivateNotice(n.id, n.notice_number)}
+                              className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-2 py-1 rounded text-[10px] transition"
+                              title="Deactivate from Public Board"
+                            >
+                              Deactivate
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
+
       <CreateCaseModal
         isOpen={isCreateCaseOpen}
         onClose={() => setIsCreateCaseOpen(false)}
         onCaseCreated={() => navigate('/cases')}
+      />
+
+      <CreateNoticeModal
+        isOpen={isCreateNoticeOpen}
+        onClose={() => setIsCreateNoticeOpen(false)}
+        noticeToEdit={editingNotice}
+        onNoticeSaved={loadNotices}
       />
     </div>
   );
