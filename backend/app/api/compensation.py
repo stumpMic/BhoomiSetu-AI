@@ -14,7 +14,7 @@ from app.schemas.compensation import (
     CompensationWorkQueueSummary, CompensationWorkQueueItem, PrerequisitesStatus,
     CompensationAIRisk, RequestActionPayload, CompensationAssessmentUpdate
 )
-from app.dependencies import get_current_user, require_roles
+from app.dependencies import get_current_user, require_roles, get_current_user_optional
 from app.services.notification_service import NotificationService
 from app.services.risk_recalculation_service import RiskRecalculationService
 
@@ -40,7 +40,7 @@ def get_compensation_work_queue(
     status_filter: Optional[str] = None,
     risk_level: Optional[str] = None,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_roles(["admin", "compensation_officer", "land_acquisition_officer"]))
+    current_user: User = Depends(require_roles(["admin", "compensation_officer"]))
 ):
     query = db.query(Compensation)
     if case_id:
@@ -223,7 +223,7 @@ def get_compensation_work_queue(
 def request_interdepartmental_action(
     payload: RequestActionPayload,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_roles(["admin", "compensation_officer", "land_acquisition_officer"]))
+    current_user: User = Depends(require_roles(["admin", "compensation_officer"]))
 ):
     case = db.query(AcquisitionCase).filter(AcquisitionCase.id == payload.case_id).first()
     if not case:
@@ -265,7 +265,7 @@ def update_compensation_assessment(
     id: int,
     payload: CompensationAssessmentUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_roles(["admin", "compensation_officer", "land_acquisition_officer"]))
+    current_user: User = Depends(require_roles(["admin", "compensation_officer"]))
 ):
     c = db.query(Compensation).filter(Compensation.id == id).first()
     if not c:
@@ -311,9 +311,16 @@ def update_compensation_assessment(
 def list_compensations(
     case_id: Optional[int] = None,
     stage: Optional[str] = None,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: Optional[User] = Depends(get_current_user_optional)
 ):
     query = db.query(Compensation)
+    if current_user and current_user.role == "landowner":
+        lo_profile = db.query(Landowner).filter(Landowner.user_id == current_user.id).first()
+        if lo_profile:
+            query = query.filter(Compensation.landowner_id == lo_profile.id)
+        else:
+            query = query.filter(Compensation.landowner.has(Landowner.full_name.ilike(f"%{current_user.full_name}%")))
     if case_id:
         query = query.filter(Compensation.case_id == case_id)
     if stage:
@@ -367,10 +374,15 @@ def list_compensations(
 
 @router.get("/compensations/{id}", response_model=CompensationResponse)
 @router.get("/compensation/{id}", response_model=CompensationResponse)
-def get_compensation(id: int, db: Session = Depends(get_db)):
+def get_compensation(id: int, db: Session = Depends(get_db), current_user: Optional[User] = Depends(get_current_user_optional)):
     c = db.query(Compensation).filter(Compensation.id == id).first()
     if not c:
         raise HTTPException(status_code=404, detail="Compensation record not found")
+
+    if current_user and current_user.role == "landowner":
+        lo_profile = db.query(Landowner).filter(Landowner.user_id == current_user.id).first()
+        if lo_profile and c.landowner_id != lo_profile.id:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Landowners can only view their own compensation records")
 
     p = c.parcel
     lo = c.landowner
@@ -419,7 +431,7 @@ def update_compensation_stage(
     id: int,
     payload: CompensationStageUpdateRequest,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_roles(["admin", "compensation_officer", "land_acquisition_officer"]))
+    current_user: User = Depends(require_roles(["admin", "compensation_officer"]))
 ):
     c = db.query(Compensation).filter(Compensation.id == id).first()
     if not c:

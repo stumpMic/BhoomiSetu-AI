@@ -68,9 +68,9 @@ def list_survey_requests(
 def create_survey_request(
     request_in: SurveyRequestCreate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_roles(["admin", "land_acquisition_officer", "survey_officer"]))
+    current_user: User = Depends(require_roles(["admin", "land_acquisition_officer", "project_authority"]))
 ):
-    """LAO, Admin, or Survey Officer initiates a new Survey Request."""
+    """LAO, Admin, or Project Authority initiates a new Survey Request."""
     survey = SurveyService.create_survey_request(db=db, request_in=request_in, current_user=current_user)
     return {"status": "SUCCESS", "message": f"Survey Request {survey.request_number} created.", "id": survey.id}
 

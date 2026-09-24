@@ -38,6 +38,7 @@ export const CasesListPage = () => {
     const matchSearch =
       !search ||
       c.case_number?.toLowerCase().includes(search.toLowerCase()) ||
+      c.plot_number?.toLowerCase().includes(search.toLowerCase()) ||
       c.village_name?.toLowerCase().includes(search.toLowerCase()) ||
       c.project_name?.toLowerCase().includes(search.toLowerCase());
     const matchRisk = selectedRisk === 'ALL' || c.risk_summary?.risk_level?.toUpperCase() === selectedRisk;
@@ -59,7 +60,7 @@ export const CasesListPage = () => {
         </div>
 
         <div className="flex items-center gap-2 self-start sm:self-auto">
-          {isRole(['land_acquisition_officer']) && (
+          {isRole(['admin', 'land_acquisition_officer']) && (
             <button
               onClick={() => setIsCreateCaseOpen(true)}
               className="bg-govblue-700 hover:bg-govblue-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5"
@@ -142,8 +143,16 @@ export const CasesListPage = () => {
                     <Link to={`/cases/${c.id}`} className="hover:text-govblue-700">
                       {c.case_number}
                     </Link>
-                    <div className="text-[11px] text-slate-400 font-normal">
-                      Section {c.notification_section}
+                    <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-normal mt-0.5">
+                      <span>Section {c.notification_section}</span>
+                      {c.plot_number && (
+                        <>
+                          <span>•</span>
+                          <span className="font-mono text-govblue-700 font-bold bg-govblue-50 px-1.5 py-0.5 rounded text-[10px]">
+                            Plot #{c.plot_number}
+                          </span>
+                        </>
+                      )}
                     </div>
                   </td>
                   <td className="py-3 px-4">

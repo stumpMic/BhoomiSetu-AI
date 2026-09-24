@@ -3,10 +3,12 @@ import { taskService } from '../../services/taskService';
 import { useNotifications } from '../../context/NotificationContext';
 import { Plus, CheckSquare, Clock, AlertTriangle, CheckCircle2, User, Building } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../context/AuthContext';
 import { AssignTaskModal } from '../../components/modals/AssignTaskModal';
 
 export const TasksManagementPage = () => {
   const { t } = useTranslation();
+  const { isRole } = useAuth();
   const { showToast } = useNotifications();
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -55,13 +57,15 @@ export const TasksManagementPage = () => {
         </div>
 
         <div className="flex items-center gap-3 self-start sm:self-auto">
-          <button
-            onClick={() => setIsAssignOpen(true)}
-            className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all shadow-sm"
-          >
-            <Plus className="w-4 h-4 text-amber-400" />
-            <span>Assign Task to Survey Officer</span>
-          </button>
+          {isRole(['admin', 'land_acquisition_officer', 'project_authority']) && (
+            <button
+              onClick={() => setIsAssignOpen(true)}
+              className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all shadow-sm"
+            >
+              <Plus className="w-4 h-4 text-amber-400" />
+              <span>Assign Task to Survey Officer</span>
+            </button>
+          )}
 
           <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-slate-200 shadow-sm text-xs font-semibold">
             {['ALL', 'PENDING', 'OVERDUE', 'COMPLETED'].map((f) => (

@@ -18,6 +18,7 @@ import {
 } from 'recharts';
 import { CreateCaseModal } from '../../components/modals/CreateCaseModal';
 import { CreateNoticeModal } from '../../components/modals/CreateNoticeModal';
+import { AssignTaskModal } from '../../components/modals/AssignTaskModal';
 
 export const DashboardPage = () => {
   const { user } = useAuth();
@@ -29,6 +30,7 @@ export const DashboardPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState('ALL');
   const [isCreateCaseOpen, setIsCreateCaseOpen] = useState(false);
+  const [isAssignTaskOpen, setIsAssignTaskOpen] = useState(false);
   // Notice Management state for LAO & Admin
   const [notices, setNotices] = useState([]);
   const [isCreateNoticeOpen, setIsCreateNoticeOpen] = useState(false);
@@ -101,6 +103,15 @@ export const DashboardPage = () => {
           <p className="text-xs text-slate-500">Live AI delay risk tracking, case creation, and multi-department statutory workflows.</p>
         </div>
         <div className="flex items-center gap-2">
+          {isRole(['land_acquisition_officer', 'admin']) && (
+            <button
+              onClick={() => setIsAssignTaskOpen(true)}
+              className="bg-white hover:bg-slate-50 text-slate-800 font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all border border-slate-200 shadow-sm"
+            >
+              <CheckCircle2 className="w-4 h-4 text-govblue-700" />
+              <span>Assign Task to Survey Officer</span>
+            </button>
+          )}
           {canManageNotices && (
             <button
               onClick={() => {
@@ -493,6 +504,11 @@ export const DashboardPage = () => {
         onClose={() => setIsCreateNoticeOpen(false)}
         noticeToEdit={editingNotice}
         onNoticeSaved={loadNotices}
+      />
+
+      <AssignTaskModal
+        isOpen={isAssignTaskOpen}
+        onClose={() => setIsAssignTaskOpen(false)}
       />
     </div>
   );

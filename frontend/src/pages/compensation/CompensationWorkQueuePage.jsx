@@ -83,8 +83,12 @@ export const CompensationWorkQueuePage = () => {
   };
 
   useEffect(() => {
+    if (user && !['admin', 'compensation_officer'].includes(user.role)) {
+      navigate('/unauthorized');
+      return;
+    }
     fetchWorkQueue();
-  }, []);
+  }, [user, navigate]);
 
   const handleRequestActionSubmit = async (e) => {
     e.preventDefault();

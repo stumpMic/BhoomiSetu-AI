@@ -91,7 +91,18 @@ export const AppRoutes = () => {
         <Route path="/alerts" element={<AlertsCenterPage />} />
       </Route>
 
-      {/* Officer / Admin Protected Routes */}
+      {/* Officer / Admin / Landowner Shared Compensation Tracker Route */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'project_authority', 'land_acquisition_officer', 'survey_officer', 'compensation_officer', 'landowner']}>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/compensation" element={<CompensationManagementPage />} />
+      </Route>
+
+      {/* Officer / Admin Protected Dashboard Routes */}
       <Route
         element={
           <ProtectedRoute allowedRoles={['admin', 'project_authority', 'land_acquisition_officer', 'survey_officer', 'compensation_officer']}>
@@ -100,7 +111,16 @@ export const AppRoutes = () => {
         }
       >
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/compensation" element={<CompensationManagementPage />} />
+      </Route>
+
+      {/* Compensation Officer Work Queue - Strictly CO & Admin */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'compensation_officer']}>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/compensation/work-queue" element={<CompensationWorkQueuePage />} />
       </Route>
 

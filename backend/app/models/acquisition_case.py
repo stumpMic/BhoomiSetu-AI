@@ -8,6 +8,7 @@ class AcquisitionCase(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     case_number = Column(String(50), unique=True, index=True, nullable=False)
+    plot_number = Column(String(50), nullable=True, index=True)
     project_id = Column(Integer, ForeignKey("projects.id"), nullable=False, index=True)
     village_id = Column(Integer, ForeignKey("villages.id"), nullable=False, index=True)
     notification_section = Column(String(20), default="4(1)")

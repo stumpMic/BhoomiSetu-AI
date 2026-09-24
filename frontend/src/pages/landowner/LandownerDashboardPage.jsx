@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { parcelService } from '../../services/parcelService';
+import { compensationService } from '../../services/compensationService';
 import { RiskBadge } from '../../components/common/RiskBadge';
-import { MapPin, Upload, MessageSquareWarning, CreditCard, FileText, ArrowRight, ShieldCheck, Download } from 'lucide-react';
+import { MapPin, Upload, MessageSquareWarning, CreditCard, FileText, ArrowRight, ShieldCheck, Download, Banknote, Clock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export const LandownerDashboardPage = () => {
@@ -11,11 +12,25 @@ export const LandownerDashboardPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [parcels, setParcels] = useState([]);
+  const [compensation, setCompensation] = useState(null);
+  const [loadingComp, setLoadingComp] = useState(true);
 
   useEffect(() => {
     const loadData = async () => {
-      const data = await parcelService.getParcels({ village_id: 1 });
-      setParcels(data.slice(0, 2)); // Demo landowner owns 2 plots (142/A, 142/B)
+      try {
+        const [parcelData, compData] = await Promise.all([
+          parcelService.getParcels({ village_id: 1 }),
+          compensationService.getCompensations().catch(() => [])
+        ]);
+        setParcels(parcelData.slice(0, 2)); // Demo landowner owns 2 plots (142/A, 142/B)
+        if (compData && compData.length > 0) {
+          setCompensation(compData[0]);
+        }
+      } catch (err) {
+        console.warn('Error loading landowner dashboard:', err);
+      } finally {
+        setLoadingComp(false);
+      }
     };
     loadData();
   }, []);
@@ -36,7 +51,14 @@ export const LandownerDashboardPage = () => {
           </p>
         </div>
 
-        <div className="flex gap-2.5">
+        <div className="flex flex-wrap gap-2.5">
+          <Link
+            to="/compensation"
+            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all shadow-sm"
+          >
+            <CreditCard className="w-4 h-4 text-emerald-200" />
+            <span>Compensation Tracker</span>
+          </Link>
           <Link
             to="/landowner/upload"
             className="bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all shadow-sm"
@@ -103,6 +125,82 @@ export const LandownerDashboardPage = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Statutory Compensation Tracker Card */}
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <CreditCard className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="font-extrabold text-slate-900 text-sm">
+                  Statutory Compensation & Direct Benefit Transfer (DBT)
+                </h3>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-200">
+                  Read-Only Beneficiary View
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Official 9-Stage RFCTLARR Award Tracking • Verified Bank Disbursement
+              </p>
+            </div>
+          </div>
+
+          <Link
+            to="/compensation"
+            className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all self-start sm:self-auto shadow-sm"
+          >
+            <span>Open Compensation Tracker</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        {compensation ? (
+          <div className="grid sm:grid-cols-3 gap-4 text-xs">
+            <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
+              <span className="text-slate-500 font-semibold block">Current Pipeline Stage</span>
+              <span className="font-bold text-govblue-800 text-sm mt-1 block">
+                {compensation.current_stage || 'Approval pending'}
+              </span>
+              <span className="text-[10px] text-slate-400 mt-1 block">
+                Stage {compensation.stage_index || 4} of 9 in Statutory Process
+              </span>
+            </div>
+
+            <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
+              <span className="text-slate-500 font-semibold block">Total Statutory Award</span>
+              <span className="font-bold text-emerald-700 text-base mt-1 block">
+                ₹{((compensation.total_award_inr || 7000000)).toLocaleString()}
+              </span>
+              <span className="text-[10px] text-slate-400 mt-1 block">
+                Includes 100% Solatium & Asset Value
+              </span>
+            </div>
+
+            <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
+              <span className="text-slate-500 font-semibold block">DBT Bank Account Status</span>
+              <div className="flex items-center gap-1.5 mt-1">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <span className="font-bold text-slate-800">
+                  {compensation.bank_verified ? 'Bank KYC Verified' : 'Bank Verification Pending'}
+                </span>
+              </div>
+              <span className="text-[10px] text-slate-400 mt-1 block">
+                A/C: {compensation.masked_account_number || '•••• •••• 4421'}
+              </span>
+            </div>
+          </div>
+        ) : (
+          <div className="p-4 bg-slate-50 rounded-xl text-xs text-slate-600 flex items-center justify-between">
+            <span>Tracking active compensation awards for registered parcels under Section 23/30.</span>
+            <Link to="/compensation" className="text-govblue-700 font-bold hover:underline">
+              View Compensation Status →
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Hearing Notices & Schedule */}

@@ -24,6 +24,7 @@ class RiskSummary(BaseModel):
 class CaseResponse(BaseModel):
     id: int
     case_number: str
+    plot_number: Optional[str] = None
     project_id: int
     project_name: Optional[str] = None
     village_id: int
@@ -47,6 +48,7 @@ class CaseResponse(BaseModel):
 
 class CaseCreate(BaseModel):
     case_number: str
+    plot_number: Optional[str] = None
     project_id: int
     village_id: int
     notification_section: Optional[str] = "4(1)"

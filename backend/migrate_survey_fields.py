@@ -46,6 +46,25 @@ def migrate():
         else:
             print(f"  Column already exists: {col_name}")
 
+    # Migrate acquisition_cases table for plot_number
+    cursor.execute("PRAGMA table_info(acquisition_cases)")
+    case_cols = {row[1] for row in cursor.fetchall()}
+    if "plot_number" not in case_cols:
+        cursor.execute("ALTER TABLE acquisition_cases ADD COLUMN plot_number VARCHAR(50)")
+        print("  Added column: acquisition_cases.plot_number")
+        # Backfill from parcels
+        cursor.execute("""
+            UPDATE acquisition_cases
+            SET plot_number = (
+                SELECT plot_number FROM parcels WHERE parcels.case_id = acquisition_cases.id LIMIT 1
+            )
+            WHERE plot_number IS NULL
+        """)
+        print("  Backfilled plot_number on existing acquisition_cases from parcels")
+        added += 1
+    else:
+        print("  Column already exists: acquisition_cases.plot_number")
+
     conn.commit()
     conn.close()
     print(f"Migration completed successfully. Added {added} columns.")

@@ -89,6 +89,7 @@ export const caseService = {
       const newCase = {
         id: Date.now(),
         case_number: payload.case_number,
+        plot_number: payload.plot_number || "142/A",
         project_name: payload.project_name || "Bhubaneswar-Puri Expressway Corridor",
         village_name: payload.village_name || "Pipili",
         district: payload.district || "Khurda",

@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import datetime
+import re
 from app.database import get_db
 from app.models.acquisition_case import AcquisitionCase
 from app.models.project import Project
@@ -33,7 +34,11 @@ def list_cases(
     if stage:
         query = query.filter(AcquisitionCase.current_stage == stage)
     if search:
-        query = query.filter(AcquisitionCase.case_number.ilike(f"%{search}%"))
+        query = query.filter(
+            (AcquisitionCase.case_number.ilike(f"%{search}%")) |
+            (AcquisitionCase.plot_number.ilike(f"%{search}%")) |
+            (AcquisitionCase.parcels.any(Parcel.plot_number.ilike(f"%{search}%")))
+        )
 
     cases = query.all()
     results = []
@@ -43,10 +48,12 @@ def list_cases(
         parcels_count = len(parcels)
         total_area = sum(float(p.area_acres) for p in parcels)
         total_comp = sum(float(p.total_valuation_inr or 0.0) for p in parcels) / 10000000.0
+        plot_num = c.plot_number or (parcels[0].plot_number if parcels else None)
 
         results.append(CaseResponse(
             id=c.id,
             case_number=c.case_number,
+            plot_number=plot_num,
             project_id=c.project_id,
             project_name=c.project.name if c.project else None,
             village_id=c.village_id,
@@ -94,10 +101,12 @@ def get_case(id: int, db: Session = Depends(get_db)):
     parcels_count = len(parcels)
     total_area = sum(float(p.area_acres) for p in parcels)
     total_comp = sum(float(p.total_valuation_inr or 0.0) for p in parcels) / 10000000.0
+    plot_num = c.plot_number or (parcels[0].plot_number if parcels else None)
 
     return CaseResponse(
         id=c.id,
         case_number=c.case_number,
+        plot_number=plot_num,
         project_id=c.project_id,
         project_name=c.project.name if c.project else None,
         village_id=c.village_id,
@@ -144,8 +153,24 @@ def create_case(
     if existing:
         raise HTTPException(status_code=400, detail="Case number already exists")
 
+    # Validate plot_number according to project conventions
+    clean_plot = None
+    if payload.plot_number is not None:
+        clean_plot = str(payload.plot_number).strip()
+        if clean_plot:
+            if not re.match(r"^[0-9A-Za-z/_\-]+$", clean_plot):
+                raise HTTPException(
+                    status_code=400,
+                    detail="Invalid plot number format. Only alphanumeric characters, slashes (/), dashes (-), and underscores (_) are allowed (e.g., 142/A)."
+                )
+            if len(clean_plot) > 40:
+                raise HTTPException(status_code=400, detail="Plot number cannot exceed 40 characters.")
+        else:
+            clean_plot = None
+
     new_case = AcquisitionCase(
         case_number=payload.case_number,
+        plot_number=clean_plot,
         project_id=payload.project_id,
         village_id=payload.village_id,
         notification_section=payload.notification_section or "4(1)",
@@ -160,6 +185,24 @@ def create_case(
     db.add(new_case)
     db.commit()
     db.refresh(new_case)
+
+    # If plot_number is provided, create initial parcel record for this case
+    if clean_plot:
+        initial_parcel = Parcel(
+            case_id=new_case.id,
+            village_id=new_case.village_id,
+            plot_number=clean_plot,
+            khata_number="101",
+            area_acres=1.5,
+            land_type="Agricultural",
+            valuation_per_acre_inr=1000000.0,
+            total_valuation_inr=1500000.0,
+            survey_status="Pending",
+            acquisition_status=new_case.current_stage or "Notification"
+        )
+        db.add(initial_parcel)
+        db.commit()
+        db.refresh(new_case)
 
     # Initial recalculation
     RiskRecalculationService.recalculate_case_risk(db, new_case.id, trigger_reason="Initial Case Creation")

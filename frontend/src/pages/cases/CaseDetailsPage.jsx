@@ -542,6 +542,11 @@ export const CaseDetailsPage = () => {
             <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
               {caseData.case_number}
             </h1>
+            {caseData.plot_number && (
+              <span className="font-mono text-xs font-bold bg-govblue-50 text-govblue-800 border border-govblue-200 px-2.5 py-1 rounded-lg">
+                Plot #{caseData.plot_number}
+              </span>
+            )}
             <RiskBadge risk={riskLvl} />
           </div>
           <p className="text-xs text-slate-500 font-medium mt-1">
@@ -921,9 +926,16 @@ export const CaseDetailsPage = () => {
       {activeTab === 'parcels' && (
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
           <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-            <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">
-              Land Parcels & Title Holders
-            </h3>
+            <div className="flex items-center gap-2.5">
+              <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">
+                Land Parcels & Title Holders
+              </h3>
+              {caseData.plot_number && (
+                <span className="bg-white border border-slate-200 font-mono text-[11px] font-bold text-govblue-700 px-2 py-0.5 rounded">
+                  Primary Plot: #{caseData.plot_number}
+                </span>
+              )}
+            </div>
             <span className="text-xs text-slate-500">
               Total: <strong>{caseData.total_area_acres || 18.5} Acres</strong>
             </span>
@@ -1408,13 +1420,15 @@ export const CaseDetailsPage = () => {
             <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">
               Survey & Departmental Tasks
             </h3>
-            <button
-              onClick={() => setIsAssignTaskOpen(true)}
-              className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-3.5 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all shadow-sm"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Assign Task to Survey Officer</span>
-            </button>
+            {isRole(['admin', 'land_acquisition_officer', 'project_authority']) && (
+              <button
+                onClick={() => setIsAssignTaskOpen(true)}
+                className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-3.5 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all shadow-sm"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>Assign Task to Survey Officer</span>
+              </button>
+            )}
           </div>
           <div className="divide-y divide-slate-100">
             {tasks.map((t) => (

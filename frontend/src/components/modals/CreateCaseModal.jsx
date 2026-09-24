@@ -8,8 +8,10 @@ export const CreateCaseModal = ({ isOpen, onClose, onCaseCreated }) => {
   const { showToast } = useNotifications();
   const { isRole } = useAuth();
   const [submitting, setSubmitting] = useState(false);
+  const [plotError, setPlotError] = useState('');
   const [formData, setFormData] = useState({
     case_number: `CASE-OD-2026-${Math.floor(100 + Math.random() * 900)}`,
+    plot_number: "142/A",
     project_id: 1,
     project_name: "Bhubaneswar-Puri Expressway Corridor",
     village_id: 1,
@@ -20,18 +22,24 @@ export const CreateCaseModal = ({ isOpen, onClose, onCaseCreated }) => {
     target_deadline: "2026-11-30"
   });
 
-  if (!isOpen || !isRole(['land_acquisition_officer'])) return null;
+  if (!isOpen || !isRole(['admin', 'land_acquisition_officer'])) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const plotRegex = /^[0-9A-Za-z/_\-]+$/;
+    if (!formData.plot_number || !plotRegex.test(formData.plot_number.trim())) {
+      setPlotError("Please enter a valid plot number (e.g. 142/A). Only letters, numbers, '/', '-', and '_' are allowed.");
+      return;
+    }
+    setPlotError('');
     setSubmitting(true);
     try {
       const created = await caseService.createCase(formData);
-      showToast(`Case ${created.case_number} created successfully! Live risk model initialized.`, 'success');
+      showToast(`Case ${created.case_number} created successfully with Plot #${created.plot_number || formData.plot_number}! Live risk model initialized.`, 'success');
       if (onCaseCreated) onCaseCreated(created);
       onClose();
     } catch (err) {
-      showToast('Failed to create case: ' + err.message, 'error');
+      showToast('Failed to create case: ' + (err.response?.data?.detail || err.message), 'error');
     } finally {
       setSubmitting(false);
     }
@@ -51,15 +59,32 @@ export const CreateCaseModal = ({ isOpen, onClose, onCaseCreated }) => {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs font-medium">
-          <div>
-            <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1">Case Number</label>
-            <input
-              type="text"
-              required
-              value={formData.case_number}
-              onChange={(e) => setFormData({ ...formData, case_number: e.target.value })}
-              className="w-full p-2.5 rounded-xl border border-slate-200 font-mono text-xs focus:ring-2 focus:ring-govblue-500 outline-none"
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1">Case Number *</label>
+              <input
+                type="text"
+                required
+                value={formData.case_number}
+                onChange={(e) => setFormData({ ...formData, case_number: e.target.value })}
+                className="w-full p-2.5 rounded-xl border border-slate-200 font-mono text-xs focus:ring-2 focus:ring-govblue-500 outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1">Plot Number *</label>
+              <input
+                type="text"
+                required
+                placeholder="e.g. 142/A"
+                value={formData.plot_number}
+                onChange={(e) => {
+                  setFormData({ ...formData, plot_number: e.target.value });
+                  if (plotError) setPlotError('');
+                }}
+                className={`w-full p-2.5 rounded-xl border ${plotError ? 'border-rose-400 bg-rose-50/50 ring-1 ring-rose-400' : 'border-slate-200'} font-mono text-xs focus:ring-2 focus:ring-govblue-500 outline-none`}
+              />
+              {plotError && <p className="text-rose-600 text-[10px] mt-1 font-semibold">{plotError}</p>}
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
