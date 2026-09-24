@@ -50,8 +50,14 @@ def list_tasks(
     case_id: Optional[int] = None,
     department_id: Optional[int] = None,
     status_filter: Optional[str] = None,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
+    if current_user.role == "compensation_officer":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Compensation Officer does not have permission to view or manage general departmental tasks."
+        )
     query = db.query(DepartmentalTask)
     if case_id:
         query = query.filter(DepartmentalTask.case_id == case_id)
@@ -64,7 +70,15 @@ def list_tasks(
     return [_format_task_response(t) for t in tasks]
 
 @router.get("/overdue", response_model=List[TaskResponse])
-def get_overdue_tasks(db: Session = Depends(get_db)):
+def get_overdue_tasks(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    if current_user.role == "compensation_officer":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Compensation Officer does not have permission to view or manage general departmental tasks."
+        )
     today = date.today()
     tasks = db.query(DepartmentalTask).filter(
         DepartmentalTask.deadline < today,
@@ -119,6 +133,11 @@ def update_task(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
+    if current_user.role == "compensation_officer":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Compensation Officer does not have permission to view or manage general departmental tasks."
+        )
     task = db.query(DepartmentalTask).filter(DepartmentalTask.id == id).first()
     if not task:
         raise HTTPException(status_code=404, detail="Task not found")

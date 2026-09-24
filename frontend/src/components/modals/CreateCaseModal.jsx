@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { X, FolderPlus, Calendar, MapPin, FileText } from 'lucide-react';
 import { caseService } from '../../services/caseService';
 import { useNotifications } from '../../context/NotificationContext';
+import { useAuth } from '../../context/AuthContext';
 
 export const CreateCaseModal = ({ isOpen, onClose, onCaseCreated }) => {
   const { showToast } = useNotifications();
+  const { isRole } = useAuth();
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     case_number: `CASE-OD-2026-${Math.floor(100 + Math.random() * 900)}`,
@@ -18,7 +20,7 @@ export const CreateCaseModal = ({ isOpen, onClose, onCaseCreated }) => {
     target_deadline: "2026-11-30"
   });
 
-  if (!isOpen) return null;
+  if (!isOpen || !isRole(['land_acquisition_officer'])) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

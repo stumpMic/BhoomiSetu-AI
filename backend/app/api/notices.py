@@ -33,8 +33,14 @@ def _format_notice_response(n: Notice) -> NoticeResponse:
 def list_notices(
     case_id: Optional[int] = None,
     status_filter: Optional[str] = None,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
+    if current_user.role == "compensation_officer":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Compensation Officer does not have permission to view or manage acquisition notices."
+        )
     query = db.query(Notice)
     if case_id:
         query = query.filter(Notice.case_id == case_id)

@@ -4,6 +4,7 @@ import { dashboardService } from '../../services/dashboardService';
 import { StatCard } from '../../components/common/StatCard';
 import { RiskBadge } from '../../components/common/RiskBadge';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../context/AuthContext';
 import { Plus, FolderKanban, FileSpreadsheet, MapPin, AlertTriangle, Clock, MessageSquareWarning, CreditCard, Building, CheckCircle2, TrendingUp, ArrowUpRight, Filter } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
@@ -13,6 +14,7 @@ import { CreateCaseModal } from '../../components/modals/CreateCaseModal';
 
 export const DashboardPage = () => {
   const { t } = useTranslation();
+  const { isRole } = useAuth();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -51,13 +53,15 @@ export const DashboardPage = () => {
           <h2 className="font-extrabold text-slate-900 text-base">LAO Monitoring & Operations Hub</h2>
           <p className="text-xs text-slate-500">Live AI delay risk tracking, case creation, and multi-department statutory workflows.</p>
         </div>
-        <button
-          onClick={() => setIsCreateCaseOpen(true)}
-          className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all shadow-sm"
-        >
-          <Plus className="w-4 h-4 text-amber-400" />
-          <span>Create New Case</span>
-        </button>
+        {isRole(['land_acquisition_officer']) && (
+          <button
+            onClick={() => setIsCreateCaseOpen(true)}
+            className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all shadow-sm"
+          >
+            <Plus className="w-4 h-4 text-amber-400" />
+            <span>Create New Case</span>
+          </button>
+        )}
       </div>
 
       {/* Top Banner Alert for High Risk Demo */}

@@ -38,8 +38,14 @@ def list_claims(
     case_id: Optional[int] = None,
     landowner_id: Optional[int] = None,
     status_filter: Optional[str] = None,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
+    if current_user.role == "compensation_officer":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Compensation Officer does not have permission to view or manage landowner claims."
+        )
     query = db.query(LandownerClaim)
     if case_id:
         query = query.filter(LandownerClaim.case_id == case_id)
@@ -57,6 +63,11 @@ def submit_claim(
     db: Session = Depends(get_db),
     current_user = Depends(get_current_user)
 ):
+    if current_user.role == "compensation_officer":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Compensation Officer does not have permission to submit or alter landowner claims."
+        )
     case = db.query(AcquisitionCase).filter(AcquisitionCase.id == payload.case_id).first()
     if not case:
         raise HTTPException(status_code=404, detail="Acquisition case not found")

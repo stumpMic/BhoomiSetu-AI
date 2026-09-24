@@ -55,8 +55,14 @@ def list_grievances(
     status_filter: Optional[str] = None,
     landowner_id: Optional[int] = None,
     case_id: Optional[int] = None,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
+    if current_user.role == "compensation_officer":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Compensation Officer does not have permission to view or manage grievances."
+        )
     query = db.query(Grievance)
     if status_filter:
         query = query.filter(Grievance.status == status_filter)
@@ -69,7 +75,16 @@ def list_grievances(
     return [_format_grievance(g) for g in grievances]
 
 @router.get("/{id}", response_model=GrievanceResponse)
-def get_grievance(id: int, db: Session = Depends(get_db)):
+def get_grievance(
+    id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    if current_user.role == "compensation_officer":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Compensation Officer does not have permission to view or manage grievances."
+        )
     g = db.query(Grievance).filter(Grievance.id == id).first()
     if not g:
         raise HTTPException(status_code=404, detail="Grievance not found")
@@ -81,6 +96,11 @@ def submit_grievance(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
+    if current_user.role == "compensation_officer":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Compensation Officer does not have permission to submit or alter grievances."
+        )
     # Find landowner linked to user
     lo = db.query(Landowner).filter(Landowner.user_id == current_user.id).first()
     if not lo:
@@ -134,7 +154,7 @@ def update_grievance_status(
     id: int,
     payload: GrievanceStatusUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_roles(["admin", "land_acquisition_officer", "survey_officer", "compensation_officer"]))
+    current_user: User = Depends(require_roles(["admin", "land_acquisition_officer", "survey_officer"]))
 ):
     g = db.query(Grievance).filter(Grievance.id == id).first()
     if not g:

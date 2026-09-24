@@ -53,3 +53,7 @@ class CaseCreate(BaseModel):
     current_stage: Optional[str] = "Notification"
     assigned_officer_id: Optional[int] = None
     target_deadline: Optional[date] = None
+
+class CaseStageUpdate(BaseModel):
+    current_stage: str
+

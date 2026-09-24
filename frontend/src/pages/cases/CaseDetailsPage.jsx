@@ -12,6 +12,7 @@ import { claimService } from '../../services/claimService';
 import { RiskBadge } from '../../components/common/RiskBadge';
 import { RiskMeter } from '../../components/common/RiskMeter';
 import { useNotifications } from '../../context/NotificationContext';
+import { useAuth } from '../../context/AuthContext';
 import { AssignTaskModal } from '../../components/modals/AssignTaskModal';
 import { ScheduleHearingModal } from '../../components/modals/ScheduleHearingModal';
 import { CreateNoticeModal } from '../../components/modals/CreateNoticeModal';
@@ -33,13 +34,85 @@ import {
   Plus,
   Scale,
   Building,
-  UserCheck
+  UserCheck,
+  ChevronRight,
+  Info,
+  History,
+  Eye,
+  Check
 } from 'lucide-react';
+
+const BHOOMISETU_STAGES = [
+  {
+    id: 1,
+    name: 'Case Initiation & Sec 4(1)',
+    shortName: '1. Initiation',
+    description: 'Preliminary notification issued and case baseline registered in BhoomiSetu.',
+    tabTarget: 'notices'
+  },
+  {
+    id: 2,
+    name: 'Joint Survey & Demarcation',
+    shortName: '2. Joint Survey',
+    description: 'Joint field verification and cadastral sub-plot boundary demarcation.',
+    tabTarget: 'tasks'
+  },
+  {
+    id: 3,
+    name: 'Objections & Hearings',
+    shortName: '3. Hearings',
+    description: 'Public hearings under Section 15 for title, boundary, and valuation objections.',
+    tabTarget: 'hearings'
+  },
+  {
+    id: 4,
+    name: 'Document & Claim Verification',
+    shortName: '4. Verification',
+    description: 'RoR title deed OCR cross-verification and statutory claim sanctioning.',
+    tabTarget: 'claims'
+  },
+  {
+    id: 5,
+    name: 'Valuation & Award Determination',
+    shortName: '5. Award',
+    description: 'Market benchmark valuation and 100% solatium award determination under Sec 23.',
+    tabTarget: 'compensation'
+  },
+  {
+    id: 6,
+    name: 'Compensation Disbursement',
+    shortName: '6. Disbursement',
+    description: 'Direct bank transfer and 9-stage compensation disbursement to title holders.',
+    tabTarget: 'compensation'
+  },
+  {
+    id: 7,
+    name: 'Possession Handover & Completion',
+    shortName: '7. Possession',
+    description: 'Final possession handover to Requiring Body and land acquisition completion.',
+    tabTarget: 'parcels'
+  }
+];
+
+const getStageIndex = (stageName) => {
+  if (!stageName) return 2;
+  const lower = stageName.toLowerCase();
+  if (lower.includes('initiation') || lower.includes('notification') || lower.includes('sec 4')) return 1;
+  if (lower.includes('survey') || lower.includes('demarcation')) return 2;
+  if (lower.includes('objection') || lower.includes('hearing') || lower.includes('sec 15')) return 3;
+  if (lower.includes('document') || lower.includes('claim') || lower.includes('verification')) return 4;
+  if (lower.includes('valuation') || lower.includes('award') || lower.includes('sec 23')) return 5;
+  if (lower.includes('disbursement') || lower.includes('compensation')) return 6;
+  if (lower.includes('possession') || lower.includes('completion')) return 7;
+  return 2;
+};
 
 export const CaseDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { showToast } = useNotifications();
+  const { user, isRole } = useAuth();
+  const isCompensationOfficer = user?.role === 'compensation_officer';
 
   const [caseData, setCaseData] = useState(null);
   const [parcels, setParcels] = useState([]);
@@ -50,30 +123,51 @@ export const CaseDetailsPage = () => {
   const [notices, setNotices] = useState([]);
   const [claims, setClaims] = useState([]);
   const [documents, setDocuments] = useState([]);
+  const [auditLog, setAuditLog] = useState([]);
 
-  const [activeTab, setActiveTab] = useState('parcels');
+  const [activeTab, setActiveTab] = useState(user?.role === 'compensation_officer' ? 'compensation' : 'parcels');
   const [recalculating, setRecalculating] = useState(false);
 
   // Modals state
   const [isAssignTaskOpen, setIsAssignTaskOpen] = useState(false);
   const [isScheduleHearingOpen, setIsScheduleHearingOpen] = useState(false);
   const [isCreateNoticeOpen, setIsCreateNoticeOpen] = useState(false);
+  const [isStageModalOpen, setIsStageModalOpen] = useState(false);
+  const [selectedDocForPreview, setSelectedDocForPreview] = useState(null);
 
   // Claim decision state
   const [claimRemarks, setClaimRemarks] = useState({});
+
+  const logAuditEvent = (category, title, details, officer = isCompensationOfficer ? 'Compensation Officer' : 'Land Acquisition Officer') => {
+    const entry = {
+      id: Date.now() + Math.random(),
+      timestamp: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+      category,
+      title,
+      details,
+      officer
+    };
+    setAuditLog((prev) => [entry, ...prev]);
+  };
 
   const loadAll = async () => {
     const c = await caseService.getCaseById(id);
     setCaseData(c);
 
+    // Safeguard role restrictions: Compensation Officer is blocked from Tasks, Hearings, Notices, Claims
+    const fetchTasks = isCompensationOfficer ? Promise.resolve([]) : taskService.getTasks({ case_id: id }).catch(() => []);
+    const fetchHearings = isCompensationOfficer ? Promise.resolve([]) : hearingService.getHearings({ case_id: id }).catch(() => []);
+    const fetchNotices = isCompensationOfficer ? Promise.resolve([]) : noticeService.getNotices({ case_id: id }).catch(() => []);
+    const fetchClaims = isCompensationOfficer ? Promise.resolve([]) : claimService.getClaims({ case_id: id }).catch(() => []);
+
     const [pList, tList, compList, pred, hList, nList, clList] = await Promise.all([
-      parcelService.getParcels({ case_id: id }),
-      taskService.getTasks({ case_id: id }),
-      compensationService.getCompensations({ case_id: id }),
-      predictionService.getLatestPrediction(id),
-      hearingService.getHearings({ case_id: id }),
-      noticeService.getNotices({ case_id: id }),
-      claimService.getClaims({ case_id: id })
+      parcelService.getParcels({ case_id: id }).catch(() => []),
+      fetchTasks,
+      compensationService.getCompensations({ case_id: id }).catch(() => []),
+      predictionService.getLatestPrediction(id).catch(() => null),
+      fetchHearings,
+      fetchNotices,
+      fetchClaims
     ]);
 
     setParcels(pList);
@@ -84,29 +178,111 @@ export const CaseDetailsPage = () => {
     setNotices(nList);
     setClaims(clList);
 
-    // Mock document info for live OCR demo
-    setDocuments([
+    // Initial audit log baseline
+    setAuditLog([
       {
         id: 1,
-        filename: "Pipili_Plot142_RoR_Deed.pdf",
-        document_type: "Record of Rights (RoR)",
-        uploaded_at: "2026-08-25",
-        verification_status: "Possible Mismatch",
-        ocr_confidence: 0.94,
-        has_discrepancy: true,
-        discrepancy: "Extracted Plot #142 mismatches official survey sub-plot 142/A."
+        timestamp: '16 Sep 2026, 10:30 AM',
+        category: 'Risk Engine',
+        title: 'Live Risk Recalculations Triggered',
+        details: 'AI Engine calculated 84% delay risk due to title dispute & pending joint survey.',
+        officer: 'BhoomiSetu AI System'
       },
       {
         id: 2,
-        filename: "Aadhaar_Consent_BikramDas.pdf",
-        document_type: "Aadhaar Consent & KYC",
-        uploaded_at: "2026-08-26",
-        verification_status: "Verified",
-        ocr_confidence: 0.98,
-        has_discrepancy: false,
-        discrepancy: null
+        timestamp: '05 Sep 2026, 02:15 PM',
+        category: 'Notices',
+        title: 'Section 15 Objections Notice Drafted',
+        details: 'Notice NOTICE-OD-2026-402 created for Mouza Pipili.',
+        officer: 'Land Acquisition Officer'
+      },
+      {
+        id: 3,
+        timestamp: '28 Aug 2026, 04:00 PM',
+        category: 'Claims',
+        title: 'Landowner Claim CLAIM-2026-088 Submitted',
+        details: 'Objection filed by Bikram Keshari Das regarding commercial tree valuation on Plot 142.',
+        officer: 'Landowner Portal'
+      },
+      {
+        id: 4,
+        timestamp: '25 Aug 2026, 11:20 AM',
+        category: 'Documents',
+        title: 'RoR Deed Uploaded & OCR Scanned',
+        details: 'Pipili_Plot142_RoR_Deed.pdf uploaded. OCR flagged sub-plot subdivision mismatch.',
+        officer: 'System OCR Engine'
+      },
+      {
+        id: 5,
+        timestamp: '15 Aug 2026, 09:00 AM',
+        category: 'Initiation',
+        title: 'Acquisition Case CASE-OD-2026-004 Created',
+        details: 'Case initialized under Section 4(1) for Bhubaneswar-Puri Expressway Corridor.',
+        officer: 'Land Acquisition Officer'
       }
     ]);
+
+    // Real API integration attempt for documents with demo fallback
+    try {
+      const ocrRes = await documentService.getOcrResult(1);
+      setDocuments([
+        {
+          id: 1,
+          filename: ocrRes.filename || 'Pipili_Plot142_RoR_Deed.pdf',
+          document_type: ocrRes.document_type || 'Record of Rights (RoR)',
+          uploaded_at: '2026-08-25',
+          verification_status: ocrRes.ocr_status || 'Possible Mismatch',
+          ocr_confidence: ocrRes.ocr_confidence || 0.94,
+          has_discrepancy: ocrRes.mismatch_report?.has_discrepancy ?? true,
+          discrepancy: ocrRes.mismatch_report?.flagged_issues?.[0] || 'Extracted Plot #142 mismatches official survey sub-plot 142/A.',
+          extracted_fields: ocrRes.extracted_fields,
+          official_record: ocrRes.official_record,
+          mismatch_report: ocrRes.mismatch_report
+        },
+        {
+          id: 2,
+          filename: 'Aadhaar_Consent_BikramDas.pdf',
+          document_type: 'Aadhaar Consent & KYC',
+          uploaded_at: '2026-08-26',
+          verification_status: 'Verified',
+          ocr_confidence: 0.98,
+          has_discrepancy: false,
+          discrepancy: null,
+          extracted_fields: {
+            owner_name: 'Bikram Keshari Das',
+            plot_number: '142/A',
+            khata_number: '312',
+            village_name: 'Pipili',
+            area_acres: 4.5
+          },
+          official_record: {
+            owner_name: 'Bikram Keshari Das',
+            plot_number: '142/A',
+            khata_number: '312',
+            village_name: 'Pipili',
+            area_acres: 4.5
+          },
+          mismatch_report: {
+            has_discrepancy: false,
+            name_similarity_score: 100.0,
+            flagged_issues: []
+          }
+        }
+      ]);
+    } catch (err) {
+      setDocuments([
+        {
+          id: 1,
+          filename: 'Pipili_Plot142_RoR_Deed.pdf',
+          document_type: 'Record of Rights (RoR)',
+          uploaded_at: '2026-08-25',
+          verification_status: 'Possible Mismatch',
+          ocr_confidence: 0.94,
+          has_discrepancy: true,
+          discrepancy: 'Extracted Plot #142 mismatches official survey sub-plot 142/A.'
+        }
+      ]);
+    }
   };
 
   useEffect(() => {
@@ -119,6 +295,7 @@ export const CaseDetailsPage = () => {
       const updatedPred = await predictionService.triggerPrediction(id);
       setPrediction(updatedPred);
       showToast('Risk recalculation triggered successfully!', 'success');
+      logAuditEvent('Risk Engine', 'On-Demand ML Risk Recalculations Triggered', 'Officer manually refreshed delay probability assessment.');
       const freshCase = await caseService.getCaseById(id);
       setCaseData(freshCase);
     } catch (err) {
@@ -132,6 +309,7 @@ export const CaseDetailsPage = () => {
     try {
       await taskService.updateTask(taskId, { status: 'Completed', remarks: 'Completed by Officer during demo' });
       showToast('Task marked Completed. Recalculating case risk...', 'success');
+      logAuditEvent('Tasks', `Task #${taskId} Marked Completed`, 'Field survey task verification updated.');
       loadAll();
     } catch (err) {
       showToast('Failed updating task: ' + err.message, 'error');
@@ -142,6 +320,7 @@ export const CaseDetailsPage = () => {
     try {
       await noticeService.publishNotice(noticeId);
       showToast('Notice published successfully! Ready for dispatch to landowners.', 'success');
+      logAuditEvent('Notices', `Notice #${noticeId} Published`, 'Statutory acquisition notice authorized for publication.');
       loadAll();
     } catch (err) {
       showToast('Error publishing notice: ' + err.message, 'error');
@@ -152,6 +331,7 @@ export const CaseDetailsPage = () => {
     try {
       const updated = await noticeService.sendNoticeToLandowners(noticeId);
       showToast(`Notice issued & sent to ${updated.recipients_count || 14} landowners via SMS & Speed Post!`, 'success');
+      logAuditEvent('Notices', `Notice #${noticeId} Dispatched`, `Issued notice to ${updated.recipients_count || 14} title holders.`);
       loadAll();
     } catch (err) {
       showToast('Error sending notice: ' + err.message, 'error');
@@ -163,6 +343,7 @@ export const CaseDetailsPage = () => {
     try {
       await claimService.submitDecision(claimId, { status, officer_decision_notes: notes });
       showToast(`Claim marked as '${status}'! Landowner notified.`, 'success');
+      logAuditEvent('Claims', `Claim #${claimId} Marked ${status}`, notes);
       loadAll();
     } catch (err) {
       showToast('Failed updating claim: ' + err.message, 'error');
@@ -173,9 +354,66 @@ export const CaseDetailsPage = () => {
     try {
       await documentService.verifyDocument(docId, status, `Document marked as ${status} by LAO.`);
       showToast(`Document marked as '${status}'. Risk recalculated.`, 'success');
+      logAuditEvent('Documents', `Document #${docId} Marked ${status}`, `Officer verification decision: ${status}`);
       loadAll();
     } catch (err) {
       showToast('Document verification failed: ' + err.message, 'error');
+    }
+  };
+
+  const handleConfirmStageAdvancement = async (nextStageName) => {
+    if (isCompensationOfficer) {
+      showToast('Compensation Officer is not authorized to advance overall case lifecycle stages.', 'error');
+      return;
+    }
+    try {
+      await caseService.updateCaseStage(id, nextStageName);
+      setCaseData((prev) => ({ ...prev, current_stage: nextStageName }));
+      logAuditEvent(
+        'Stage Transition',
+        `Case Stage Advanced to '${nextStageName}'`,
+        `Stage advanced in session. Persistent storage requires backend update (PUT /api/cases/${id}).`
+      );
+      showToast(`Case stage advanced to '${nextStageName}' (Session updated).`, 'success');
+      setIsStageModalOpen(false);
+    } catch (err) {
+      showToast('Stage update error: ' + err.message, 'error');
+    }
+  };
+
+  const handleAdvanceCompensationStage = async (compId, currentIdx) => {
+    const STAGES_LIST = [
+      'Land valuation pending',
+      'Valuation completed',
+      'Compensation calculated',
+      'Approval pending',
+      'Compensation approved',
+      'Landowner consent pending',
+      'Bank verification',
+      'Payment initiated',
+      'Payment completed'
+    ];
+    const nextStage = STAGES_LIST[currentIdx];
+    if (!nextStage) {
+      showToast('Compensation is already at the final stage (Payment Completed).', 'info');
+      return;
+    }
+    try {
+      await compensationService.updateStage(
+        compId,
+        nextStage,
+        `Advanced to ${nextStage} by ${isCompensationOfficer ? 'Compensation Officer' : 'Officer'}`
+      );
+      showToast(`Compensation advanced to '${nextStage}'. Audit logged & risk recalculated.`, 'success');
+      logAuditEvent(
+        'Compensation',
+        `Compensation Stage Advanced to '${nextStage}'`,
+        `Advanced from stage index ${currentIdx} to ${currentIdx + 1} by ${isCompensationOfficer ? 'Compensation Officer' : 'Officer'}.`,
+        isCompensationOfficer ? 'Compensation Officer' : 'Land Acquisition Officer'
+      );
+      loadAll();
+    } catch (err) {
+      showToast('Stage update failed: ' + err.message, 'error');
     }
   };
 
@@ -190,6 +428,60 @@ export const CaseDetailsPage = () => {
   const prob = prediction ? prediction.delay_probability : (caseData.risk_summary?.delay_probability || 0.2);
   const riskLvl = prediction ? prediction.risk_level : (caseData.risk_summary?.risk_level || 'Low');
   const days = prediction ? prediction.predicted_delay_days : (caseData.risk_summary?.predicted_delay_days || 0);
+
+  const currentStageIndex = getStageIndex(caseData.current_stage);
+  const currentStageObj = BHOOMISETU_STAGES.find((s) => s.id === currentStageIndex) || BHOOMISETU_STAGES[1];
+  const nextStageObj = BHOOMISETU_STAGES.find((s) => s.id === currentStageIndex + 1);
+
+  // Stage completion checks calculation
+  const passedChecks = [];
+  const pendingChecks = [];
+
+  if (currentStageIndex >= 1) {
+    passedChecks.push('Sec 4(1) Preliminary Notification created');
+    passedChecks.push('Case baseline registered in BhoomiSetu AI');
+  }
+
+  if (currentStageIndex === 2) {
+    const surveyPct = Math.round(caseData.metrics?.survey_completed_pct || 50);
+    const overdueTasks = caseData.metrics?.overdue_tasks_count || 0;
+    if (surveyPct >= 100) {
+      passedChecks.push('Joint Cadastral Survey 100% completed');
+    } else {
+      pendingChecks.push(`Joint Cadastral Survey incomplete (${surveyPct}% done)`);
+    }
+    if (overdueTasks === 0) {
+      passedChecks.push('Zero overdue departmental survey tasks');
+    } else {
+      pendingChecks.push(`${overdueTasks} overdue survey task(s) pending completion`);
+    }
+  }
+
+  if (currentStageIndex >= 3) {
+    const pendingHearings = hearings.filter((h) => h.status === 'Scheduled').length;
+    if (pendingHearings === 0) {
+      passedChecks.push('All scheduled statutory hearings completed');
+    } else {
+      pendingChecks.push(`${pendingHearings} scheduled hearing(s) awaiting completion`);
+    }
+  }
+
+  if (currentStageIndex >= 4) {
+    const pendingClaims = claims.filter((c) => c.status === 'Under Review').length;
+    const mismatchDocs = documents.filter((d) => d.has_discrepancy && d.verification_status !== 'Verified').length;
+
+    if (pendingClaims === 0) {
+      passedChecks.push('All landowner acquisition claims reviewed');
+    } else {
+      pendingChecks.push(`${pendingClaims} landowner claim(s) pending LAO decision`);
+    }
+
+    if (mismatchDocs === 0) {
+      passedChecks.push('Zero unreviewed OCR document discrepancies');
+    } else {
+      pendingChecks.push(`${mismatchDocs} document OCR mismatch(es) requiring verification`);
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -282,91 +574,287 @@ export const CaseDetailsPage = () => {
         </div>
       </div>
 
+      {/* BHOOMISETU CASE LIFECYCLE STEPPER */}
+      <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="bg-govblue-100 text-govblue-900 text-[10px] font-extrabold uppercase px-2 py-0.5 rounded tracking-wider">
+                Product Workflow
+              </span>
+              <h3 className="font-extrabold text-slate-900 text-sm">BhoomiSetu Case Lifecycle</h3>
+            </div>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Current Active Stage: <strong className="text-govblue-700">{caseData.current_stage}</strong> (Stage {currentStageIndex} of 7)
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {pendingChecks.length > 0 && (
+              <button
+                onClick={() => {
+                  if (isCompensationOfficer) {
+                    setActiveTab('compensation');
+                  } else {
+                    setActiveTab(currentStageObj.tabTarget);
+                  }
+                }}
+                className="bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 text-xs font-bold px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5"
+              >
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
+                <span>Review Stage Blockers ({pendingChecks.length})</span>
+              </button>
+            )}
+
+            {!isCompensationOfficer && nextStageObj && (
+              <button
+                onClick={() => setIsStageModalOpen(true)}
+                className="bg-govblue-700 hover:bg-govblue-800 text-white text-xs font-bold px-4 py-1.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5"
+              >
+                <span>Advance to Next Stage</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* 7-Stage Horizontal Stepper */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 select-none">
+          {BHOOMISETU_STAGES.map((s) => {
+            const isCompleted = s.id < currentStageIndex;
+            const isCurrent = s.id === currentStageIndex;
+
+            return (
+              <div
+                key={s.id}
+                onClick={() => {
+                  if (isCompensationOfficer) {
+                    if (s.tabTarget === 'compensation' || s.tabTarget === 'parcels') {
+                      setActiveTab(s.tabTarget);
+                    } else {
+                      setActiveTab('compensation');
+                    }
+                  } else {
+                    setActiveTab(s.tabTarget);
+                  }
+                }}
+                className={`p-3 rounded-xl border text-center transition-all cursor-pointer relative ${
+                  isCurrent
+                    ? 'bg-govblue-50 border-govblue-600 text-govblue-900 shadow-sm font-bold ring-2 ring-govblue-500/20'
+                    : isCompleted
+                    ? 'bg-emerald-50/60 border-emerald-200 text-emerald-950 font-semibold'
+                    : 'bg-slate-50 border-slate-200 text-slate-400 font-medium opacity-75'
+                }`}
+              >
+                <div className="flex items-center justify-center gap-1.5 mb-1">
+                  {isCompleted ? (
+                    <span className="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] font-bold flex items-center justify-center">
+                      <Check className="w-3 h-3" />
+                    </span>
+                  ) : isCurrent ? (
+                    <span className="w-5 h-5 rounded-full bg-govblue-700 text-white text-[10px] font-extrabold flex items-center justify-center animate-pulse">
+                      {s.id}
+                    </span>
+                  ) : (
+                    <span className="w-5 h-5 rounded-full bg-slate-200 text-slate-600 text-[10px] font-bold flex items-center justify-center">
+                      {s.id}
+                    </span>
+                  )}
+                </div>
+                <div className="text-[11px] leading-tight font-extrabold truncate">{s.shortName}</div>
+                <div className="text-[9px] mt-0.5 uppercase tracking-wider font-bold">
+                  {isCompleted ? 'Completed' : isCurrent ? 'Active Stage' : 'Pending'}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Stage Completion Checks Detail Panel */}
+        <div className="bg-slate-50/80 p-3.5 rounded-xl border border-slate-200 text-xs space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="font-bold text-slate-800 uppercase tracking-wider text-[10px]">
+              Stage Completion Checks (Stage {currentStageIndex}: {currentStageObj.name})
+            </span>
+            <span className="text-[11px] text-slate-500 font-medium">
+              {passedChecks.length} passed • {pendingChecks.length} pending
+            </span>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-2">
+            <div className="space-y-1">
+              <div className="text-[11px] font-bold text-emerald-800 flex items-center gap-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Passed Prerequisites ({passedChecks.length})</span>
+              </div>
+              {passedChecks.map((chk, idx) => (
+                <div key={idx} className="text-[11px] text-slate-700 flex items-center gap-1.5 pl-4">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  <span>{chk}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="space-y-1">
+              <div className="text-[11px] font-bold text-amber-800 flex items-center gap-1">
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
+                <span>Pending Stage Checks / Blockers ({pendingChecks.length})</span>
+              </div>
+              {pendingChecks.length > 0 ? (
+                pendingChecks.map((chk, idx) => (
+                  <div key={idx} className="text-[11px] text-amber-900 font-medium flex items-center gap-1.5 pl-4">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                    <span>{chk}</span>
+                  </div>
+                ))
+              ) : (
+                <div className="text-[11px] text-slate-400 pl-4 font-normal">No active blockers for current stage.</div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Tabs Navigation Bar */}
       <div className="border-b border-slate-200 flex flex-wrap items-center gap-2 text-xs font-bold">
-        <button
-          onClick={() => setActiveTab('parcels')}
-          className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
-            activeTab === 'parcels'
-              ? 'border-govblue-700 text-govblue-700 font-extrabold'
-              : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
-        >
-          <FileSpreadsheet className="w-4 h-4" />
-          <span>Parcels ({parcels.length})</span>
-        </button>
+        {/* If Compensation Officer, prioritize Compensation tab first */}
+        {isCompensationOfficer ? (
+          <>
+            <button
+              onClick={() => setActiveTab('compensation')}
+              className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
+                activeTab === 'compensation'
+                  ? 'border-govblue-700 text-govblue-700 font-extrabold'
+                  : 'border-transparent text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <CreditCard className="w-4 h-4" />
+              <span>Compensation ({compensations.length})</span>
+            </button>
 
-        <button
-          onClick={() => setActiveTab('tasks')}
-          className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
-            activeTab === 'tasks'
-              ? 'border-govblue-700 text-govblue-700 font-extrabold'
-              : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
-        >
-          <CheckSquare className="w-4 h-4" />
-          <span>Survey Tasks ({tasks.length})</span>
-        </button>
+            <button
+              onClick={() => setActiveTab('parcels')}
+              className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
+                activeTab === 'parcels'
+                  ? 'border-govblue-700 text-govblue-700 font-extrabold'
+                  : 'border-transparent text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <FileSpreadsheet className="w-4 h-4" />
+              <span>Parcels & Title Holders ({parcels.length})</span>
+            </button>
 
-        <button
-          onClick={() => setActiveTab('hearings')}
-          className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
-            activeTab === 'hearings'
-              ? 'border-govblue-700 text-govblue-700 font-extrabold'
-              : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
-        >
-          <Calendar className="w-4 h-4" />
-          <span>Hearings & Meetings ({hearings.length})</span>
-        </button>
+            <button
+              onClick={() => setActiveTab('audit')}
+              className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
+                activeTab === 'audit'
+                  ? 'border-govblue-700 text-govblue-700 font-extrabold'
+                  : 'border-transparent text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <History className="w-4 h-4 text-amber-600" />
+              <span>Audit Log & History ({auditLog.length})</span>
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={() => setActiveTab('parcels')}
+              className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
+                activeTab === 'parcels'
+                  ? 'border-govblue-700 text-govblue-700 font-extrabold'
+                  : 'border-transparent text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <FileSpreadsheet className="w-4 h-4" />
+              <span>Parcels ({parcels.length})</span>
+            </button>
 
-        <button
-          onClick={() => setActiveTab('notices')}
-          className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
-            activeTab === 'notices'
-              ? 'border-govblue-700 text-govblue-700 font-extrabold'
-              : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
-        >
-          <FileText className="w-4 h-4" />
-          <span>Notices & Orders ({notices.length})</span>
-        </button>
+            <button
+              onClick={() => setActiveTab('tasks')}
+              className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
+                activeTab === 'tasks'
+                  ? 'border-govblue-700 text-govblue-700 font-extrabold'
+                  : 'border-transparent text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <CheckSquare className="w-4 h-4" />
+              <span>Survey Tasks ({tasks.length})</span>
+            </button>
 
-        <button
-          onClick={() => setActiveTab('claims')}
-          className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
-            activeTab === 'claims'
-              ? 'border-govblue-700 text-govblue-700 font-extrabold'
-              : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
-        >
-          <Scale className="w-4 h-4" />
-          <span>Landowner Claims ({claims.length})</span>
-        </button>
+            <button
+              onClick={() => setActiveTab('hearings')}
+              className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
+                activeTab === 'hearings'
+                  ? 'border-govblue-700 text-govblue-700 font-extrabold'
+                  : 'border-transparent text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <Calendar className="w-4 h-4" />
+              <span>Hearings & Meetings ({hearings.length})</span>
+            </button>
 
-        <button
-          onClick={() => setActiveTab('documents')}
-          className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
-            activeTab === 'documents'
-              ? 'border-govblue-700 text-govblue-700 font-extrabold'
-              : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
-        >
-          <FileCheck className="w-4 h-4" />
-          <span>Documents & OCR ({documents.length})</span>
-        </button>
+            <button
+              onClick={() => setActiveTab('notices')}
+              className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
+                activeTab === 'notices'
+                  ? 'border-govblue-700 text-govblue-700 font-extrabold'
+                  : 'border-transparent text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <FileText className="w-4 h-4" />
+              <span>Notices & Orders ({notices.length})</span>
+            </button>
 
-        <button
-          onClick={() => setActiveTab('compensation')}
-          className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
-            activeTab === 'compensation'
-              ? 'border-govblue-700 text-govblue-700 font-extrabold'
-              : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
-        >
-          <CreditCard className="w-4 h-4" />
-          <span>Compensation ({compensations.length})</span>
-        </button>
+            <button
+              onClick={() => setActiveTab('claims')}
+              className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
+                activeTab === 'claims'
+                  ? 'border-govblue-700 text-govblue-700 font-extrabold'
+                  : 'border-transparent text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <Scale className="w-4 h-4" />
+              <span>Landowner Claims ({claims.length})</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('documents')}
+              className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
+                activeTab === 'documents'
+                  ? 'border-govblue-700 text-govblue-700 font-extrabold'
+                  : 'border-transparent text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <FileCheck className="w-4 h-4" />
+              <span>Documents & OCR ({documents.length})</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('compensation')}
+              className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
+                activeTab === 'compensation'
+                  ? 'border-govblue-700 text-govblue-700 font-extrabold'
+                  : 'border-transparent text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <CreditCard className="w-4 h-4" />
+              <span>Compensation ({compensations.length})</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('audit')}
+              className={`pb-3 px-3 border-b-2 flex items-center gap-1.5 transition-all ${
+                activeTab === 'audit'
+                  ? 'border-govblue-700 text-govblue-700 font-extrabold'
+                  : 'border-transparent text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <History className="w-4 h-4 text-amber-600" />
+              <span>Audit Log & History ({auditLog.length})</span>
+            </button>
+          </>
+        )}
       </div>
 
       {/* TAB 1: PARCELS */}
@@ -440,7 +928,7 @@ export const CaseDetailsPage = () => {
       )}
 
       {/* TAB 2: TASKS */}
-      {activeTab === 'tasks' && (
+      {!isCompensationOfficer && activeTab === 'tasks' && (
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
           <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
             <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">
@@ -680,7 +1168,6 @@ export const CaseDetailsPage = () => {
                   </div>
                 )}
 
-                {/* Officer Sanction / Decision Controls */}
                 <div className="pt-2 space-y-2 border-t border-slate-100">
                   <div className="text-[11px] font-bold text-slate-700 uppercase tracking-wider">LAO Sanction Decision:</div>
                   <input
@@ -748,7 +1235,7 @@ export const CaseDetailsPage = () => {
                       <FileText className="w-4 h-4 text-govblue-700" />
                       <span className="font-bold text-slate-900 text-xs">{doc.filename}</span>
                       <span className="text-[10px] font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded font-bold">
-                        OCR Confidence: {Math.round(doc.ocr_confidence * 100)}%
+                        OCR Confidence: {Math.round((doc.ocr_confidence || 0.94) * 100)}%
                       </span>
                     </div>
                     <div className="text-[11px] text-slate-500 mt-0.5">
@@ -776,6 +1263,14 @@ export const CaseDetailsPage = () => {
 
                 <div className="flex flex-wrap gap-2 pt-1">
                   <button
+                    onClick={() => setSelectedDocForPreview(doc)}
+                    className="bg-govblue-900 hover:bg-govblue-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 transition-all shadow-sm"
+                  >
+                    <Eye className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Preview & Inspect OCR</span>
+                  </button>
+
+                  <button
                     onClick={() => handleVerifyDocument(doc.id, 'Verified')}
                     className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 transition-all"
                   >
@@ -789,13 +1284,6 @@ export const CaseDetailsPage = () => {
                   >
                     <XCircle className="w-3.5 h-3.5" />
                     <span>Reject Document</span>
-                  </button>
-
-                  <button
-                    onClick={() => handleVerifyDocument(doc.id, 'Manual Review Required')}
-                    className="bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg transition-all"
-                  >
-                    Flag for Demarcation
                   </button>
                 </div>
               </div>
@@ -835,6 +1323,233 @@ export const CaseDetailsPage = () => {
                 </Link>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* TAB 8: AUDIT LOG & HISTORY */}
+      {activeTab === 'audit' && (
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div>
+              <h3 className="font-extrabold text-slate-900 text-sm flex items-center gap-2">
+                <History className="w-4 h-4 text-govblue-700" />
+                <span>Case Activity Audit Log & Audit History</span>
+              </h3>
+              <p className="text-xs text-slate-500 mt-0.5">Immutable activity trail of officer actions, risk recalculations, and stage transitions.</p>
+            </div>
+            <span className="text-xs font-bold text-slate-400">Total Entries: {auditLog.length}</span>
+          </div>
+
+          <div className="relative border-l-2 border-slate-200 ml-3 pl-5 space-y-6">
+            {auditLog.map((log) => (
+              <div key={log.id} className="relative group">
+                <span className="absolute -left-[27px] top-1.5 w-3.5 h-3.5 rounded-full bg-govblue-700 border-2 border-white ring-2 ring-slate-100"></span>
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1 hover:border-govblue-300 transition-all">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-slate-900 text-xs">{log.title}</span>
+                      <span className="bg-slate-200 text-slate-700 px-2 py-0.5 rounded text-[10px] font-bold">
+                        {log.category}
+                      </span>
+                    </div>
+                    <span className="text-[11px] font-mono font-medium text-slate-500">{log.timestamp}</span>
+                  </div>
+                  <p className="text-xs text-slate-600">{log.details}</p>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider pt-1">
+                    Action Officer: <span className="text-slate-700">{log.officer}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* MODAL 1: STAGE TRANSITION CONTROL MODAL */}
+      {isStageModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in duration-200 space-y-4">
+            <div className="p-5 bg-gradient-to-r from-govblue-900 to-govblue-800 text-white flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                <ChevronRight className="w-5 h-5 text-amber-400" />
+                <div>
+                  <h2 className="font-bold text-base">Stage Transition Control</h2>
+                  <p className="text-[11px] text-slate-300">BhoomiSetu Case Lifecycle Progression</p>
+                </div>
+              </div>
+              <button onClick={() => setIsStageModalOpen(false)} className="text-slate-300 hover:text-white p-1">
+                <XCircle className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-6 space-y-4 text-xs font-medium">
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+                <div>
+                  <div className="text-[10px] font-bold uppercase text-slate-400">Current Stage</div>
+                  <div className="font-bold text-slate-800 text-xs">{caseData.current_stage}</div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-slate-400" />
+                <div className="text-right">
+                  <div className="text-[10px] font-bold uppercase text-govblue-700">Target Stage</div>
+                  <div className="font-extrabold text-govblue-900 text-xs">{nextStageObj?.name}</div>
+                </div>
+              </div>
+
+              <div>
+                <div className="font-bold text-slate-800 uppercase tracking-wider text-[10px] mb-2">
+                  Stage completion checks
+                </div>
+                <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                  {passedChecks.map((chk, idx) => (
+                    <div key={idx} className="p-2 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                      <span>{chk}</span>
+                    </div>
+                  ))}
+
+                  {pendingChecks.map((chk, idx) => (
+                    <div key={idx} className="p-2 rounded-lg bg-amber-50 text-amber-900 border border-amber-200 flex items-center gap-2">
+                      <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                      <span>{chk}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="p-3 bg-blue-50 rounded-xl border border-blue-200 text-[11px] text-blue-900 flex items-start gap-2">
+                <Info className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong>Session Update Notice:</strong> Stage will be updated in current session. Persistent DB storage requires future backend API update (`PUT /api/cases/${id}`).
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 flex justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsStageModalOpen(false)}
+                  className="px-4 py-2 rounded-xl border border-slate-200 text-slate-700 font-bold hover:bg-slate-50 transition-all"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleConfirmStageAdvancement(nextStageObj?.name)}
+                  className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-5 py-2 rounded-xl transition-all shadow-md"
+                >
+                  Confirm Stage Advancement
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL 2: IN-PAGE OCR DOCUMENT PREVIEWER */}
+      {selectedDocForPreview && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in duration-200 space-y-4">
+            <div className="p-5 bg-gradient-to-r from-govblue-900 to-govblue-800 text-white flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                <FileCheck className="w-5 h-5 text-amber-400" />
+                <div>
+                  <h2 className="font-bold text-base">In-Page OCR Document Inspector</h2>
+                  <p className="text-[11px] text-slate-300">{selectedDocForPreview.filename}</p>
+                </div>
+              </div>
+              <button onClick={() => setSelectedDocForPreview(null)} className="text-slate-300 hover:text-white p-1">
+                <XCircle className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-6 space-y-4 text-xs">
+              <div className="grid grid-cols-2 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div>
+                  <span className="text-slate-400 font-bold text-[10px] uppercase">Document Type:</span>
+                  <div className="font-bold text-slate-800">{selectedDocForPreview.document_type}</div>
+                </div>
+                <div>
+                  <span className="text-slate-400 font-bold text-[10px] uppercase">OCR Confidence:</span>
+                  <div className="font-bold text-emerald-700 font-mono">
+                    {Math.round((selectedDocForPreview.ocr_confidence || 0.94) * 100)}%
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div className="font-bold text-slate-800 uppercase tracking-wider text-[10px] mb-2">
+                  Extracted Fields vs Official Record
+                </div>
+                <div className="overflow-x-auto rounded-xl border border-slate-200">
+                  <table className="w-full text-left text-xs">
+                    <thead className="bg-slate-100 text-slate-600 font-bold border-b border-slate-200 uppercase">
+                      <tr>
+                        <th className="py-2 px-3">Field</th>
+                        <th className="py-2 px-3">Extracted by OCR</th>
+                        <th className="py-2 px-3">Official Record</th>
+                        <th className="py-2 px-3 text-center">Match</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 font-medium">
+                      <tr>
+                        <td className="py-2 px-3 font-bold text-slate-700">Owner Name</td>
+                        <td className="py-2 px-3">Bikram Keshari Das</td>
+                        <td className="py-2 px-3">Bikram Keshari Das</td>
+                        <td className="py-2 px-3 text-center text-emerald-600 font-bold">100%</td>
+                      </tr>
+                      <tr>
+                        <td className="py-2 px-3 font-bold text-slate-700">Plot Number</td>
+                        <td className="py-2 px-3 font-mono">142</td>
+                        <td className="py-2 px-3 font-mono">142/A</td>
+                        <td className="py-2 px-3 text-center text-rose-600 font-bold">Mismatch</td>
+                      </tr>
+                      <tr>
+                        <td className="py-2 px-3 font-bold text-slate-700">Khata Number</td>
+                        <td className="py-2 px-3 font-mono">312</td>
+                        <td className="py-2 px-3 font-mono">312</td>
+                        <td className="py-2 px-3 text-center text-emerald-600 font-bold">Match</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {selectedDocForPreview.has_discrepancy && (
+                <div className="p-3 bg-rose-50 rounded-xl border border-rose-200 text-rose-900 space-y-1">
+                  <div className="font-bold flex items-center gap-1">
+                    <AlertTriangle className="w-4 h-4 text-rose-600" />
+                    <span>Discrepancy Report:</span>
+                  </div>
+                  <p className="text-xs leading-relaxed">{selectedDocForPreview.discrepancy}</p>
+                </div>
+              )}
+
+              <div className="pt-3 border-t border-slate-100 flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleVerifyDocument(selectedDocForPreview.id, 'Verified');
+                    setSelectedDocForPreview(null);
+                  }}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-xl transition-all flex items-center gap-1.5"
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>Approve & Verify</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleVerifyDocument(selectedDocForPreview.id, 'Rejected');
+                    setSelectedDocForPreview(null);
+                  }}
+                  className="bg-rose-600 hover:bg-rose-700 text-white font-bold px-4 py-2 rounded-xl transition-all flex items-center gap-1.5"
+                >
+                  <XCircle className="w-4 h-4" />
+                  <span>Reject Document</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

@@ -33,8 +33,14 @@ def _format_hearing_response(h: Hearing) -> HearingResponse:
 def list_hearings(
     case_id: Optional[int] = None,
     status_filter: Optional[str] = None,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
+    if current_user.role == "compensation_officer":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Compensation Officer does not have permission to view or manage statutory hearings."
+        )
     query = db.query(Hearing)
     if case_id:
         query = query.filter(Hearing.case_id == case_id)

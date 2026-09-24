@@ -17,8 +17,19 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     )
     
     # Check for mock development tokens
-    if token == "mock_jwt_token_bhoomisetu_2026_officer":
-        user = db.query(User).filter(User.role == "land_acquisition_officer").first()
+    if token.startswith("mock_jwt_token_bhoomisetu_2026_"):
+        role_suffix = token.replace("mock_jwt_token_bhoomisetu_2026_", "")
+        role_map = {
+            "officer": "land_acquisition_officer",
+            "compensation_officer": "compensation_officer",
+            "survey_officer": "survey_officer",
+            "project_authority": "project_authority",
+            "admin": "admin",
+            "landowner": "landowner",
+            "land_acquisition_officer": "land_acquisition_officer"
+        }
+        target_role = role_map.get(role_suffix, role_suffix)
+        user = db.query(User).filter(User.role == target_role).first()
         if user:
             return user
 

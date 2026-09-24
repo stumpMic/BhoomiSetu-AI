@@ -28,6 +28,11 @@ async def upload_document(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
+    if current_user.role == "compensation_officer":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Compensation Officer does not have permission to upload case documents or run OCR verification."
+        )
     case = db.query(AcquisitionCase).filter(AcquisitionCase.id == case_id).first()
     if not case:
         raise HTTPException(status_code=404, detail="Acquisition case not found")

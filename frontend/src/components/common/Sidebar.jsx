@@ -23,13 +23,14 @@ export const Sidebar = () => {
 
   const navItems = [
     { to: '/dashboard', label: t('nav.dashboard'), icon: LayoutDashboard, roles: ['admin', 'project_authority', 'land_acquisition_officer', 'survey_officer', 'compensation_officer'] },
+    { to: '/compensation/work-queue', label: 'My Compensation Work', icon: CreditCard, roles: ['admin', 'compensation_officer', 'land_acquisition_officer'] },
     { to: '/map', label: t('nav.map'), icon: MapPin, roles: ['admin', 'project_authority', 'land_acquisition_officer', 'survey_officer', 'compensation_officer', 'landowner'] },
     { to: '/cases', label: t('nav.cases'), icon: FileSpreadsheet, roles: ['admin', 'project_authority', 'land_acquisition_officer', 'survey_officer', 'compensation_officer'] },
     { to: '/projects', label: t('nav.projects'), icon: FolderKanban, roles: ['admin', 'project_authority', 'land_acquisition_officer'] },
     { to: '/documents', label: t('nav.documents'), icon: FileCheck, roles: ['admin', 'land_acquisition_officer', 'survey_officer'] },
     { to: '/compensation', label: t('nav.compensation'), icon: CreditCard, roles: ['admin', 'compensation_officer', 'land_acquisition_officer'] },
-    { to: '/tasks', label: t('nav.tasks'), icon: CheckSquare, roles: ['admin', 'project_authority', 'land_acquisition_officer', 'survey_officer', 'compensation_officer'] },
-    { to: '/grievances', label: t('nav.grievances'), icon: MessageSquareWarning, roles: ['admin', 'land_acquisition_officer', 'survey_officer', 'compensation_officer'] },
+    { to: '/tasks', label: t('nav.tasks'), icon: CheckSquare, roles: ['admin', 'project_authority', 'land_acquisition_officer', 'survey_officer'] },
+    { to: '/grievances', label: t('nav.grievances'), icon: MessageSquareWarning, roles: ['admin', 'land_acquisition_officer', 'survey_officer'] },
     { to: '/alerts', label: t('nav.alerts'), icon: Bell, roles: ['admin', 'project_authority', 'land_acquisition_officer', 'survey_officer', 'compensation_officer', 'landowner'] },
     { to: '/landowner', label: t('nav.landowner_portal'), icon: UserCheck, roles: ['landowner', 'admin'] },
     { to: '/admin/users', label: t('nav.admin'), icon: ShieldCheck, roles: ['admin'] },
