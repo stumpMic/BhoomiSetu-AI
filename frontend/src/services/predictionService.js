@@ -48,5 +48,15 @@ export const predictionService = {
         ]
       };
     }
+  },
+
+  simulateRouteDelay: async (routePayload) => {
+    try {
+      const res = await apiClient.post('/predictions/simulate', routePayload);
+      return res.data;
+    } catch (err) {
+      console.warn('Backend ML simulation fallback:', err);
+      return null;
+    }
   }
 };

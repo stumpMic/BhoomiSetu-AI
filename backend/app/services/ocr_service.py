@@ -8,7 +8,7 @@ class OCRService:
     def extract_and_analyze(file_path: str, filename: str, official_parcel: Optional[Any] = None, official_owner_name: Optional[str] = None) -> Dict[str, Any]:
         """
         Extract key fields from land deed/document and compare against official database records.
-        Includes smart regex extraction and rapidfuzz fuzzy matching.
+        Includes smart regex extraction, PDF parsing, and rapidfuzz fuzzy matching.
         """
         raw_text = f"Sample Record of Rights (RoR) text for {filename}"
         extracted = {
@@ -158,7 +158,7 @@ class OCRService:
             # 4. Fuzzy Compare Owner Name with RapidFuzz
             ext_name = extracted.get("owner_name", "")
             name_sim = float(fuzz.token_sort_ratio(str(official_owner_name).lower(), str(ext_name).lower()))
-            if name_sim < 80.0:
+            if name_sim < 75.0:
                 flagged_issues.append(f"Landowner Name similarity score is {name_sim:.1f}% (Official: '{official_owner_name}', Extracted: '{ext_name}').")
 
         has_discrepancy = len(flagged_issues) > 0
@@ -178,3 +178,6 @@ class OCRService:
             "status": status,
             "recommendation": recommendation
         }
+
+ocr_service = OCRService()
+

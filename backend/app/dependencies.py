@@ -34,6 +34,13 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     if user is None or not user.is_active:
         raise credentials_exception
         
+    # Check verification status
+    if user.verification_status and user.verification_status != "VERIFIED":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=f"Account access restricted. Verification Status: {user.verification_status}"
+        )
+        
     return user
 
 def require_roles(allowed_roles: List[str]):

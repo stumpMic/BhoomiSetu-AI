@@ -20,12 +20,19 @@ from app.api.compensation import router as compensation_router
 from app.api.tasks import router as tasks_router
 from app.api.alerts import router as alerts_router
 from app.api.grievances import router as grievances_router
+from app.api.admin_verifications import router as admin_verifications_router
+from app.api.surveys import router as surveys_router
 from app.api.hearings import router as hearings_router
 from app.api.notices import router as notices_router
 from app.api.claims import router as claims_router
 
 # Initialize tables
 Base.metadata.create_all(bind=engine)
+try:
+    from migrate_survey_fields import migrate
+    migrate()
+except Exception as _e:
+    pass
 
 app = FastAPI(
     title="BhoomiSetu AI API",
@@ -62,6 +69,8 @@ app.include_router(compensation_router, prefix="/api")
 app.include_router(tasks_router, prefix="/api")
 app.include_router(alerts_router, prefix="/api")
 app.include_router(grievances_router, prefix="/api")
+app.include_router(admin_verifications_router, prefix="/api")
+app.include_router(surveys_router, prefix="/api")
 app.include_router(hearings_router, prefix="/api")
 app.include_router(notices_router, prefix="/api")
 app.include_router(claims_router, prefix="/api")

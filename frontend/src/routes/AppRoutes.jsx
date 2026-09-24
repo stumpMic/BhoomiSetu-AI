@@ -10,6 +10,7 @@ import { PublicLayout } from '../layouts/PublicLayout';
 // Public Pages
 import { LandingPage } from '../pages/LandingPage';
 import { LoginPage } from '../pages/auth/LoginPage';
+import { RegisterPage } from '../pages/auth/RegisterPage';
 import { UnauthorizedPage, NotFoundPage } from '../pages/UnauthorizedPage';
 
 // Officer / Admin Pages
@@ -26,7 +27,14 @@ import { CompensationManagementPage } from '../pages/compensation/CompensationMa
 import { TasksManagementPage } from '../pages/tasks/TasksManagementPage';
 import { AlertsCenterPage } from '../pages/alerts/AlertsCenterPage';
 import { GrievanceManagementPage } from '../pages/grievances/GrievanceManagementPage';
+import { NoticeManagementPage } from '../pages/notices/NoticeManagementPage';
 import { AdminUserManagementPage } from '../pages/admin/AdminUserManagementPage';
+import { AdminVerificationDashboardPage } from '../pages/admin/AdminVerificationDashboardPage';
+
+// Survey Officer Module Pages
+import { SurveyDashboardPage } from '../pages/survey/SurveyDashboardPage';
+import { SurveyRequestsListPage } from '../pages/survey/SurveyRequestsListPage';
+import { SurveyExecutionPage } from '../pages/survey/SurveyExecutionPage';
 
 // Landowner Pages
 import { LandownerDashboardPage } from '../pages/landowner/LandownerDashboardPage';
@@ -62,7 +70,10 @@ export const AppRoutes = () => {
       {/* Public Routes */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/notice-board" element={<Navigate to="/#notice-board" replace />} />
+        <Route path="/public-notices" element={<Navigate to="/#notice-board" replace />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
       </Route>
 
@@ -97,7 +108,32 @@ export const AppRoutes = () => {
         <Route path="/compensation" element={<CompensationManagementPage />} />
         <Route path="/tasks" element={<TasksManagementPage />} />
         <Route path="/grievances" element={<GrievanceManagementPage />} />
+        <Route path="/admin/verifications" element={<AdminVerificationDashboardPage />} />
         <Route path="/admin/users" element={<AdminUserManagementPage />} />
+      </Route>
+
+      {/* LAO / Admin Protected Notice Management Route */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'land_acquisition_officer']}>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/notices" element={<NoticeManagementPage />} />
+      </Route>
+
+      {/* Survey Officer Protected Routes (Strictly Survey Officer & Admin) */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'survey_officer']}>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/survey/dashboard" element={<SurveyDashboardPage />} />
+        <Route path="/survey/requests" element={<SurveyRequestsListPage />} />
+        <Route path="/survey/execute/:id" element={<SurveyExecutionPage />} />
       </Route>
 
       {/* Landowner Protected Routes */}

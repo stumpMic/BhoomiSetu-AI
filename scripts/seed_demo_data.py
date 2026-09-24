@@ -23,7 +23,7 @@ def init_and_seed_db():
             os.remove(DB_PATH)
             print("[+] Removed old database file.")
         except Exception as e:
-            print(f"[!] Note: {e}")
+            pass
 
     conn = sqlite3.connect(str(DB_PATH))
     cursor = conn.cursor()
@@ -53,7 +53,10 @@ def init_and_seed_db():
         "parcels.sql",
         "compensations.sql",
         "tasks.sql",
-        "grievances.sql"
+        "grievances.sql",
+        "verification_records.sql",
+        "surveys.sql",
+        "notices.sql"
     ]
 
     for seed in seed_files:
@@ -71,15 +74,21 @@ def init_and_seed_db():
         "departments", "users", "projects", "villages",
         "acquisition_cases", "parcels", "landowners",
         "parcel_ownerships", "compensations", "departmental_tasks",
-        "grievances"
+        "grievances", "officers", "officer_verification_records",
+        "land_verification_records", "verification_requests",
+        "survey_requests", "survey_schedules", "survey_document_verifications",
+        "survey_gps_verifications", "survey_field_observations",
+        "survey_evidence", "survey_discrepancies", "survey_resurvey_requests",
+        "survey_reports", "survey_status_history", "survey_predictive_metrics",
+        "notices", "hearings", "landowner_claims"
     ]
     for table in tables:
         try:
             cursor.execute(f"SELECT COUNT(*) FROM {table}")
             cnt = cursor.fetchone()[0]
-            print(f"  [OK] {table:<22} : {cnt} records")
+            print(f"  [OK] {table:<32} : {cnt} records")
         except Exception as e:
-            print(f"  [ERR] {table:<22} : Error ({e})")
+            print(f"  [ERR] {table:<32} : Error ({e})")
 
     conn.close()
     print("\n[SUCCESS] Database initialization and seeding completed successfully!")

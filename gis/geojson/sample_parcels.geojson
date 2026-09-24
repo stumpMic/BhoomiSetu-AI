@@ -47,7 +47,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Rashmi Patra",
+        "parcel_id": "PARCEL-OD-KH-001",
+        "survey_number": "Plot #101",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -96,7 +109,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Disputed Boundary Demarcation",
+        "acquisition_status": "Section 11 Preliminary Survey",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Under Valuation Hearing",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Cadastral map boundary overlaps with adjacent forest plot; survey officer detected a 4.2-meter GPS coordinate discrepancy.",
+        "landowner_name": "Sunil Mohanty",
+        "parcel_id": "PARCEL-OD-KH-002",
+        "survey_number": "Plot #102",
+        "conflict_type": "Boundary Demarcation Dispute",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 11 Joint Verification & Demarcation"
       }
     },
     {
@@ -145,7 +171,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Manoranjan Mishra",
+        "parcel_id": "PARCEL-OD-KH-003",
+        "survey_number": "Plot #103",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -194,7 +233,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Objection Filed",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Document Issue / Discrepancy Flagged",
+        "conflict_reason": "Record of Rights (RoR) khata contains unmutated partition from 2018; missing legal succession endorsement.",
+        "landowner_name": "Priyanka Jena",
+        "parcel_id": "PARCEL-OD-KH-004",
+        "survey_number": "Plot #104",
+        "conflict_type": "Document / Mutation Discrepancy",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 4(1) Preliminary Verification"
       }
     },
     {
@@ -243,7 +295,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Subhasis Sahoo",
+        "parcel_id": "PARCEL-OD-KH-005",
+        "survey_number": "Plot #105",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -292,7 +357,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Disputed Boundary Demarcation",
+        "acquisition_status": "Section 11 Preliminary Survey",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Under Valuation Hearing",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Cadastral map boundary overlaps with adjacent forest plot; survey officer detected a 4.2-meter GPS coordinate discrepancy.",
+        "landowner_name": "Debashish Behera",
+        "parcel_id": "PARCEL-OD-KH-006",
+        "survey_number": "Plot #106",
+        "conflict_type": "Boundary Demarcation Dispute",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 11 Joint Verification & Demarcation"
       }
     },
     {
@@ -341,7 +419,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 15 Hearing / Dispute",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Compensation Disputed / Escrow Pending",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Pattadar filed formal objection disputing commercial benchmark valuation rate and seeking 4x multiplication factor for urban proximity.",
+        "landowner_name": "Ananya Rout",
+        "parcel_id": "PARCEL-OD-KH-007",
+        "survey_number": "Plot #107",
+        "conflict_type": "Owner Objection / Enhanced Valuation Demand",
+        "owner_consent_status": "Owner Objection Lodged",
+        "current_process_stage": "Section 15 Valuation Review Committee"
       }
     },
     {
@@ -390,7 +481,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Objection Filed",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Document Issue / Discrepancy Flagged",
+        "conflict_reason": "Record of Rights (RoR) khata contains unmutated partition from 2018; missing legal succession endorsement.",
+        "landowner_name": "Ramesh Pattanaik",
+        "parcel_id": "PARCEL-OD-KH-008",
+        "survey_number": "Plot #108",
+        "conflict_type": "Document / Mutation Discrepancy",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 4(1) Preliminary Verification"
       }
     },
     {
@@ -439,7 +543,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Joint Verification In Progress",
+        "acquisition_status": "Section 15 Hearing / Dispute",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Compensation Disputed / Escrow Pending",
+        "document_status": "Document Issue / Succession Certificate Required",
+        "conflict_reason": "Multiple legal heirs filed competing succession claims under Section 15 of RFCTLARR Act; ownership title contested in Tahsil court.",
+        "landowner_name": "Sujata Nayak",
+        "parcel_id": "PARCEL-OD-KH-009",
+        "survey_number": "Plot #109",
+        "conflict_type": "Title Contestation & Multiple Co-claimants",
+        "owner_consent_status": "Owner Objection Lodged",
+        "current_process_stage": "Section 15 Objection Hearing before District Collector"
       }
     },
     {
@@ -488,7 +605,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Disputed Boundary Demarcation",
+        "acquisition_status": "Section 11 Preliminary Survey",
+        "consent_status": "Objection Filed",
+        "compensation_status": "Under Valuation Hearing",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Cadastral map boundary overlaps with adjacent forest plot; survey officer detected a 4.2-meter GPS coordinate discrepancy.",
+        "landowner_name": "Bikram Das",
+        "parcel_id": "PARCEL-OD-KH-010",
+        "survey_number": "Plot #110",
+        "conflict_type": "Boundary Demarcation Dispute",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 11 Joint Verification & Demarcation"
       }
     },
     {
@@ -537,7 +667,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 15 Hearing / Dispute",
+        "consent_status": "Objection Filed",
+        "compensation_status": "Compensation Disputed / Escrow Pending",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Pattadar filed formal objection disputing commercial benchmark valuation rate and seeking 4x multiplication factor for urban proximity.",
+        "landowner_name": "Rashmi Patra",
+        "parcel_id": "PARCEL-OD-KH-011",
+        "survey_number": "Plot #111",
+        "conflict_type": "Owner Objection / Enhanced Valuation Demand",
+        "owner_consent_status": "Owner Objection Lodged",
+        "current_process_stage": "Section 15 Valuation Review Committee"
       }
     },
     {
@@ -586,7 +729,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Approval pending",
         "compensation_amount": 7000000.0,
-        "owners_count": 2
+        "owners_count": 2,
+        "visual_state": "conflict",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Objection Filed",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Document Issue / Discrepancy Flagged",
+        "conflict_reason": "Record of Rights (RoR) khata contains unmutated partition from 2018; missing legal succession endorsement.",
+        "landowner_name": "Sunil Mohanty",
+        "parcel_id": "PARCEL-OD-KH-012",
+        "survey_number": "Plot #142/A",
+        "conflict_type": "Document / Mutation Discrepancy",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 4(1) Preliminary Verification"
       }
     },
     {
@@ -635,7 +791,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Approval pending",
         "compensation_amount": 7000000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Joint Verification In Progress",
+        "acquisition_status": "Section 15 Hearing / Dispute",
+        "consent_status": "Objection Filed",
+        "compensation_status": "Compensation Disputed / Escrow Pending",
+        "document_status": "Document Issue / Succession Certificate Required",
+        "conflict_reason": "Multiple legal heirs filed competing succession claims under Section 15 of RFCTLARR Act; ownership title contested in Tahsil court.",
+        "landowner_name": "Manoranjan Mishra",
+        "parcel_id": "PARCEL-OD-KH-013",
+        "survey_number": "Plot #142/B",
+        "conflict_type": "Title Contestation & Multiple Co-claimants",
+        "owner_consent_status": "Owner Objection Lodged",
+        "current_process_stage": "Section 15 Objection Hearing before District Collector"
       }
     },
     {
@@ -684,7 +853,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Disputed Boundary Demarcation",
+        "acquisition_status": "Section 11 Preliminary Survey",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Under Valuation Hearing",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Cadastral map boundary overlaps with adjacent forest plot; survey officer detected a 4.2-meter GPS coordinate discrepancy.",
+        "landowner_name": "Priyanka Jena",
+        "parcel_id": "PARCEL-OD-KH-014",
+        "survey_number": "Plot #114",
+        "conflict_type": "Boundary Demarcation Dispute",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 11 Joint Verification & Demarcation"
       }
     },
     {
@@ -733,7 +915,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 15 Hearing / Dispute",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Compensation Disputed / Escrow Pending",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Pattadar filed formal objection disputing commercial benchmark valuation rate and seeking 4x multiplication factor for urban proximity.",
+        "landowner_name": "Subhasis Sahoo",
+        "parcel_id": "PARCEL-OD-KH-015",
+        "survey_number": "Plot #115",
+        "conflict_type": "Owner Objection / Enhanced Valuation Demand",
+        "owner_consent_status": "Owner Objection Lodged",
+        "current_process_stage": "Section 15 Valuation Review Committee"
       }
     },
     {
@@ -782,7 +977,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Debashish Behera",
+        "parcel_id": "PARCEL-OD-KH-016",
+        "survey_number": "Plot #116",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -831,7 +1039,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Payment completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "completed",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Completed",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Award Disbursed (Direct Benefit Transfer)",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Ananya Rout",
+        "parcel_id": "PARCEL-OD-KH-017",
+        "survey_number": "Plot #117",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Acquisition Completed / Possession Transferred",
+        "conflict_type": null
       }
     },
     {
@@ -880,7 +1101,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "in_progress",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 19 Declaration",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Award Approved / Pending Payout",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Ramesh Pattanaik",
+        "parcel_id": "PARCEL-OD-KH-018",
+        "survey_number": "Plot #118",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Section 19 Award Declaration",
+        "conflict_type": null
       }
     },
     {
@@ -929,7 +1163,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Sujata Nayak",
+        "parcel_id": "PARCEL-OD-KH-019",
+        "survey_number": "Plot #119",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -978,7 +1225,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Bikram Das",
+        "parcel_id": "PARCEL-OD-KH-020",
+        "survey_number": "Plot #120",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -1027,7 +1287,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Joint Verification In Progress",
+        "acquisition_status": "Section 15 Hearing / Dispute",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Compensation Disputed / Escrow Pending",
+        "document_status": "Document Issue / Succession Certificate Required",
+        "conflict_reason": "Multiple legal heirs filed competing succession claims under Section 15 of RFCTLARR Act; ownership title contested in Tahsil court.",
+        "landowner_name": "Rashmi Patra",
+        "parcel_id": "PARCEL-OD-KH-021",
+        "survey_number": "Plot #121",
+        "conflict_type": "Title Contestation & Multiple Co-claimants",
+        "owner_consent_status": "Owner Objection Lodged",
+        "current_process_stage": "Section 15 Objection Hearing before District Collector"
       }
     },
     {
@@ -1076,7 +1349,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Disputed Boundary Demarcation",
+        "acquisition_status": "Section 11 Preliminary Survey",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Under Valuation Hearing",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Cadastral map boundary overlaps with adjacent forest plot; survey officer detected a 4.2-meter GPS coordinate discrepancy.",
+        "landowner_name": "Sunil Mohanty",
+        "parcel_id": "PARCEL-OD-KH-022",
+        "survey_number": "Plot #122",
+        "conflict_type": "Boundary Demarcation Dispute",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 11 Joint Verification & Demarcation"
       }
     },
     {
@@ -1125,7 +1411,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Manoranjan Mishra",
+        "parcel_id": "PARCEL-OD-KH-023",
+        "survey_number": "Plot #123",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -1174,7 +1473,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Priyanka Jena",
+        "parcel_id": "PARCEL-OD-KH-024",
+        "survey_number": "Plot #124",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -1223,7 +1535,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Payment completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "completed",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Completed",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Award Disbursed (Direct Benefit Transfer)",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Subhasis Sahoo",
+        "parcel_id": "PARCEL-OD-KH-025",
+        "survey_number": "Plot #125",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Acquisition Completed / Possession Transferred",
+        "conflict_type": null
       }
     },
     {
@@ -1272,7 +1597,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "in_progress",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 19 Declaration",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Award Approved / Pending Payout",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Debashish Behera",
+        "parcel_id": "PARCEL-OD-KH-026",
+        "survey_number": "Plot #126",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Section 19 Award Declaration",
+        "conflict_type": null
       }
     },
     {
@@ -1321,7 +1659,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Ananya Rout",
+        "parcel_id": "PARCEL-OD-KH-027",
+        "survey_number": "Plot #127",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -1370,7 +1721,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Document Issue / Discrepancy Flagged",
+        "conflict_reason": "Record of Rights (RoR) khata contains unmutated partition from 2018; missing legal succession endorsement.",
+        "landowner_name": "Ramesh Pattanaik",
+        "parcel_id": "PARCEL-OD-KH-028",
+        "survey_number": "Plot #128",
+        "conflict_type": "Document / Mutation Discrepancy",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 4(1) Preliminary Verification"
       }
     },
     {
@@ -1419,7 +1783,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Sujata Nayak",
+        "parcel_id": "PARCEL-OD-KH-029",
+        "survey_number": "Plot #129",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -1468,7 +1845,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "in_progress",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 19 Declaration",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Award Approved / Pending Payout",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Bikram Das",
+        "parcel_id": "PARCEL-OD-KH-030",
+        "survey_number": "Plot #130",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Section 19 Award Declaration",
+        "conflict_type": null
       }
     },
     {
@@ -1517,7 +1907,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Rashmi Patra",
+        "parcel_id": "PARCEL-OD-KH-031",
+        "survey_number": "Plot #131",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -1566,7 +1969,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Sunil Mohanty",
+        "parcel_id": "PARCEL-OD-KH-032",
+        "survey_number": "Plot #132",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -1615,7 +2031,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Manoranjan Mishra",
+        "parcel_id": "PARCEL-OD-KH-033",
+        "survey_number": "Plot #133",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -1664,7 +2093,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Disputed Boundary Demarcation",
+        "acquisition_status": "Section 11 Preliminary Survey",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Under Valuation Hearing",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Cadastral map boundary overlaps with adjacent forest plot; survey officer detected a 4.2-meter GPS coordinate discrepancy.",
+        "landowner_name": "Priyanka Jena",
+        "parcel_id": "PARCEL-OD-KH-034",
+        "survey_number": "Plot #134",
+        "conflict_type": "Boundary Demarcation Dispute",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 11 Joint Verification & Demarcation"
       }
     },
     {
@@ -1713,7 +2155,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Subhasis Sahoo",
+        "parcel_id": "PARCEL-OD-KH-035",
+        "survey_number": "Plot #135",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -1762,7 +2217,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Debashish Behera",
+        "parcel_id": "PARCEL-OD-KH-036",
+        "survey_number": "Plot #136",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -1811,7 +2279,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Payment completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "completed",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Completed",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Award Disbursed (Direct Benefit Transfer)",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Ananya Rout",
+        "parcel_id": "PARCEL-OD-KH-037",
+        "survey_number": "Plot #137",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Acquisition Completed / Possession Transferred",
+        "conflict_type": null
       }
     },
     {
@@ -1860,7 +2341,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "in_progress",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 19 Declaration",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Award Approved / Pending Payout",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Ramesh Pattanaik",
+        "parcel_id": "PARCEL-OD-KH-038",
+        "survey_number": "Plot #138",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Section 19 Award Declaration",
+        "conflict_type": null
       }
     },
     {
@@ -1909,7 +2403,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 15 Hearing / Dispute",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Compensation Disputed / Escrow Pending",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Pattadar filed formal objection disputing commercial benchmark valuation rate and seeking 4x multiplication factor for urban proximity.",
+        "landowner_name": "Sujata Nayak",
+        "parcel_id": "PARCEL-OD-KH-039",
+        "survey_number": "Plot #139",
+        "conflict_type": "Owner Objection / Enhanced Valuation Demand",
+        "owner_consent_status": "Owner Objection Lodged",
+        "current_process_stage": "Section 15 Valuation Review Committee"
       }
     },
     {
@@ -1958,7 +2465,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Bikram Das",
+        "parcel_id": "PARCEL-OD-KH-040",
+        "survey_number": "Plot #140",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -2007,7 +2527,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Rashmi Patra",
+        "parcel_id": "PARCEL-OD-KH-041",
+        "survey_number": "Plot #141",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -2056,7 +2589,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "in_progress",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 19 Declaration",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Award Approved / Pending Payout",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Sunil Mohanty",
+        "parcel_id": "PARCEL-OD-KH-042",
+        "survey_number": "Plot #142",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Section 19 Award Declaration",
+        "conflict_type": null
       }
     },
     {
@@ -2105,7 +2651,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Manoranjan Mishra",
+        "parcel_id": "PARCEL-OD-KH-043",
+        "survey_number": "Plot #143",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -2154,7 +2713,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Document Issue / Discrepancy Flagged",
+        "conflict_reason": "Record of Rights (RoR) khata contains unmutated partition from 2018; missing legal succession endorsement.",
+        "landowner_name": "Priyanka Jena",
+        "parcel_id": "PARCEL-OD-KH-044",
+        "survey_number": "Plot #144",
+        "conflict_type": "Document / Mutation Discrepancy",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 4(1) Preliminary Verification"
       }
     },
     {
@@ -2203,7 +2775,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Joint Verification In Progress",
+        "acquisition_status": "Section 15 Hearing / Dispute",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Compensation Disputed / Escrow Pending",
+        "document_status": "Document Issue / Succession Certificate Required",
+        "conflict_reason": "Multiple legal heirs filed competing succession claims under Section 15 of RFCTLARR Act; ownership title contested in Tahsil court.",
+        "landowner_name": "Subhasis Sahoo",
+        "parcel_id": "PARCEL-OD-KH-045",
+        "survey_number": "Plot #145",
+        "conflict_type": "Title Contestation & Multiple Co-claimants",
+        "owner_consent_status": "Owner Objection Lodged",
+        "current_process_stage": "Section 15 Objection Hearing before District Collector"
       }
     },
     {
@@ -2252,7 +2837,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "in_progress",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 19 Declaration",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Award Approved / Pending Payout",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Debashish Behera",
+        "parcel_id": "PARCEL-OD-KH-046",
+        "survey_number": "Plot #146",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Section 19 Award Declaration",
+        "conflict_type": null
       }
     },
     {
@@ -2301,7 +2899,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Payment completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "completed",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Completed",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Award Disbursed (Direct Benefit Transfer)",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Ananya Rout",
+        "parcel_id": "PARCEL-OD-KH-047",
+        "survey_number": "Plot #147",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Acquisition Completed / Possession Transferred",
+        "conflict_type": null
       }
     },
     {
@@ -2350,7 +2961,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Ramesh Pattanaik",
+        "parcel_id": "PARCEL-OD-KH-048",
+        "survey_number": "Plot #148",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -2399,7 +3023,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Sujata Nayak",
+        "parcel_id": "PARCEL-OD-KH-049",
+        "survey_number": "Plot #149",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -2448,7 +3085,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Disputed Boundary Demarcation",
+        "acquisition_status": "Section 11 Preliminary Survey",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Under Valuation Hearing",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Cadastral map boundary overlaps with adjacent forest plot; survey officer detected a 4.2-meter GPS coordinate discrepancy.",
+        "landowner_name": "Bikram Das",
+        "parcel_id": "PARCEL-OD-KH-050",
+        "survey_number": "Plot #150",
+        "conflict_type": "Boundary Demarcation Dispute",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 11 Joint Verification & Demarcation"
       }
     },
     {
@@ -2497,7 +3147,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Rashmi Patra",
+        "parcel_id": "PARCEL-OD-KH-051",
+        "survey_number": "Plot #151",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -2546,7 +3209,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Document Issue / Discrepancy Flagged",
+        "conflict_reason": "Record of Rights (RoR) khata contains unmutated partition from 2018; missing legal succession endorsement.",
+        "landowner_name": "Sunil Mohanty",
+        "parcel_id": "PARCEL-OD-KH-052",
+        "survey_number": "Plot #152",
+        "conflict_type": "Document / Mutation Discrepancy",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 4(1) Preliminary Verification"
       }
     },
     {
@@ -2595,7 +3271,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Manoranjan Mishra",
+        "parcel_id": "PARCEL-OD-KH-053",
+        "survey_number": "Plot #153",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -2644,7 +3333,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "in_progress",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 19 Declaration",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Award Approved / Pending Payout",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Priyanka Jena",
+        "parcel_id": "PARCEL-OD-KH-054",
+        "survey_number": "Plot #154",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Section 19 Award Declaration",
+        "conflict_type": null
       }
     },
     {
@@ -2693,7 +3395,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 15 Hearing / Dispute",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Compensation Disputed / Escrow Pending",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Pattadar filed formal objection disputing commercial benchmark valuation rate and seeking 4x multiplication factor for urban proximity.",
+        "landowner_name": "Subhasis Sahoo",
+        "parcel_id": "PARCEL-OD-KH-055",
+        "survey_number": "Plot #155",
+        "conflict_type": "Owner Objection / Enhanced Valuation Demand",
+        "owner_consent_status": "Owner Objection Lodged",
+        "current_process_stage": "Section 15 Valuation Review Committee"
       }
     },
     {
@@ -2742,7 +3457,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Debashish Behera",
+        "parcel_id": "PARCEL-OD-KH-056",
+        "survey_number": "Plot #156",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -2791,7 +3519,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Ananya Rout",
+        "parcel_id": "PARCEL-OD-KH-057",
+        "survey_number": "Plot #157",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -2840,7 +3581,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Disputed Boundary Demarcation",
+        "acquisition_status": "Section 11 Preliminary Survey",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Under Valuation Hearing",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Cadastral map boundary overlaps with adjacent forest plot; survey officer detected a 4.2-meter GPS coordinate discrepancy.",
+        "landowner_name": "Ramesh Pattanaik",
+        "parcel_id": "PARCEL-OD-KH-058",
+        "survey_number": "Plot #158",
+        "conflict_type": "Boundary Demarcation Dispute",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 11 Joint Verification & Demarcation"
       }
     },
     {
@@ -2889,7 +3643,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Sujata Nayak",
+        "parcel_id": "PARCEL-OD-KH-059",
+        "survey_number": "Plot #159",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -2938,7 +3705,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Bikram Das",
+        "parcel_id": "PARCEL-OD-KH-060",
+        "survey_number": "Plot #160",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -2987,7 +3767,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Joint Verification In Progress",
+        "acquisition_status": "Section 15 Hearing / Dispute",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Compensation Disputed / Escrow Pending",
+        "document_status": "Document Issue / Succession Certificate Required",
+        "conflict_reason": "Multiple legal heirs filed competing succession claims under Section 15 of RFCTLARR Act; ownership title contested in Tahsil court.",
+        "landowner_name": "Rashmi Patra",
+        "parcel_id": "PARCEL-OD-KH-061",
+        "survey_number": "Plot #161",
+        "conflict_type": "Title Contestation & Multiple Co-claimants",
+        "owner_consent_status": "Owner Objection Lodged",
+        "current_process_stage": "Section 15 Objection Hearing before District Collector"
       }
     },
     {
@@ -3036,7 +3829,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "in_progress",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 19 Declaration",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Award Approved / Pending Payout",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Sunil Mohanty",
+        "parcel_id": "PARCEL-OD-KH-062",
+        "survey_number": "Plot #162",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Section 19 Award Declaration",
+        "conflict_type": null
       }
     },
     {
@@ -3085,7 +3891,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Manoranjan Mishra",
+        "parcel_id": "PARCEL-OD-KH-063",
+        "survey_number": "Plot #163",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -3134,7 +3953,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Document Issue / Discrepancy Flagged",
+        "conflict_reason": "Record of Rights (RoR) khata contains unmutated partition from 2018; missing legal succession endorsement.",
+        "landowner_name": "Priyanka Jena",
+        "parcel_id": "PARCEL-OD-KH-064",
+        "survey_number": "Plot #164",
+        "conflict_type": "Document / Mutation Discrepancy",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 4(1) Preliminary Verification"
       }
     },
     {
@@ -3183,7 +4015,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Joint Verification In Progress",
+        "acquisition_status": "Section 15 Hearing / Dispute",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Compensation Disputed / Escrow Pending",
+        "document_status": "Document Issue / Succession Certificate Required",
+        "conflict_reason": "Multiple legal heirs filed competing succession claims under Section 15 of RFCTLARR Act; ownership title contested in Tahsil court.",
+        "landowner_name": "Subhasis Sahoo",
+        "parcel_id": "PARCEL-OD-KH-065",
+        "survey_number": "Plot #165",
+        "conflict_type": "Title Contestation & Multiple Co-claimants",
+        "owner_consent_status": "Owner Objection Lodged",
+        "current_process_stage": "Section 15 Objection Hearing before District Collector"
       }
     },
     {
@@ -3232,7 +4077,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Disputed Boundary Demarcation",
+        "acquisition_status": "Section 11 Preliminary Survey",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Under Valuation Hearing",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Cadastral map boundary overlaps with adjacent forest plot; survey officer detected a 4.2-meter GPS coordinate discrepancy.",
+        "landowner_name": "Debashish Behera",
+        "parcel_id": "PARCEL-OD-KH-066",
+        "survey_number": "Plot #166",
+        "conflict_type": "Boundary Demarcation Dispute",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 11 Joint Verification & Demarcation"
       }
     },
     {
@@ -3281,7 +4139,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 15 Hearing / Dispute",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Compensation Disputed / Escrow Pending",
+        "document_status": "RoR Verified",
+        "conflict_reason": "Pattadar filed formal objection disputing commercial benchmark valuation rate and seeking 4x multiplication factor for urban proximity.",
+        "landowner_name": "Ananya Rout",
+        "parcel_id": "PARCEL-OD-KH-067",
+        "survey_number": "Plot #167",
+        "conflict_type": "Owner Objection / Enhanced Valuation Demand",
+        "owner_consent_status": "Owner Objection Lodged",
+        "current_process_stage": "Section 15 Valuation Review Committee"
       }
     },
     {
@@ -3330,7 +4201,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Document Issue / Discrepancy Flagged",
+        "conflict_reason": "Record of Rights (RoR) khata contains unmutated partition from 2018; missing legal succession endorsement.",
+        "landowner_name": "Ramesh Pattanaik",
+        "parcel_id": "PARCEL-OD-KH-068",
+        "survey_number": "Plot #168",
+        "conflict_type": "Document / Mutation Discrepancy",
+        "owner_consent_status": "Consent Pending",
+        "current_process_stage": "Section 4(1) Preliminary Verification"
       }
     },
     {
@@ -3379,7 +4263,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "conflict",
+        "survey_status": "Joint Verification In Progress",
+        "acquisition_status": "Section 15 Hearing / Dispute",
+        "consent_status": "Pending Consultation",
+        "compensation_status": "Compensation Disputed / Escrow Pending",
+        "document_status": "Document Issue / Succession Certificate Required",
+        "conflict_reason": "Multiple legal heirs filed competing succession claims under Section 15 of RFCTLARR Act; ownership title contested in Tahsil court.",
+        "landowner_name": "Sujata Nayak",
+        "parcel_id": "PARCEL-OD-KH-069",
+        "survey_number": "Plot #169",
+        "conflict_type": "Title Contestation & Multiple Co-claimants",
+        "owner_consent_status": "Owner Objection Lodged",
+        "current_process_stage": "Section 15 Objection Hearing before District Collector"
       }
     },
     {
@@ -3428,7 +4325,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "in_progress",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 19 Declaration",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Award Approved / Pending Payout",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Bikram Das",
+        "parcel_id": "PARCEL-OD-KH-070",
+        "survey_number": "Plot #170",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Section 19 Award Declaration",
+        "conflict_type": null
       }
     },
     {
@@ -3477,7 +4387,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Rashmi Patra",
+        "parcel_id": "PARCEL-OD-KH-071",
+        "survey_number": "Plot #171",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -3526,7 +4449,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Sunil Mohanty",
+        "parcel_id": "PARCEL-OD-KH-072",
+        "survey_number": "Plot #172",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -3575,7 +4511,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Payment completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "completed",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Completed",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Award Disbursed (Direct Benefit Transfer)",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Manoranjan Mishra",
+        "parcel_id": "PARCEL-OD-KH-073",
+        "survey_number": "Plot #173",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Acquisition Completed / Possession Transferred",
+        "conflict_type": null
       }
     },
     {
@@ -3624,7 +4573,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Payment completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "completed",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Completed",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Award Disbursed (Direct Benefit Transfer)",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Priyanka Jena",
+        "parcel_id": "PARCEL-OD-KH-074",
+        "survey_number": "Plot #174",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Acquisition Completed / Possession Transferred",
+        "conflict_type": null
       }
     },
     {
@@ -3673,7 +4635,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Subhasis Sahoo",
+        "parcel_id": "PARCEL-OD-KH-075",
+        "survey_number": "Plot #175",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -3722,7 +4697,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Debashish Behera",
+        "parcel_id": "PARCEL-OD-KH-076",
+        "survey_number": "Plot #176",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -3771,7 +4759,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Ananya Rout",
+        "parcel_id": "PARCEL-OD-KH-077",
+        "survey_number": "Plot #177",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -3820,7 +4821,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "in_progress",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 19 Declaration",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Award Approved / Pending Payout",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Ramesh Pattanaik",
+        "parcel_id": "PARCEL-OD-KH-078",
+        "survey_number": "Plot #178",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Section 19 Award Declaration",
+        "conflict_type": null
       }
     },
     {
@@ -3869,7 +4883,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Payment completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "completed",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Completed",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Award Disbursed (Direct Benefit Transfer)",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Sujata Nayak",
+        "parcel_id": "PARCEL-OD-KH-079",
+        "survey_number": "Plot #179",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Acquisition Completed / Possession Transferred",
+        "conflict_type": null
       }
     },
     {
@@ -3918,7 +4945,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Bikram Das",
+        "parcel_id": "PARCEL-OD-KH-080",
+        "survey_number": "Plot #180",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -3967,7 +5007,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Rashmi Patra",
+        "parcel_id": "PARCEL-OD-KH-081",
+        "survey_number": "Plot #181",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     },
     {
@@ -4016,7 +5069,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "in_progress",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Section 19 Declaration",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Award Approved / Pending Payout",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Sunil Mohanty",
+        "parcel_id": "PARCEL-OD-KH-082",
+        "survey_number": "Plot #182",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Section 19 Award Declaration",
+        "conflict_type": null
       }
     },
     {
@@ -4065,7 +5131,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Payment completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "completed",
+        "survey_status": "Completed & Geo-tagged",
+        "acquisition_status": "Completed",
+        "consent_status": "Consent Granted",
+        "compensation_status": "Award Disbursed (Direct Benefit Transfer)",
+        "document_status": "RoR Verified",
+        "conflict_reason": null,
+        "landowner_name": "Manoranjan Mishra",
+        "parcel_id": "PARCEL-OD-KH-083",
+        "survey_number": "Plot #183",
+        "owner_consent_status": "Consent Received",
+        "current_process_stage": "Acquisition Completed / Possession Transferred",
+        "conflict_type": null
       }
     },
     {
@@ -4114,7 +5193,20 @@
         "project_name": "Bhubaneswar-Puri Expressway Corridor",
         "compensation_stage": "Valuation completed",
         "compensation_amount": 4500000.0,
-        "owners_count": 1
+        "owners_count": 1,
+        "visual_state": "acquisition_required",
+        "survey_status": "Survey Pending",
+        "acquisition_status": "Section 4(1) Notification",
+        "consent_status": "Notice Dispatched",
+        "compensation_status": "Estimate Prepared",
+        "document_status": "Under Review",
+        "conflict_reason": null,
+        "landowner_name": "Priyanka Jena",
+        "parcel_id": "PARCEL-OD-KH-084",
+        "survey_number": "Plot #184",
+        "owner_consent_status": "Notice Dispatched",
+        "current_process_stage": "Section 4(1) Preliminary Notification",
+        "conflict_type": null
       }
     }
   ]

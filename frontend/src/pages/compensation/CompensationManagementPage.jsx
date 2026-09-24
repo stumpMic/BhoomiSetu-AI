@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { compensationService } from '../../services/compensationService';
 import { useNotifications } from '../../context/NotificationContext';
-import { CreditCard, CheckCircle, Clock, ArrowRight, ShieldCheck, Banknote, Building2 } from 'lucide-react';
+import { CreditCard, CheckCircle, Clock, ArrowRight, ShieldCheck, Banknote, Building2, AlertTriangle, RefreshCw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const STAGES = [
@@ -22,14 +22,26 @@ export const CompensationManagementPage = () => {
   const [compensations, setCompensations] = useState([]);
   const [selectedComp, setSelectedComp] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [updating, setUpdating] = useState(false);
 
   const loadCompensations = async () => {
-    setLoading(true);
-    const data = await compensationService.getCompensations();
-    setCompensations(data);
-    if (data.length > 0) setSelectedComp(data[0]);
-    setLoading(false);
+    try {
+      setLoading(true);
+      setError('');
+      const data = await compensationService.getCompensations();
+      setCompensations(data || []);
+      if (data && data.length > 0) {
+        setSelectedComp(data[0]);
+      } else {
+        setSelectedComp(null);
+      }
+    } catch (err) {
+      console.error('Failed to load compensations:', err);
+      setError('Unable to load compensation records. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -56,10 +68,55 @@ export const CompensationManagementPage = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] space-y-3">
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-govblue-700"></div>
+        <span className="text-xs font-semibold text-slate-500">Loading compensation records...</span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 max-w-lg mx-auto my-12 shadow-sm space-y-4">
+        <div className="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center mx-auto text-rose-600 border border-rose-100">
+          <AlertTriangle className="w-7 h-7" />
+        </div>
+        <div>
+          <h2 className="text-lg font-bold text-slate-800">Unable to load compensation records</h2>
+          <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+            {error || 'Unable to connect to compensation services. Please try again.'}
+          </p>
+        </div>
+        <div className="pt-2 flex items-center justify-center">
+          <button
+            onClick={loadCompensations}
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-govblue-700 hover:bg-govblue-800 text-white rounded-xl text-xs font-bold transition shadow-sm"
+          >
+            <RefreshCw className="w-4 h-4" /> Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   if (!selectedComp) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-govblue-700"></div>
+      <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 max-w-lg mx-auto my-12 shadow-sm space-y-4">
+        <CreditCard className="w-12 h-12 text-slate-300 mx-auto" />
+        <div>
+          <h2 className="text-lg font-bold text-slate-800">No Compensation Records Found</h2>
+          <p className="text-xs text-slate-500 mt-1">There are currently no active compensation award cases in the pipeline.</p>
+        </div>
+        <div className="pt-2 flex items-center justify-center">
+          <button
+            onClick={loadCompensations}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-govblue-700 text-white rounded-xl text-xs font-bold transition shadow-sm"
+          >
+            <RefreshCw className="w-4 h-4" /> Refresh
+          </button>
+        </div>
       </div>
     );
   }

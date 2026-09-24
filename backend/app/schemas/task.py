@@ -5,10 +5,10 @@ from datetime import date, datetime
 class TaskBase(BaseModel):
     title: str
     description: Optional[str] = None
-    project_id: int
+    project_id: Optional[int] = None
     case_id: Optional[int] = None
     parcel_id: Optional[int] = None
-    assigned_department_id: int
+    assigned_department_id: Optional[int] = None
     assigned_officer_id: Optional[int] = None
     priority: Optional[str] = "Medium"
     start_date: Optional[date] = None

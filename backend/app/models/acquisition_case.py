@@ -44,3 +44,24 @@ class AcquisitionCase(Base):
     predictions = relationship("RiskPrediction", back_populates="case", cascade="all, delete-orphan")
     grievances = relationship("Grievance", back_populates="case", cascade="all, delete-orphan")
     compensations = relationship("Compensation", back_populates="case", cascade="all, delete-orphan")
+
+    @property
+    def title(self):
+        if self.project and self.project.name:
+            return f"{self.project.name} - {self.case_number}"
+        return f"Case {self.case_number}"
+
+    @property
+    def district(self):
+        if self.village and self.village.district:
+            return self.village.district
+        return "Khurda"
+
+    @property
+    def risk_score(self):
+        return float(self.current_delay_probability or 0.0)
+
+    @property
+    def risk_level(self):
+        return self.current_risk_level or "Low"
+

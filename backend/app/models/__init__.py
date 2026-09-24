@@ -6,6 +6,8 @@ from app.models.village import Village
 from app.models.acquisition_case import AcquisitionCase
 from app.models.parcel import Parcel, ParcelOwnership
 from app.models.landowner import Landowner
+from app.models.officer import Officer, OfficerVerificationRecord
+from app.models.verification_record import LandVerificationRecord, VerificationRequest
 from app.models.document import Document, OCRResult
 from app.models.compensation import Compensation, CompensationStageLog
 from app.models.task import DepartmentalTask
@@ -13,7 +15,19 @@ from app.models.prediction import RiskPrediction, PredictionFactor
 from app.models.alert import Alert
 from app.models.grievance import Grievance, GrievanceUpdate
 from app.models.activity_log import ActivityLog
-
+from app.models.survey import (
+    SurveyRequest,
+    SurveyDocumentVerification,
+    SurveySchedule,
+    SurveyGpsVerification,
+    SurveyFieldObservation,
+    SurveyEvidence,
+    SurveyDiscrepancy,
+    SurveyResurveyRequest,
+    SurveyReport,
+    SurveyStatusHistory,
+    SurveyPredictiveMetrics
+)
 from app.models.hearing import Hearing
 from app.models.notice import Notice
 from app.models.claim import LandownerClaim
@@ -28,6 +42,10 @@ __all__ = [
     "Parcel",
     "ParcelOwnership",
     "Landowner",
+    "Officer",
+    "OfficerVerificationRecord",
+    "LandVerificationRecord",
+    "VerificationRequest",
     "Document",
     "OCRResult",
     "Compensation",
@@ -39,7 +57,18 @@ __all__ = [
     "Grievance",
     "GrievanceUpdate",
     "ActivityLog",
+    "SurveyRequest",
+    "SurveyDocumentVerification",
+    "SurveySchedule",
+    "SurveyGpsVerification",
+    "SurveyFieldObservation",
+    "SurveyEvidence",
+    "SurveyDiscrepancy",
+    "SurveyResurveyRequest",
+    "SurveyReport",
+    "SurveyStatusHistory",
+    "SurveyPredictiveMetrics",
     "Hearing",
     "Notice",
-    "LandownerClaim",
+    "LandownerClaim"
 ]

@@ -12,6 +12,34 @@ from app.models.user import User
 
 router = APIRouter(prefix="/landowners", tags=["Landowners"])
 
+@router.get("")
+def list_landowners(
+    search: Optional[str] = None,
+    village_id: Optional[int] = None,
+    db: Session = Depends(get_db)
+):
+    query = db.query(Landowner)
+    if village_id:
+        query = query.filter(Landowner.village_id == village_id)
+    if search:
+        query = query.filter(
+            (Landowner.full_name.ilike(f"%{search}%")) |
+            (Landowner.phone.ilike(f"%{search}%"))
+        )
+    landowners = query.order_by(Landowner.full_name.asc()).all()
+    return [
+        {
+            "id": lo.id,
+            "full_name": lo.full_name,
+            "phone": lo.phone,
+            "masked_aadhaar": lo.masked_aadhaar,
+            "village_id": lo.village_id,
+            "village_name": lo.village.name if lo.village else None,
+            "bank_verification_status": lo.bank_verification_status
+        }
+        for lo in landowners
+    ]
+
 @router.get("/{id}")
 def get_landowner_profile(id: int, db: Session = Depends(get_db)):
     lo = db.query(Landowner).filter(Landowner.id == id).first()
@@ -51,7 +79,7 @@ def get_landowner_profile(id: int, db: Session = Depends(get_db)):
         "category": g.category,
         "subject": g.subject,
         "status": g.status,
-        "submitted_at": g.submitted_at
+        "submitted_at": g.created_at
     } for g in grievances]
 
     return {

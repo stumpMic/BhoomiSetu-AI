@@ -16,6 +16,9 @@ class UserProfileResponse(BaseModel):
     department_id: Optional[int] = None
     department_name: Optional[str] = None
     district: Optional[str] = None
+    state: Optional[str] = "Odisha"
+    address: Optional[str] = None
+    verification_status: Optional[str] = "VERIFIED"
 
     class Config:
         from_attributes = True

@@ -27,6 +27,7 @@ class CompensationResponse(BaseModel):
     total_award_inr: float
     landowner_share_amount_inr: float
     current_stage: str
+    stage: Optional[str] = None
     stage_index: int
     stages_timeline: List[StageTimelineItem] = []
     bank_details: BankDetails
@@ -36,5 +37,6 @@ class CompensationResponse(BaseModel):
         from_attributes = True
 
 class CompensationStageUpdateRequest(BaseModel):
-    stage_name: str
+    stage_name: Optional[str] = None
+    stage: Optional[str] = None
     remarks: Optional[str] = None

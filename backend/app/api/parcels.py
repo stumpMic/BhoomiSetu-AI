@@ -86,6 +86,7 @@ def list_parcels(
     return results
 
 @router.get("/map", response_model=ParcelFeatureCollection)
+@router.get("/geojson", response_model=ParcelFeatureCollection)
 def get_parcels_map(
     project_id: Optional[int] = None,
     village_id: Optional[int] = None,
@@ -135,6 +136,33 @@ def get_parcels_map(
             ]
         ]
 
+        # Determine 3D visual state, conflict reason, and pipeline stages
+        visual_state = "normal"
+        conflict_reason = None
+        consent_status = "Consent Granted"
+        comp_status = "Award Sanctioned"
+        doc_status = "RoR Verified"
+
+        if p.risk_level == "High" or (case and (case.ownership_disputes_count or 0) > 0):
+            visual_state = "conflict"
+            consent_status = "Objection Filed"
+            doc_status = "Discrepancy Flagged"
+            comp_status = "Valuation Disputed"
+            conflict_reason = "Active Title Dispute & Compensation Objection"
+        elif p.acquisition_status == "Completed" or (comp and comp.current_stage == "Payment Disbursed"):
+            visual_state = "completed"
+            consent_status = "Consent Granted"
+            comp_status = "Bank Disbursed"
+            doc_status = "RoR Verified"
+        elif p.survey_status == "In Progress" or p.acquisition_status == "In Progress" or p.risk_level == "Medium":
+            visual_state = "in_progress"
+            consent_status = "Pending Consultation"
+            comp_status = "Pending Verification"
+            doc_status = "Verification in Progress"
+        else:
+            visual_state = "normal"
+            consent_status = "Consent Granted"
+
         feature = ParcelFeature(
             type="Feature",
             id=p.id,
@@ -156,10 +184,24 @@ def get_parcels_map(
                 case_id=p.case_id,
                 case_number=case.case_number if case else "",
                 project_name=case.project.name if case and case.project else "",
+                survey_status=p.survey_status or "Pending",
+                acquisition_status=p.acquisition_status or "Notification",
+                consent_status=consent_status,
                 compensation_stage=comp.current_stage if comp else "Land valuation pending",
+                compensation_status=comp_status,
+                document_status=doc_status,
+                visual_state=visual_state,
+                valuation_per_acre_inr=float(p.valuation_per_acre_inr or 1000000.0),
+                total_valuation_inr=float(p.total_valuation_inr or (float(p.area_acres) * float(p.valuation_per_acre_inr or 1000000.0))),
                 compensation_amount=float(comp.total_award_inr) if comp else float(p.total_valuation_inr or 0.0),
                 owners=owners,
-                pending_tasks_count=pending_tasks
+                pending_tasks_count=pending_tasks,
+                conflict_reason=conflict_reason,
+                conflict_type="Title Contestation & Dispute" if conflict_reason else None,
+                current_process_stage="Section 15 Hearing" if conflict_reason else "Section 19 Declaration" if visual_state == "completed" else "Section 11 Preliminary Survey" if visual_state == "in_progress" else "Section 4(1) Notification",
+                survey_number=f"Plot #{p.plot_number}",
+                parcel_id=f"PARCEL-OD-KH-{p.id:03d}",
+                owner_consent_status=consent_status
             )
         )
         features.append(feature)
