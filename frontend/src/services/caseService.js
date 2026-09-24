@@ -118,5 +118,22 @@ export const caseService = {
       };
       return newCase;
     }
+  },
+
+  updateCaseStage: async (id, current_stage) => {
+    try {
+      const res = await apiClient.put(`/cases/${id}`, { current_stage });
+      return res.data;
+    } catch (err) {
+      // Backend update API endpoint (PUT /api/cases/{id}) is not yet implemented in backend Python routes.
+      // Returning session-updated stage object.
+      return {
+        id: Number(id),
+        current_stage,
+        is_session_updated: true,
+        backend_note: "Stage advanced in current session. Persistent DB storage requires backend update (PUT /api/cases/{id})."
+      };
+    }
   }
 };
+

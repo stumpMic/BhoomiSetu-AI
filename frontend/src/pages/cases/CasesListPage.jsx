@@ -4,11 +4,13 @@ import { caseService } from '../../services/caseService';
 import { RiskBadge } from '../../components/common/RiskBadge';
 import { Search, Filter, Eye, ArrowUpRight, Plus, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../context/AuthContext';
 
 import { CreateCaseModal } from '../../components/modals/CreateCaseModal';
 
 export const CasesListPage = () => {
   const { t } = useTranslation();
+  const { isRole } = useAuth();
   const navigate = useNavigate();
   const [cases, setCases] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -57,13 +59,15 @@ export const CasesListPage = () => {
         </div>
 
         <div className="flex items-center gap-2 self-start sm:self-auto">
-          <button
-            onClick={() => setIsCreateCaseOpen(true)}
-            className="bg-govblue-700 hover:bg-govblue-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5"
-          >
-            <Plus className="w-4 h-4 text-amber-400" />
-            <span>Create New Case</span>
-          </button>
+          {isRole(['land_acquisition_officer']) && (
+            <button
+              onClick={() => setIsCreateCaseOpen(true)}
+              className="bg-govblue-700 hover:bg-govblue-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5"
+            >
+              <Plus className="w-4 h-4 text-amber-400" />
+              <span>Create New Case</span>
+            </button>
+          )}
 
           <Link
             to="/map"

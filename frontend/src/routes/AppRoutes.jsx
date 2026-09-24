@@ -24,6 +24,7 @@ import { ParcelMapPage } from '../pages/maps/ParcelMapPage';
 import { ParcelDetailsPage } from '../pages/maps/ParcelDetailsPage';
 import { DocumentVerificationPage } from '../pages/documents/DocumentVerificationPage';
 import { CompensationManagementPage } from '../pages/compensation/CompensationManagementPage';
+import { CompensationWorkQueuePage } from '../pages/compensation/CompensationWorkQueuePage';
 import { TasksManagementPage } from '../pages/tasks/TasksManagementPage';
 import { AlertsCenterPage } from '../pages/alerts/AlertsCenterPage';
 import { GrievanceManagementPage } from '../pages/grievances/GrievanceManagementPage';
@@ -99,17 +100,78 @@ export const AppRoutes = () => {
         }
       >
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/projects" element={<ProjectsListPage />} />
-        <Route path="/projects/:id" element={<ProjectDetailsPage />} />
+        <Route path="/compensation" element={<CompensationManagementPage />} />
+        <Route path="/compensation/work-queue" element={<CompensationWorkQueuePage />} />
+      </Route>
+
+      {/* Case & Investigation Routes */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'project_authority', 'land_acquisition_officer', 'survey_officer', 'compensation_officer']}>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/cases" element={<CasesListPage />} />
         <Route path="/cases/:id" element={<CaseDetailsPage />} />
         <Route path="/predictions/:id" element={<PredictionDetailsPage />} />
+      </Route>
+
+      {/* Projects Routes */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'project_authority', 'land_acquisition_officer']}>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/projects" element={<ProjectsListPage />} />
+        <Route path="/projects/:id" element={<ProjectDetailsPage />} />
+      </Route>
+
+      {/* Document Verification Routes */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'land_acquisition_officer', 'survey_officer']}>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/documents" element={<DocumentVerificationPage />} />
-        <Route path="/compensation" element={<CompensationManagementPage />} />
+      </Route>
+
+      {/* Departmental Tasks Routes - Restricted from Compensation Officer */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'project_authority', 'land_acquisition_officer', 'survey_officer']}>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/tasks" element={<TasksManagementPage />} />
+      </Route>
+
+      {/* Grievance Management Routes - Restricted from Compensation Officer */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'land_acquisition_officer', 'survey_officer']}>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/grievances" element={<GrievanceManagementPage />} />
-        <Route path="/admin/verifications" element={<AdminVerificationDashboardPage />} />
+      </Route>
+
+      {/* Admin Protected Routes */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/admin/users" element={<AdminUserManagementPage />} />
+        <Route path="/admin/verifications" element={<AdminVerificationDashboardPage />} />
       </Route>
 
       {/* LAO / Admin Protected Notice Management Route */}

@@ -14,6 +14,14 @@ class RecommendedAction(BaseModel):
     priority: str # High, Medium, Low
     description: str
 
+class StageForecast(BaseModel):
+    stage_id: int
+    stage_name: str
+    predicted_delay_days: int
+    risk_contribution_pct: float
+    primary_blocker: str
+    status: str # On-Track, Delayed, Critical Blocked
+
 class PredictionResponse(BaseModel):
     case_id: int
     case_number: Optional[str] = None
@@ -22,10 +30,12 @@ class PredictionResponse(BaseModel):
     delay_probability: float
     risk_level: str
     predicted_delay_days: int
+    urgency_level: Optional[str] = "Normal"
     model_version: str
     prediction_time: datetime
     contributing_factors: List[ContributingFactor] = []
     recommended_actions: List[RecommendedAction] = []
+    stage_forecasts: List[StageForecast] = []
     disclaimer: str = "This prediction is decision-support information and must be reviewed by an authorised officer. It is not an automated legal decision."
 
 class PredictionHistoryItem(BaseModel):
@@ -68,3 +78,23 @@ class SimulationPredictionResponse(BaseModel):
     contributing_factors: List[ContributingFactor] = []
     recommended_actions: List[RecommendedAction] = []
     disclaimer: str = "This prediction is decision-support information and must be reviewed by an authorised officer. It is not an automated legal decision."
+
+class GlobalExplainabilityResponse(BaseModel):
+    model_name: str
+    version: str
+    feature_importances: Dict[str, float]
+    total_features_evaluated: int
+    updated_at: str
+
+class ModelGovernanceResponse(BaseModel):
+    model_name: str
+    version: str
+    status: str
+    test_accuracy: float
+    test_precision: float
+    test_recall: float
+    test_f1_score: float
+    test_roc_auc: float
+    training_timestamp: str
+    sample_size: int
+

@@ -23,6 +23,7 @@ export const DashboardPage = () => {
   const { user } = useAuth();
   const { showToast } = useNotifications();
   const { t } = useTranslation();
+  const { isRole } = useAuth();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -112,13 +113,15 @@ export const DashboardPage = () => {
               <span>Create Notice</span>
             </button>
           )}
-          <button
-            onClick={() => setIsCreateCaseOpen(true)}
-            className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all shadow-sm"
-          >
-            <Plus className="w-4 h-4 text-amber-400" />
-            <span>Create New Case</span>
-          </button>
+          {isRole(['land_acquisition_officer', 'admin']) && (
+            <button
+              onClick={() => setIsCreateCaseOpen(true)}
+              className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all shadow-sm"
+            >
+              <Plus className="w-4 h-4 text-amber-400" />
+              <span>Create New Case</span>
+            </button>
+          )}
         </div>
       </div>
 

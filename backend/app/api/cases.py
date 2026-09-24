@@ -8,7 +8,7 @@ from app.models.project import Project
 from app.models.village import Village
 from app.models.parcel import Parcel
 from app.models.user import User
-from app.schemas.acquisition_case import CaseResponse, CaseCreate, RiskSummary, CaseMetrics
+from app.schemas.acquisition_case import CaseResponse, CaseCreate, CaseStageUpdate, RiskSummary, CaseMetrics
 from app.dependencies import get_current_user, require_roles
 from app.services.risk_recalculation_service import RiskRecalculationService
 
@@ -138,7 +138,7 @@ def get_case(id: int, db: Session = Depends(get_db)):
 def create_case(
     payload: CaseCreate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_roles(["admin", "land_acquisition_officer", "project_authority"]))
+    current_user: User = Depends(require_roles(["admin", "land_acquisition_officer"]))
 ):
     existing = db.query(AcquisitionCase).filter(AcquisitionCase.case_number == payload.case_number).first()
     if existing:
@@ -165,3 +165,25 @@ def create_case(
     RiskRecalculationService.recalculate_case_risk(db, new_case.id, trigger_reason="Initial Case Creation")
 
     return get_case(new_case.id, db)
+
+@router.put("/{id}", response_model=CaseResponse)
+def update_case_stage(
+    id: int,
+    payload: CaseStageUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_roles(["admin", "land_acquisition_officer"]))
+):
+    case = db.query(AcquisitionCase).filter(AcquisitionCase.id == id).first()
+    if not case:
+        raise HTTPException(status_code=404, detail="Acquisition case not found")
+
+    case.current_stage = payload.current_stage
+    case.updated_at = datetime.utcnow()
+    db.commit()
+    db.refresh(case)
+
+    # Recalculate case risk on stage advancement
+    RiskRecalculationService.recalculate_case_risk(db, case.id, trigger_reason=f"Case Stage Advanced to '{case.current_stage}'")
+
+    return get_case(case.id, db)
+

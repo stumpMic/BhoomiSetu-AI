@@ -111,6 +111,81 @@ class PredictionService:
         else:
             risk_level = "High"
 
+        # Dynamic Urgency Classification based on days remaining & target deadline
+        days_rem = int(features.get("days_remaining", 90))
+        if days_rem < 30 or delay_probability >= 0.75:
+            urgency_level = "Critical"
+        elif days_rem < 60 or delay_probability >= 0.50:
+            urgency_level = "High"
+        else:
+            urgency_level = "Normal"
+
+        # Stage-wise Delay Forecasting (LARR 5-Stage Breakdown)
+        # 1. Joint Cadastral Survey Stage
+        stage1_delay = int(max(0, ((100.0 - survey_done) / 100.0) * (delay_days * 0.35) + overdue_tasks * 8))
+        stage1_status = "Critical Blocked" if survey_done < 50 else ("Delayed" if survey_done < 80 else "On-Track")
+
+        # 2. Objections & Hearings Stage
+        stage2_delay = int(max(0, (disputes * 18 + court_cases * 25)))
+        stage2_status = "Critical Blocked" if court_cases > 0 or disputes >= 3 else ("Delayed" if disputes > 0 else "On-Track")
+
+        # 3. Document Verification Stage
+        stage3_delay = int(max(0, (missing_doc / 100.0) * (delay_days * 0.25)))
+        stage3_status = "Delayed" if missing_doc > 15 else "On-Track"
+
+        # 4. Compensation & Award Stage
+        stage4_delay = int(max(0, ((100.0 - comp_progress) / 100.0) * (delay_days * 0.25) + ((100.0 - bank_verif) / 100.0) * 12))
+        stage4_status = "Critical Blocked" if comp_progress < 30 else ("Delayed" if comp_progress < 70 else "On-Track")
+
+        # 5. Possession & Handover Stage
+        stage5_delay = int(max(0, (0 if env_clearance else 25) + (15 if rehab_req else 0) + pending_approvals * 10))
+        stage5_status = "Delayed" if not env_clearance or pending_approvals > 1 else "On-Track"
+
+        total_stage_delay = max(stage1_delay + stage2_delay + stage3_delay + stage4_delay + stage5_delay, 1)
+
+        stage_forecasts = [
+            {
+                "stage_id": 1,
+                "stage_name": "Joint Cadastral Survey & Demarcation",
+                "predicted_delay_days": stage1_delay,
+                "risk_contribution_pct": round((stage1_delay / total_stage_delay) * 100.0, 1),
+                "primary_blocker": f"Field boundary survey is only {survey_done:.1f}% complete." if survey_done < 100 else "Plot demarcations verified.",
+                "status": stage1_status
+            },
+            {
+                "stage_id": 2,
+                "stage_name": "Section 15 Objections & Hearings",
+                "predicted_delay_days": stage2_delay,
+                "risk_contribution_pct": round((stage2_delay / total_stage_delay) * 100.0, 1),
+                "primary_blocker": f"{disputes} title dispute(s) and {court_cases} court case(s) pending." if disputes > 0 or court_cases > 0 else "No active hearings blocked.",
+                "status": stage2_status
+            },
+            {
+                "stage_id": 3,
+                "stage_name": "RoR Title Deed & Claim Verification",
+                "predicted_delay_days": stage3_delay,
+                "risk_contribution_pct": round((stage3_delay / total_stage_delay) * 100.0, 1),
+                "primary_blocker": f"{missing_doc:.1f}% documents have OCR typos or unverified title deeds." if missing_doc > 0 else "All title documents verified.",
+                "status": stage3_status
+            },
+            {
+                "stage_id": 4,
+                "stage_name": "Valuation, Award & Bank Disbursement",
+                "predicted_delay_days": stage4_delay,
+                "risk_contribution_pct": round((stage4_delay / total_stage_delay) * 100.0, 1),
+                "primary_blocker": f"Compensation progress is at {comp_progress:.1f}% with pending bank account verification." if comp_progress < 100 else "Compensation disbursed.",
+                "status": stage4_status
+            },
+            {
+                "stage_id": 5,
+                "stage_name": "Environmental Clearance & Possession Handover",
+                "predicted_delay_days": stage5_delay,
+                "risk_contribution_pct": round((stage5_delay / total_stage_delay) * 100.0, 1),
+                "primary_blocker": "Statutory forest/environmental permission pending." if not env_clearance else "Final possession handover in progress.",
+                "status": stage5_status
+            }
+        ]
+
         # Explainability Contributing Factors (SHAP-style)
         contributing_factors = []
         if disputes > 0:
@@ -168,9 +243,12 @@ class PredictionService:
         return {
             "delay_probability": round(delay_probability, 3),
             "risk_level": risk_level,
+            "urgency_level": urgency_level,
             "predicted_delay_days": delay_days,
             "model_version": "v1.4.0-rf-ensemble",
+            "stage_forecasts": stage_forecasts,
             "contributing_factors": contributing_factors,
             "recommended_actions": recommended_actions,
             "disclaimer": "This prediction is decision-support information and must be reviewed by an authorised officer. It is not an automated legal decision."
         }
+

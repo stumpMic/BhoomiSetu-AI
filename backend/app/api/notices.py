@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+from fastapi import APIRouter, Depends, HTTPException, status, Query, Request
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import datetime, date
@@ -41,12 +41,29 @@ def list_notices(
     status_filter: Optional[str] = Query(None, description="Filter by status (Draft, Published, Deactivated)"),
     priority: Optional[str] = Query(None, description="Filter by priority (Normal, Important, Urgent)"),
     active_only: bool = Query(False, description="Filter only active notices"),
+    request: Request = None,
     db: Session = Depends(get_db)
 ):
     """
     Public Notice Board list: accessible by all website visitors without login.
     Returns notices ordered by publish date and priority.
     """
+    if request:
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            token = auth_header.split(" ")[1]
+            try:
+                from app.security.jwt import decode_access_token
+                payload = decode_access_token(token)
+                if payload and payload.get("role") == "compensation_officer":
+                    raise HTTPException(
+                        status_code=status.HTTP_403_FORBIDDEN,
+                        detail="Compensation Officer does not have permission to view or manage acquisition notices."
+                    )
+            except HTTPException:
+                raise
+            except Exception:
+                pass
     query = db.query(Notice)
     if case_id:
         query = query.filter(Notice.case_id == case_id)
