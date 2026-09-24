@@ -4,24 +4,12 @@ import { dashboardService } from '../../services/dashboardService';
 import { StatCard } from '../../components/common/StatCard';
 import { RiskBadge } from '../../components/common/RiskBadge';
 import { useTranslation } from 'react-i18next';
-import {
-  FolderKanban,
-  FileSpreadsheet,
-  MapPin,
-  AlertTriangle,
-  Clock,
-  MessageSquareWarning,
-  CreditCard,
-  Building,
-  CheckCircle2,
-  TrendingUp,
-  ArrowUpRight,
-  Filter
-} from 'lucide-react';
+import { Plus, FolderKanban, FileSpreadsheet, MapPin, AlertTriangle, Clock, MessageSquareWarning, CreditCard, Building, CheckCircle2, TrendingUp, ArrowUpRight, Filter } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line, CartesianGrid, Legend
 } from 'recharts';
+import { CreateCaseModal } from '../../components/modals/CreateCaseModal';
 
 export const DashboardPage = () => {
   const { t } = useTranslation();
@@ -29,6 +17,7 @@ export const DashboardPage = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState('ALL');
+  const [isCreateCaseOpen, setIsCreateCaseOpen] = useState(false);
 
   useEffect(() => {
     const loadDashboard = async () => {
@@ -56,6 +45,21 @@ export const DashboardPage = () => {
 
   return (
     <div className="space-y-6">
+      {/* Top Header Quick Action */}
+      <div className="flex justify-between items-center bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+        <div>
+          <h2 className="font-extrabold text-slate-900 text-base">LAO Monitoring & Operations Hub</h2>
+          <p className="text-xs text-slate-500">Live AI delay risk tracking, case creation, and multi-department statutory workflows.</p>
+        </div>
+        <button
+          onClick={() => setIsCreateCaseOpen(true)}
+          className="bg-govblue-700 hover:bg-govblue-800 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all shadow-sm"
+        >
+          <Plus className="w-4 h-4 text-amber-400" />
+          <span>Create New Case</span>
+        </button>
+      </div>
+
       {/* Top Banner Alert for High Risk Demo */}
       <div className="bg-gradient-to-r from-rose-900 to-govblue-900 rounded-2xl p-5 text-white shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-rose-800/50">
         <div className="flex items-start gap-3.5">
@@ -276,6 +280,12 @@ export const DashboardPage = () => {
           </div>
         </div>
       </div>
+
+      <CreateCaseModal
+        isOpen={isCreateCaseOpen}
+        onClose={() => setIsCreateCaseOpen(false)}
+        onCaseCreated={() => navigate('/cases')}
+      />
     </div>
   );
 };

@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Search, MapPin, ShieldAlert, Cpu, FileCheck, ArrowRight, BarChart3, Users, CheckCircle2 } from 'lucide-react';
+import { Search, MapPin, ShieldAlert, Cpu, FileCheck, ArrowRight, BarChart3, Users, CheckCircle2, LayoutDashboard } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../context/AuthContext';
 
 export const LandingPage = () => {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+
+  const dashboardPath = user?.role === 'landowner' ? '/landowner' : '/dashboard';
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -33,6 +37,22 @@ export const LandingPage = () => {
           <p className="mt-5 text-base sm:text-xl text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
             BhoomiSetu AI leverages Random Forest Machine Learning, SHAP explainability, Cadastral GIS mapping, and automated OCR discrepancy detection to eliminate bottlenecks in major infrastructure projects.
           </p>
+
+          {user && (
+            <div className="mt-6 inline-flex items-center gap-3 bg-white/10 border border-white/20 px-5 py-2.5 rounded-2xl backdrop-blur-md shadow-xl">
+              <span className="text-xs text-slate-200 font-medium">
+                Active Session: <strong className="text-white">{user.full_name}</strong> ({user.role_display || user.role})
+              </span>
+              <Link
+                to={dashboardPath}
+                className="bg-amber-400 hover:bg-amber-500 text-slate-950 text-xs font-extrabold px-3.5 py-1.5 rounded-xl transition-all shadow-md flex items-center gap-1.5"
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                <span>Return to Dashboard</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          )}
 
           {/* Search Bar */}
           <form onSubmit={handleSearch} className="mt-8 max-w-xl mx-auto flex items-center bg-white rounded-2xl p-1.5 shadow-2xl border border-white/20">

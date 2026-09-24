@@ -28,6 +28,14 @@ def init_and_seed_db():
     conn = sqlite3.connect(str(DB_PATH))
     cursor = conn.cursor()
 
+    # Drop any existing tables to guarantee clean re-seed even if file lock prevented os.remove
+    cursor.execute("PRAGMA foreign_keys = OFF;")
+    existing_tables = cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';").fetchall()
+    for (t_name,) in existing_tables:
+        cursor.execute(f'DROP TABLE IF EXISTS "{t_name}";')
+    conn.commit()
+    cursor.execute("PRAGMA foreign_keys = ON;")
+
     # 1. Execute Schema
     schema_files = ["tables.sql", "indexes.sql"]
     for sf in schema_files:

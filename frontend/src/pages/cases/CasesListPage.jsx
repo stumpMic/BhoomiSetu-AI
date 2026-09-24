@@ -5,6 +5,8 @@ import { RiskBadge } from '../../components/common/RiskBadge';
 import { Search, Filter, Eye, ArrowUpRight, Plus, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
+import { CreateCaseModal } from '../../components/modals/CreateCaseModal';
+
 export const CasesListPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -13,16 +15,22 @@ export const CasesListPage = () => {
   const [search, setSearch] = useState('');
   const [selectedRisk, setSelectedRisk] = useState('ALL');
   const [selectedStage, setSelectedStage] = useState('ALL');
+  const [isCreateCaseOpen, setIsCreateCaseOpen] = useState(false);
+
+  const loadCases = async () => {
+    setLoading(true);
+    const data = await caseService.getCases();
+    setCases(data);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const loadCases = async () => {
-      setLoading(true);
-      const data = await caseService.getCases();
-      setCases(data);
-      setLoading(false);
-    };
     loadCases();
   }, []);
+
+  const handleCaseCreated = (newCase) => {
+    setCases(prev => [newCase, ...prev]);
+  };
 
   const filtered = cases.filter((c) => {
     const matchSearch =
@@ -48,13 +56,23 @@ export const CasesListPage = () => {
           </p>
         </div>
 
-        <Link
-          to="/map"
-          className="bg-govblue-700 hover:bg-govblue-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5 self-start sm:self-auto"
-        >
-          <span>GIS Spatial View</span>
-          <ArrowUpRight className="w-4 h-4" />
-        </Link>
+        <div className="flex items-center gap-2 self-start sm:self-auto">
+          <button
+            onClick={() => setIsCreateCaseOpen(true)}
+            className="bg-govblue-700 hover:bg-govblue-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5"
+          >
+            <Plus className="w-4 h-4 text-amber-400" />
+            <span>Create New Case</span>
+          </button>
+
+          <Link
+            to="/map"
+            className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5"
+          >
+            <span>GIS Spatial View</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        </div>
       </div>
 
       {/* Filter Bar */}
@@ -180,6 +198,12 @@ export const CasesListPage = () => {
           </table>
         </div>
       </div>
+
+      <CreateCaseModal
+        isOpen={isCreateCaseOpen}
+        onClose={() => setIsCreateCaseOpen(false)}
+        onCaseCreated={handleCaseCreated}
+      />
     </div>
   );
 };

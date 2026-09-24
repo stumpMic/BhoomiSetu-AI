@@ -21,35 +21,101 @@ class OCRService:
         }
         confidence = 0.94
 
-        # If file is text or can be read, attempt regex matching
-        if os.path.exists(file_path):
+        content = ""
+        # If file is text, PDF, or can be read, attempt extraction
+        if file_path and os.path.exists(file_path):
             try:
-                with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
-                    content = f.read()
-                    if len(content.strip()) > 10:
-                        raw_text = content
-                        
-                        # Flexible Regex extraction heuristics
-                        name_match = re.search(r'(?:1\.\s*|Name\s*[:\-]\s*|Landowner\s*[:\-]\s*|Owner\s*[:\-]\s*)([A-Za-z\s]+?)(?:,|\n|\(|S/o|D/o|W/o|$)', content, re.IGNORECASE)
-                        if not name_match:
-                            name_match = re.search(r'(?:Pattadar|Recorded Landowner)[^\n]*\n(?:1\.\s*)?([A-Za-z\s]+?)(?:,|\n|\(|S/o|D/o|W/o|$)', content, re.IGNORECASE)
-                        if name_match and len(name_match.group(1).strip()) > 2:
-                            extracted["owner_name"] = name_match.group(1).strip()
-                            
-                        plot_match = re.search(r'(?:Plot\s*Number|Plot\s*No\.?|Plot|Khasra\s*No\.?|Khasra)[:\.\s]+([0-9A-Za-z/]+)', content, re.IGNORECASE)
-                        if plot_match:
-                            extracted["plot_number"] = plot_match.group(1).strip()
-                            
-                        khata_match = re.search(r'(?:Khata\s*Number|Khata\s*No\.?|Khata|Khatiyan\s*No\.?|Khatiyan)[:\.\s]+([0-9]+)', content, re.IGNORECASE)
-                        if khata_match:
-                            extracted["khata_number"] = khata_match.group(1).strip()
-                            
-                        area_match = re.search(r'(?:Total\s*Area|Land\s*Area|Area|Acres|Rakba)[:\.\s]+([0-9\.]+)', content, re.IGNORECASE)
-                        if area_match:
-                            try:
-                                extracted["area_acres"] = float(area_match.group(1).strip())
-                            except ValueError:
-                                pass
+                # 1. Attempt PDF text extraction if PDF file
+                if file_path.lower().endswith(".pdf"):
+                    try:
+                        import pypdfium2 as pdfium
+                        pdf = pdfium.PdfDocument(file_path)
+                        pages_text = []
+                        for page in pdf:
+                            tp = page.get_textpage()
+                            pages_text.append(tp.get_text_range())
+                        pdf_content = "\n".join(pages_text).strip()
+                        if len(pdf_content) > 10:
+                            content = pdf_content
+                    except Exception:
+                        pass
+
+                # 2. Plain text read fallback
+                if not content:
+                    with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+                        content = f.read()
+
+                if content and len(content.strip()) > 10:
+                    raw_text = content
+
+                    # Flexible Regex extraction heuristics
+                    # 1. Multiline header pattern (RoR tables & sections)
+                    name_match = re.search(
+                        r'(?:Pattadar|Recorded\s*Landowner|Recorded\s*Owner|Landowner|Owner|Name)[^\n]*\n(?:\d+[\.\)]\s*)?([A-Za-z\s]{3,40}?)(?:,|\n|\(|S/o|D/o|W/o|$)',
+                        content,
+                        re.IGNORECASE
+                    )
+                    # 2. Inline label pattern with colon or hyphen
+                    if not name_match:
+                        name_match = re.search(
+                            r'(?:1\.\s*|Name\s*[:\-]\s*|Landowner\s*[:\-]\s*|Recorded\s*Landowner\s*[:\-]\s*|Owner\s*[:\-]\s*|Recorded\s*Owner\s*[:\-]\s*|Pattadar\s*[:\-]\s*)([A-Za-z\s]{3,40}?)(?:,|\n|\(|S/o|D/o|W/o|$)',
+                            content,
+                            re.IGNORECASE
+                        )
+                    # 3. Flexible fallback for colon/whitespace separation
+                    if not name_match:
+                        name_match = re.search(
+                            r'(?:Name|Owner|Pattadar|Landowner)[:\s]+([A-Za-z\s]{3,40}?)(?:,|\n|\(|S/o|D/o|W/o|$)',
+                            content,
+                            re.IGNORECASE
+                        )
+
+                    if name_match and len(name_match.group(1).strip()) > 2:
+                        extracted["owner_name"] = name_match.group(1).strip()
+
+                    plot_match = re.search(
+                        r'(?:Plot\s*(?:Number|No\.?|No)?|Khasra\s*(?:Number|No\.?|No)?|Plot|Khasra)[:\.\s]+([0-9A-Za-z/]+)',
+                        content,
+                        re.IGNORECASE
+                    )
+                    if plot_match:
+                        extracted["plot_number"] = plot_match.group(1).strip()
+
+                    khata_match = re.search(
+                        r'(?:Khata\s*(?:Number|No\.?|No)?|Khatiyan\s*(?:Number|No\.?|No)?|Khata|Khatiyan)[:\.\s]+([0-9]+)',
+                        content,
+                        re.IGNORECASE
+                    )
+                    if khata_match:
+                        extracted["khata_number"] = khata_match.group(1).strip()
+
+                    area_match = re.search(
+                        r'(?:Total\s*(?:Land\s*)?Area|Land\s*Area|Area|Acres|Rakba)[:\.\s]+([0-9\.]+)',
+                        content,
+                        re.IGNORECASE
+                    )
+                    if area_match:
+                        try:
+                            extracted["area_acres"] = float(area_match.group(1).strip())
+                        except ValueError:
+                            pass
+
+                    village_match = re.search(
+                        r'(?:Village|Mauza|Gram)[:\.\s]+([A-Za-z\s]+?)(?:,|\n|$)',
+                        content,
+                        re.IGNORECASE
+                    )
+                    if village_match and len(village_match.group(1).strip()) > 1:
+                        extracted["village_name"] = village_match.group(1).strip()
+
+                    date_match = re.search(
+                        r'(?:Date(?:\s*of\s*Mutation[^\n:]*)?|Dated?)[:\.\s]+([0-9]{2,4}[-/\.][0-9]{1,2}[-/\.][0-9]{2,4})',
+                        content,
+                        re.IGNORECASE
+                    )
+                    if date_match:
+                        extracted["document_date"] = date_match.group(1).strip()
+
             except Exception:
                 pass
 
@@ -76,8 +142,14 @@ class OCRService:
                 flagged_issues.append(f"Extracted Khata Number '{ext_khata}' does not match official Khata '{official_khata}'.")
 
             # 3. Compare Area
-            official_area = float(official_parcel.area_acres)
-            ext_area = float(extracted.get("area_acres") or 0.0)
+            try:
+                official_area = float(official_parcel.area_acres or 0.0)
+            except (ValueError, TypeError):
+                official_area = 0.0
+            try:
+                ext_area = float(extracted.get("area_acres") or 0.0)
+            except (ValueError, TypeError):
+                ext_area = 0.0
             if ext_area > 0 and abs(official_area - ext_area) > 0.05:
                 area_match = False
                 flagged_issues.append(f"Extracted Land Area '{ext_area} Acres' differs from official survey area '{official_area} Acres'.")
@@ -85,7 +157,7 @@ class OCRService:
         if official_owner_name:
             # 4. Fuzzy Compare Owner Name with RapidFuzz
             ext_name = extracted.get("owner_name", "")
-            name_sim = fuzz.token_sort_ratio(str(official_owner_name).lower(), str(ext_name).lower())
+            name_sim = float(fuzz.token_sort_ratio(str(official_owner_name).lower(), str(ext_name).lower()))
             if name_sim < 80.0:
                 flagged_issues.append(f"Landowner Name similarity score is {name_sim:.1f}% (Official: '{official_owner_name}', Extracted: '{ext_name}').")
 
